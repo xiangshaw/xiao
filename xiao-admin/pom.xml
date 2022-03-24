@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>xiao</artifactId>
+        <groupId>plus.axz</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>xiao-admin</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+    <!-- 引入依赖模块 -->
+        <dependency><!--实体类-->
+            <groupId>plus.axz</groupId>
+            <artifactId>xiao-model</artifactId>
+        </dependency>
+        <dependency><!--技术解决-->
+            <groupId>plus.axz</groupId>
+            <artifactId>xiao-common</artifactId>
+        </dependency>
+        <dependency><!--对外接口-->
+            <groupId>plus.axz</groupId>
+            <artifactId>xiao-api</artifactId>
+        </dependency>
+        <!-- Spring boot starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+    </dependencies>
+</project>
