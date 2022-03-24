@@ -14,7 +14,8 @@
         <module>xiao-common</module><!--公共配置-技术解决方案-->
         <module>xiao-model</module><!--公共实体类-->
         <module>xiao-utils</module><!--公共工具类-->
-        <module>xiao-admin-gateway</module><!--admin网关-->
+        <module>xiao-admin-gateway</module>
+        <module>xiao-user</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>
