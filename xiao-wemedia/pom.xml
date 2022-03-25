@@ -9,14 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>xiao-user</artifactId>
+    <artifactId>xiao-wemedia</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
-        <!-- 引入依赖模块    -->
+        <!-- 引入依赖模块 -->
         <dependency>
             <groupId>plus.axz</groupId>
             <artifactId>xiao-model</artifactId><!--存实体类-->
@@ -43,9 +44,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <dependency>
+        <dependency><!--feign远程接口定义-->
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
+
 </project>

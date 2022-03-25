@@ -9,7 +9,7 @@ spring:
         server-addr: 192.168.20.221:8848
   datasource:
      driver-class-name: com.mysql.cj.jdbc.Driver
-     url: jdbc:mysql://localhost:3307/axz_user?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useSSL=false
+     url: jdbc:mysql://localhost:3307/xiao_user?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useSSL=false
      username: root
      password: 123456
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
