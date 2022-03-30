@@ -23,10 +23,10 @@ public class WmUser implements Serializable {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    @TableField("ap_user_id")
-    private Integer apUserId;
-    @TableField("ap_author_id")
-    private Integer apAuthorId;
+    @TableField("user_id")
+    private Integer userId;
+    @TableField("author_id")
+    private Integer authorId;
     /**
      * 登录用户名
      */

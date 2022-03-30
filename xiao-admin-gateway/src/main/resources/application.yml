@@ -27,3 +27,11 @@ spring:
           filters:
             - StripPrefix= 1
           # 前面加admin的后缀都去掉，匹配后面的路径
+        # user微服务管理
+        - id: user
+          uri: lb://xiao-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix= 1
+          # 前面加user的后缀都去掉，匹配后面的路径
