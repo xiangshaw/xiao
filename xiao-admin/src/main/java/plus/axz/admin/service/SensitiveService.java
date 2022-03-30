@@ -6,7 +6,6 @@ import plus.axz.model.admin.dtos.SensitiveDto;
 import plus.axz.model.admin.pojos.Sensitive;
 import plus.axz.model.common.dtos.ResponseResult;
 
-@Mapper
 public interface SensitiveService extends IService<Sensitive> {
     /**
      * 根据名称分页查询敏感词

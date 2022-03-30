@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Bean;
 @MapperScan("plus.axz.user.mapper")
 @EnableDiscoveryClient
 @ServletComponentScan/*生效TokenFilter*/
-@EnableFeignClients
+@EnableFeignClients // 开启远程调用
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

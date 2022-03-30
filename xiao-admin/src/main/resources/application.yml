@@ -12,6 +12,9 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.20.221:8848
+  servlet:
+  multipart:
+  max-file-size: 100MB
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   configuration:
@@ -19,3 +22,7 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml # 读取mapper包下映射
   # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
   type-aliases-package: plus.axz.model.admin.pojos
+
+
+file:
+  ip: localhost

@@ -16,7 +16,8 @@
         <module>xiao-utils</module><!--公共工具类-->
         <module>xiao-admin-gateway</module>
         <module>xiao-user</module>
-        <module>xiao-wemedia</module><!--admin网关-->
+        <module>xiao-wemedia</module>
+        <module>xiao-article</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>
@@ -50,6 +51,8 @@
         <lang3.version>3.5</lang3.version>
         <jjwt.version>0.9.1</jjwt.version>
         <com.alibaba.cloud>2.1.0.RELEASE</com.alibaba.cloud>
+        <hutool.version>5.7.3</hutool.version>
+        <aliyun.version>3.10.2</aliyun.version>
     </properties>
 
     <dependencies>
@@ -214,6 +217,16 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.version}</version>
             </dependency>
 
         </dependencies>
