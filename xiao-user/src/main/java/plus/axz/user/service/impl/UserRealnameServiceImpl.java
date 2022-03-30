@@ -3,8 +3,10 @@ package plus.axz.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import plus.axz.common.constants.user.UserConstants;
 import plus.axz.model.article.pojos.Author;
 import plus.axz.model.common.dtos.PageResponseResult;
@@ -29,6 +31,7 @@ import java.util.Date;
  */
 
 @Service
+@Transactional
 public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, UserRealname> implements UserRealnameService {
     @Override
     public ResponseResult loadListByStatus(AuthDto dto) {
@@ -55,6 +58,7 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
     }
 
     @Override
+    @GlobalTransactional
     public ResponseResult updateStatusById(AuthDto dto, Short status) {
         // 1.  检查参数
         if (dto == null || dto.getId() == null) {
@@ -84,7 +88,8 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
                 return result;
             }
         }
-        // 4.
+        // 4. 异常回滚测试
+        int a = 1/0;
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
@@ -149,7 +154,6 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
             author.setCreatedTime(new Date());
             author.setUserId(userId);
             author.setType(UserConstants.AUTH_TYPE);
-            author.setWmUserId(wmUser.getUserId());
             articleFeign.save(author);
         }
 

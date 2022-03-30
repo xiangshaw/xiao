@@ -17,7 +17,8 @@
         <module>xiao-admin-gateway</module>
         <module>xiao-user</module>
         <module>xiao-wemedia</module>
-        <module>xiao-article</module><!--admin网关-->
+        <module>xiao-article</module>
+        <module>xiao-seata</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>

@@ -30,6 +30,11 @@
             <groupId>plus.axz</groupId>
             <artifactId>xiao-api</artifactId><!--对外的接口-->
         </dependency>
+        <dependency>
+            <groupId>plus.axz</groupId>
+            <artifactId>xiao-seata</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- Spring boot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
