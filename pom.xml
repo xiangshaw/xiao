@@ -18,7 +18,8 @@
         <module>xiao-user</module>
         <module>xiao-wemedia</module>
         <module>xiao-article</module>
-        <module>xiao-seata</module><!--admin网关-->
+        <module>xiao-seata</module>
+        <module>xiao-wemedia-gateway</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>
@@ -54,6 +55,7 @@
         <com.alibaba.cloud>2.1.0.RELEASE</com.alibaba.cloud>
         <hutool.version>5.7.3</hutool.version>
         <aliyun.version>3.10.2</aliyun.version>
+        <fastdfs.version>1.26.7</fastdfs.version>
     </properties>
 
     <dependencies>
@@ -228,6 +230,11 @@
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastdfs.version}</version>
             </dependency>
 
         </dependencies>

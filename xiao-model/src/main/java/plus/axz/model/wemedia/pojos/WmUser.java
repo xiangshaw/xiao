@@ -1,4 +1,4 @@
-package plus.axz.model.wemedia;
+package plus.axz.model.wemedia.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

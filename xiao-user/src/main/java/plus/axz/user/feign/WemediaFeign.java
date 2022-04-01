@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import plus.axz.model.common.dtos.ResponseResult;
-import plus.axz.model.wemedia.WmUser;
+import plus.axz.model.wemedia.pojos.WmUser;
 
 /**
  * @author xiaoxiang

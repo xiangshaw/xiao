@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import plus.axz.api.wemedia.WmUserControllerApi;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
-import plus.axz.model.wemedia.WmUser;
+import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.wemedia.service.WmUserService;
 
 import java.util.List;

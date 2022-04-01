@@ -1,0 +1,29 @@
+server:
+  port: 2002
+spring:
+  application:
+    name: xiao-wemedia-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.20.221:8848
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #cors跨域处理 允许所有的域
+            allowedMethods: # 支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      # 路由的功能
+      routes:
+        # 平台管理
+        - id: wemedia
+          uri: lb://xiao-wemedia
+          predicates:
+            - Path=/wemedia/**  #http://localhost:2001/admin/api/v1/tag/list -->http://localhost:1121/api/v1/tag/list
+          filters:
+            - StripPrefix= 1
+          # 前面加admin的后缀都去掉，匹配后面的路径

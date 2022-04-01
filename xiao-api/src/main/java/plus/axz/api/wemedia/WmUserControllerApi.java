@@ -1,7 +1,7 @@
 package plus.axz.api.wemedia;
 
 import plus.axz.model.common.dtos.ResponseResult;
-import plus.axz.model.wemedia.WmUser;
+import plus.axz.model.wemedia.pojos.WmUser;
 
 /**
  * @author xiaoxiang

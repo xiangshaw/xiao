@@ -15,7 +15,7 @@ import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.user.dtos.AuthDto;
 import plus.axz.model.user.pojos.User;
 import plus.axz.model.user.pojos.UserRealname;
-import plus.axz.model.wemedia.WmUser;
+import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.user.feign.ArticleFeign;
 import plus.axz.user.feign.WemediaFeign;
 import plus.axz.user.mapper.UserMapper;
