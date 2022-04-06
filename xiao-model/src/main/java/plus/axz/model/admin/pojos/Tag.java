@@ -23,7 +23,7 @@ public class Tag implements Serializable {
      * 标签名称
      */
     @TableField(value = "tag_name")
-    private String tag_name;
+    private String tagName;
     /**
      * 标签描述
      */

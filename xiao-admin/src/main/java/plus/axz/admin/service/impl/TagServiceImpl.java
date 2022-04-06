@@ -44,9 +44,9 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         // 泛型
         LambdaQueryWrapper<Tag> lambdaQueryWrapper = new LambdaQueryWrapper();
         // 判断拿到的name不为空
-        if (StringUtils.isNotBlank(dto.getTag_name())) {
+        if (StringUtils.isNotBlank(dto.getTagName())) {
             // 模糊查询属性名称（字段），传过来的值
-            lambdaQueryWrapper.like(Tag::getTag_name, dto.getTag_name());
+            lambdaQueryWrapper.like(Tag::getTagName, dto.getTagName());
         }
 
         IPage result = page(page, lambdaQueryWrapper);
@@ -64,7 +64,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 查询数据库中标签信息
-        List<Tag> list = list(Wrappers.<Tag>lambdaQuery().eq(Tag::getTag_name, tag.getTag_name()));
+        List<Tag> list = list(Wrappers.<Tag>lambdaQuery().eq(Tag::getTagName, tag.getTagName()));
         if (list != null && list.size() == 1){
             return ResponseResult.errorResult(ResultEnum.DATA_EXIST,"标签已经添加过啦~");
         }

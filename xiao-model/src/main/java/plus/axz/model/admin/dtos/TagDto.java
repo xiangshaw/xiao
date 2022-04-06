@@ -18,5 +18,5 @@ public class TagDto extends PageRequestDto {
 * 标签名称
 */
 @ApiModelProperty("标签名称")/*描述当前接收参数的信息，，比如该name就是指标签名称*/
-private String tag_name;
+private String tagName;
 }

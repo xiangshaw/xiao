@@ -58,7 +58,7 @@ public class TagController implements TagControllerApi {
     @GetMapping("/findTagName/{search}")
     @Override
     public ResponseResult findTagName(@PathVariable("search") String search) {
-        List<Tag> list = tagService.list(Wrappers.<Tag>lambdaQuery().eq(Tag::getTag_name, search));
+        List<Tag> list = tagService.list(Wrappers.<Tag>lambdaQuery().eq(Tag::getTagName, search));
         if (list != null && !list.isEmpty()) { // 不等于null且不等于空
             return ResponseResult.okResult(list.get(0));
         }

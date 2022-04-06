@@ -29,7 +29,7 @@ public class WmTokenFilter extends GenericFilterBean {
             IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
-//得到header中的信息
+        //得到header中的信息
         String userId = servletRequest.getHeader("userId");
         if (userId != null) {
             WmUser wmUser = new WmUser();

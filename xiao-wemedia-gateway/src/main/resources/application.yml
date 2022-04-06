@@ -27,3 +27,11 @@ spring:
           filters:
             - StripPrefix= 1
           # 前面加admin的后缀都去掉，匹配后面的路径
+        # 平台管理
+        - id: wemedia
+          uri: lb://xiao-admin
+          predicates:
+            - Path=/admin/**  #http://localhost:2001/admin/api/v1/tag/list -->http://localhost:1121/api/v1/tag/list
+          filters:
+            - StripPrefix= 1
+          # 前面加admin的后缀都去掉，匹配后面的路径
