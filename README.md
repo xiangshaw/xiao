@@ -4,7 +4,7 @@
     <a href="https://gitee.com/iaxz/" target="_blank"><img alt="gitee" src="https://img.shields.io/badge/gitee-axz-d05577?style=flat-square&logo=gitee"></a>
 </p>
 
-> 总结自己学过的技术，编写博客项目
+> 总结自己学过的技术，编写项目
 ## 已经完成的功能
 - [x] 接口通用请求和响应
 - [x] 标签管理
@@ -25,4 +25,4 @@
 - [x] 集成Seata分布式事务（还存在问题）
 - [x] 素材图片上传、查询、删除、收藏、取消收藏
 - [x] 集成FastDFS
-- [x] 自媒体文章-列表查询、标签列表展示、发布、修改，保存草稿
+- [x] 自媒体文章-列表查询、标签列表展示、发布、修改，保存草稿，删除，上下架

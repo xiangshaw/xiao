@@ -2,6 +2,7 @@ package plus.axz.wemedia.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import plus.axz.common.constants.wemedia.WemediaContans;
+import plus.axz.model.admin.pojos.Tag;
 import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
@@ -26,10 +28,7 @@ import plus.axz.wemedia.mapper.WmNewsMapper;
 import plus.axz.wemedia.mapper.WmNewsMaterialMapper;
 import plus.axz.wemedia.service.WmNewsService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -136,6 +135,76 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         return null;
     }
 
+    // 根据id查文章
+    @Override
+    public ResponseResult findWmNewById(Integer id) {
+        // 1.检查参数
+        if (id == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"文章ID不可缺");
+        }
+        // 2.查询数据
+        WmNews wmNews = getById(id);
+        if (wmNews == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"该文章不存在");
+        }
+        // 3.结果返回
+        ResponseResult responseResult = ResponseResult.okResult(wmNews);
+        responseResult.setHost(fileServerUrl);
+        return responseResult;
+    }
+
+    // 删除文章
+    @Override
+    public ResponseResult delNews(Integer id) {
+        // 1.检查参数
+        if (id == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"文章ID不可缺");
+        }
+        // 2.查询
+        WmNews wmNews = getById(id);
+        if (wmNews == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"该文章不存在");
+        }
+        // 3.判断文章状态 status !=9 并且 enable!=1  已上架  发布
+        if (wmNews.getStatus().equals(WmNews.Status.PUBLISHED.getCode()) && wmNews.getEnable().equals(WemediaContans.WM_NEWS_ENABLE_UP)){
+            return ResponseResult.errorResult(ResultEnum.DATA_EXIST,"该文章已经发布，请先下架操作");
+        }
+        // 4.除去素材和文章关系
+        wmNewsMaterialMapper.delete(Wrappers.<WmNewsMaterial>lambdaQuery().eq(WmNewsMaterial::getNewsId,wmNews.getId()));
+        // 5.删除文章
+        removeById(wmNews.getId());
+        return ResponseResult.okResult(ResultEnum.SUCCESS);
+    }
+
+    // 文章上下架
+    @Override
+    public ResponseResult downOrUp(WmNewsDto dto) {
+        // 1.检查参数
+        if (dto == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"该文章不存在");
+        }
+        // 2.查询文章
+        WmNews wmNews = getById(dto.getId());
+        if (wmNews==null){
+            return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST,"该文章不存在");
+        }
+        // 3.判断文章是否已经发布
+        if (!wmNews.getStatus().equals(WmNews.Status.PUBLISHED.getCode())){
+            return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST,"该文章不是发布状态，不能上下架");
+        }
+        // 4.修改文章状态
+        if (dto.getEnable() != null && dto.getEnable() > -1 && dto.getEnable() < 2){
+            if (wmNews.getArticleId()!= null){ // 1上架 0下架
+                HashMap<String, Object> map = new HashMap<>(); // 存两个参数
+                map.put("enable",dto.getEnable());
+                map.put("articleId",wmNews.getArticleId());
+            }
+            update(Wrappers.<WmNews>lambdaUpdate()
+                    .eq(WmNews::getId,dto.getId())
+                    .set(WmNews::getEnable,dto.getEnable()));
+        }
+        return ResponseResult.okResult(ResultEnum.SUCCESS);
+    }
 
     // =======================各方法实现====================================
     @Autowired
@@ -150,6 +219,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     private void saveWmNews(WmNews wmNews, Short isSubmit) {
         wmNews.setStatus(isSubmit);
         wmNews.setUserId(WmThreadLocalUtils.getUser().getId());
+        wmNews.setTagId(wmNews.getTagId());
         wmNews.setCreatedTime(new Date());
         wmNews.setSubmitedTime(new Date());
         wmNews.setEnable((short)1); // 默认上架

@@ -1,5 +1,7 @@
 package plus.axz.model.wemedia.dtos;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,7 +22,8 @@ public class WmNewsDto {
     /**
      * tag标签id
      */
-    private Integer Tag;
+    @TableField("tagId")
+    private Integer tagId;
     /**
      * 文章分类标签
      */

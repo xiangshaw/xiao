@@ -1,10 +1,7 @@
 package plus.axz.wemedia.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import plus.axz.api.wemedia.WmNewsControllerApi;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.dtos.WmNewsDto;
@@ -39,5 +36,23 @@ public class WmNewsController implements WmNewsControllerApi {
             // 草稿
             return wmNewsService.saveNews(dto,WmNews.Status.NORMAL.getCode());
         }
+    }
+
+    @Override
+    @GetMapping("/one/{id}")
+    public ResponseResult findWmNewById(@PathVariable("id") Integer id) {
+        return wmNewsService.findWmNewById(id);
+    }
+
+    @Override
+    @GetMapping("/del_news/{id}")
+    public ResponseResult delNews(@PathVariable("id") Integer id) {
+        return wmNewsService.delNews(id);
+    }
+
+    @Override
+    @PostMapping("/down_or_up")
+    public ResponseResult downOrUp(@RequestBody WmNewsDto dto) {
+        return wmNewsService.downOrUp(dto);
     }
 }

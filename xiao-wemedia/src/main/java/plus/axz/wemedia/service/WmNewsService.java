@@ -30,4 +30,30 @@ public interface WmNewsService extends IService<WmNews> {
      * @return plus.axz.model.common.dtos.ResponseResult
      */
     public ResponseResult saveNews(WmNewsDto dto, Short isSubmit);
+
+    /**
+     * 根据id查询文章
+     * @author xiaoxiang
+     * @date 2022/4/25
+     * @param id
+     * @return plus.axz.model.common.dtos.ResponseResult
+     */
+    public ResponseResult findWmNewById(Integer id);
+
+    /**
+     * 删除文章
+     * @author xiaoxiang
+     * @date 2022/4/25
+     * @param id
+     * @return plus.axz.model.common.dtos.ResponseResult
+     */
+    public ResponseResult delNews(Integer id);
+    /**
+     * 文章上下架
+     * @author xiaoxiang
+     * @date 2022/4/25
+     * @param dto
+     * @return plus.axz.model.common.dtos.ResponseResult
+     */
+    public ResponseResult downOrUp(WmNewsDto dto);
 }
