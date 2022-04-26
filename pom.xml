@@ -55,6 +55,8 @@
         <com.alibaba.cloud>2.1.0.RELEASE</com.alibaba.cloud>
         <hutool.version>5.7.3</hutool.version>
         <aliyun.version>3.10.2</aliyun.version>
+        <aliyun.core.version>4.1.1</aliyun.core.version>
+        <aliyun.green.version>3.4.1</aliyun.green.version>
         <fastdfs.version>1.26.7</fastdfs.version>
     </properties>
 
@@ -236,7 +238,17 @@
                 <artifactId>fastdfs-client</artifactId>
                 <version>${fastdfs.version}</version>
             </dependency>
-
+            <!--aliyun-->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-green</artifactId>
+                <version>${aliyun.green.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
