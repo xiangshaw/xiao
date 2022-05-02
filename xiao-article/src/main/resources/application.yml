@@ -25,3 +25,8 @@ spring:
    mapper-locations: classpath*:mapper/*.xml
      # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
    type-aliases-package: plus.axz.model.article.pojos
+   global-config:
+     # 数据中心id(取值范围：0-31)
+      datacenter-id: 1
+      # 机器id(取值范围：0-31)
+      workerId: 1

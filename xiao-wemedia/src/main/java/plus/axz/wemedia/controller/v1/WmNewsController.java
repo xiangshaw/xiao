@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plus.axz.api.wemedia.WmNewsControllerApi;
 import plus.axz.model.common.dtos.ResponseResult;
+import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
@@ -54,5 +55,18 @@ public class WmNewsController implements WmNewsControllerApi {
     @PostMapping("/down_or_up")
     public ResponseResult downOrUp(@RequestBody WmNewsDto dto) {
         return wmNewsService.downOrUp(dto);
+    }
+    //================以下为ADMIN远程调用========================
+    @Override
+    @GetMapping("/findOne/{id}")
+    public WmNews findById(@PathVariable("id") Integer id) {
+        return wmNewsService.getById(id);
+    }
+
+    @Override
+    @PostMapping("/update")
+    public ResponseResult updateWmNews(@RequestBody WmNews wmNews) {
+        boolean b = wmNewsService.updateById(wmNews);
+        return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 }

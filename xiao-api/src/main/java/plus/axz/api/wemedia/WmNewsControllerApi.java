@@ -26,4 +26,17 @@ public interface WmNewsControllerApi {
 
     @ApiOperation("文章上下架")
     public ResponseResult downOrUp(WmNewsDto dto);
+
+    /**
+     * 根据id查询文章信息
+     * admin远程调用
+     */
+    @ApiOperation("根据id查询文章信息")
+    WmNews findById(Integer id);
+    /**
+     * 修改文章
+     * admin远程调用
+     */
+    @ApiOperation("修改文章")
+    ResponseResult updateWmNews(WmNews wmNews);
 }
