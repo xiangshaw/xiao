@@ -23,6 +23,9 @@ mybatis-plus:
   # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
   type-aliases-package: plus.axz.model.admin.pojos
 
-
+# 测试了文件上传
 file:
   ip: localhost
+
+# 图片访问ip
+fdfs.url: http://192.168.20.221/
