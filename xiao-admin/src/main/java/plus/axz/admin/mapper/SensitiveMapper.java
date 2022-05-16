@@ -20,5 +20,5 @@ public interface SensitiveMapper extends BaseMapper<Sensitive> {
      * @author xiaoxiang
      * @date 2022/5/3
      */
-    List<String> FindAllSensitive();
+    List<String> findAllSensitive();
 }

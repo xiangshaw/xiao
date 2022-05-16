@@ -145,7 +145,7 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
             e.printStackTrace();
             flag = false;
         }
-        return false;
+        return flag;
     }
 
     @Autowired
@@ -209,9 +209,9 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
     private boolean handleSensitive(String content, WmNews wmNews) {
         boolean flag = true;
         // 返回所有敏感词
-        List<String> findAllSensitive = sensitiveMapper.FindAllSensitive();
+        List<String> allSensitive = sensitiveMapper.findAllSensitive();
         // 初始化敏感词
-        SensitiveWordUtil.initMap(findAllSensitive);
+        SensitiveWordUtil.initMap(allSensitive);
         // 文章内容过滤
         Map<String, Integer> resultMap = SensitiveWordUtil.matchWords(content);
         if (resultMap.size()>0){
