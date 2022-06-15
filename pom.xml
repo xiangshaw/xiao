@@ -58,6 +58,9 @@
         <aliyun.core.version>4.1.1</aliyun.core.version>
         <aliyun.green.version>3.4.1</aliyun.green.version>
         <fastdfs.version>1.26.7</fastdfs.version>
+        <curator.version>4.2.0</curator.version>
+        <kafka.version>2.2.7.RELEASE</kafka.version>
+        <kafka.client.version>2.0.1</kafka.client.version>
     </properties>
 
     <dependencies>
@@ -176,6 +179,39 @@
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-xml</artifactId>
                 <version>${fastjson.dataformat.version}</version>
+            </dependency>
+            <!-- curator ZK 客户端 -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <!-- kafkfa -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka.client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>connect-json</artifactId>
+                        <groupId>org.apache.kafka</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.client.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>

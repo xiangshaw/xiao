@@ -23,6 +23,6 @@ public class WeMediaNewsAutoScanServiceTest {
     // 填写需要审核的文章id进行测试
     @Test
     public void testScanNews(){
-        weMediaNewsAutoScanService.autoScanByMediaNewsId(41);
+        weMediaNewsAutoScanService.autoScanByMediaNewsId(43);
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import plus.axz.api.wemedia.WmMaterialManageControllerApi;
 import plus.axz.common.fastdfs.FastDFSClient;
 import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -19,9 +18,9 @@ import plus.axz.model.wemedia.pojos.WmMaterial;
 import plus.axz.model.wemedia.pojos.WmNewsMaterial;
 import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.utils.threadlocal.WmThreadLocalUtils;
+import plus.axz.wemedia.service.WmMaterialService;
 import plus.axz.wemedia.mapper.WmMaterialMapper;
 import plus.axz.wemedia.mapper.WmNewsMaterialMapper;
-import plus.axz.wemedia.service.WmMaterialService;
 
 import java.io.IOException;
 import java.util.Date;

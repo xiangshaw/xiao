@@ -1,6 +1,7 @@
 package plus.axz.admin.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +38,7 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
     @Autowired
     private TagMapper tagMapper;
 
+    @GlobalTransactional
     @Override
     public void autoScanByMediaNewsId(Integer id) {
         // 检查参数
@@ -251,6 +253,7 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
         article.setTitle(wmNews.getTitle()); // 标题
         article.setLayout(wmNews.getType()); // 布局
         article.setImages(wmNews.getImages());
+        article.setLabels(wmNews.getLabels());
         article.setCreatedTime(new Date());
         // 获取作者 - 根据自媒体用户id取自媒体人
         Integer wmNewsUserId = wmNews.getUserId();

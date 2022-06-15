@@ -9,10 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import plus.axz.common.constants.message.NewsAutoScanConstants;
 import plus.axz.common.constants.wemedia.WemediaContans;
-import plus.axz.model.admin.pojos.Tag;
 import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
@@ -209,6 +210,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     // =======================各方法实现====================================
     @Autowired
     private WmNewsMaterialMapper wmNewsMaterialMapper;
+
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
     /**
      * 保存或修改文章方法实现
      * @author xiaoxiang
@@ -223,8 +227,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         wmNews.setCreatedTime(new Date());
         wmNews.setSubmitedTime(new Date());
         wmNews.setEnable((short)1); // 默认上架
+        boolean flag = false;
         if (wmNews.getId() == null){
-            save(wmNews);
+            flag = save(wmNews); // 保存
         }else {
             // 如果是修改，则先删除素材与文章的关系
             LambdaQueryWrapper<WmNewsMaterial> queryWrapper = new LambdaQueryWrapper<>();
@@ -233,9 +238,13 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
             // 查到多少删多少
             wmNewsMaterialMapper.delete(queryWrapper);
             // 修改
-            updateById(wmNews);
+            flag = updateById(wmNews);
         }
-        // TODO 发送消息
+        // 生产者-发送消息
+        if (flag){
+            // 生产者发送消息和数据
+            kafkaTemplate.send(NewsAutoScanConstants.WM_NEWS_AUTO_SCAN_TOPIC,JSON.toJSONString(wmNews.getId()));
+        }
     }
     // URL中提取图片信息
     private List<String> ectractUrlInfo(List<Map> list) {

@@ -3,6 +3,13 @@ server:
 spring:
   application:
     name: xiao-admin
+  # 消费者
+  kafka:
+    bootstrap-servers: 192.168.20.221:9092
+    consumer:
+      group-id: ${spring.application.name}-kafka-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/xiao_admin?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useSSL=false
@@ -12,6 +19,9 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.20.221:8848
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}_tx_group
   servlet:
   multipart:
   max-file-size: 100MB

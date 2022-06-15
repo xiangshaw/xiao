@@ -9,8 +9,6 @@ import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.dtos.WmMaterialDto;
 import plus.axz.wemedia.service.WmMaterialService;
 
-import javax.annotation.Resource;
-
 /**
  * @author xiaoxiang
  * @date 2022年04月02日
