@@ -1,6 +1,12 @@
 server:
    port: 1124
 spring:
+  kafka:
+    bootstrap-servers: 192.168.20.221:9092
+    consumer:
+      group-id: ${spring.application.name}-kafka-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
  application:
    name: xiao-article
  cloud:

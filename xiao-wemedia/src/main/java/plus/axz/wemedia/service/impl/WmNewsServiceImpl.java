@@ -13,6 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import plus.axz.common.constants.message.NewsAutoScanConstants;
+import plus.axz.common.constants.message.WmNewsMessageConstants;
 import plus.axz.common.constants.wemedia.WemediaContans;
 import plus.axz.model.admin.dtos.NewsAuthDto;
 import plus.axz.model.common.dtos.PageResponseResult;
@@ -202,6 +203,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
                 HashMap<String, Object> map = new HashMap<>(); // 存两个参数
                 map.put("enable",dto.getEnable());
                 map.put("articleId",wmNews.getArticleId());
+                kafkaTemplate.send(WmNewsMessageConstants.WM_NEWS_UP_OR_DOWN_TOPIC, JSON.toJSONString(map));/*至此 消息发送成功*/
             }
             update(Wrappers.<WmNews>lambdaUpdate()
                     .eq(WmNews::getId,dto.getId())
