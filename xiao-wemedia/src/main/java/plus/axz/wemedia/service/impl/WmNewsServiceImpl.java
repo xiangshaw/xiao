@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import plus.axz.common.constants.message.NewsAutoScanConstants;
 import plus.axz.common.constants.wemedia.WemediaContans;
+import plus.axz.model.admin.dtos.NewsAuthDto;
 import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
@@ -23,10 +24,12 @@ import plus.axz.model.wemedia.pojos.WmMaterial;
 import plus.axz.model.wemedia.pojos.WmNews;
 import plus.axz.model.wemedia.pojos.WmNewsMaterial;
 import plus.axz.model.wemedia.pojos.WmUser;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 import plus.axz.utils.threadlocal.WmThreadLocalUtils;
 import plus.axz.wemedia.mapper.WmMaterialMapper;
 import plus.axz.wemedia.mapper.WmNewsMapper;
 import plus.axz.wemedia.mapper.WmNewsMaterialMapper;
+import plus.axz.wemedia.mapper.WmUserMapper;
 import plus.axz.wemedia.service.WmNewsService;
 
 import java.util.*;
@@ -216,6 +219,49 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         //WmNews中都是对象，转为list集合
         List<Integer> idList = list.stream().map(WmNews::getId).collect(Collectors.toList());
         return idList;
+    }
+
+    @Autowired
+    private WmNewsMapper wmNewsMapper;
+    // 根据标题模糊分页查询文章信息
+    @Override
+    public PageResponseResult findList(NewsAuthDto dto) {
+        // 1.分页检查
+        dto.checkParam();
+        // 2.设置分页条件-因mybatis-plus未支持多表查询，此处自定义
+        dto.setPage((dto.getPage() - 1) * dto.getSize());/*第一页从0开始*/
+        if (StringUtils.isNotBlank(dto.getTitle())) {
+            dto.setTitle("%" + dto.getTitle() + "%");/*like查询*/
+        }
+        // 3.分页查询
+        List<WmNewsVo> list = wmNewsMapper.findListAndPage(dto);
+        //分页查询，需要统计数据
+        int count = wmNewsMapper.findListCount(dto);
+        // 4.结果返回
+        PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), count);
+        pageResponseResult.setData(list);
+        return pageResponseResult;
+    }
+
+    @Autowired
+    private WmUserMapper wmUserMapper;
+    // 根据文章id查询文章详情
+    @Override
+    public WmNewsVo findWmNewsVo(Integer id) {
+        // 1.查询文章信息
+        WmNews wmNews = getById(id);
+        // 2.查询作者
+        WmUser wmUser = null;
+        if (wmNews != null && wmNews.getUserId() != null){
+            wmUser = wmUserMapper.selectById(wmNews.getUserId());
+        }
+        // 3.封装vo信息返回
+        WmNewsVo wmNewsVo = new WmNewsVo();
+        BeanUtils.copyProperties(wmNews,wmNewsVo); // 将上面数据都拷贝过来
+        if (wmUser != null){
+            wmNewsVo.setAuthorName(wmUser.getName());
+        }
+        return wmNewsVo;
     }
 
     // =======================各方法实现====================================

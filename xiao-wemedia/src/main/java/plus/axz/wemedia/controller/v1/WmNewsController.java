@@ -3,11 +3,14 @@ package plus.axz.wemedia.controller.v1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plus.axz.api.wemedia.WmNewsControllerApi;
+import plus.axz.model.admin.dtos.NewsAuthDto;
+import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 import plus.axz.wemedia.service.WmNewsService;
 
 import java.util.List;
@@ -77,5 +80,17 @@ public class WmNewsController implements WmNewsControllerApi {
     @Override
     public List<Integer> findRelease() {
         return wmNewsService.findRelease();
+    }
+
+    @PostMapping("/findList")
+    @Override
+    public PageResponseResult findList(@RequestBody NewsAuthDto dto) {
+        return wmNewsService.findList(dto);
+    }
+
+    @GetMapping("/find_news_vo/{id}")
+    @Override
+    public WmNewsVo findWmNewsVo(@PathVariable("id") Integer id) {
+        return wmNewsService.findWmNewsVo(id);
     }
 }

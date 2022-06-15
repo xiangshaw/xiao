@@ -4,9 +4,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import plus.axz.model.admin.dtos.NewsAuthDto;
+import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.pojos.WmNews;
 import plus.axz.model.wemedia.pojos.WmUser;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 
 import java.util.List;
 
@@ -28,4 +31,12 @@ public interface WemediaFeign {
     WmUser findWmUserById(@PathVariable("id") Integer id);/*查询用户*/
     @GetMapping("/api/v1/news/findRelease")/*查看状态为8的id*/
     public List<Integer> findRelease();
+    /**
+     * 查看文章列表和查询文章详情，其中审核成功或失败可以调用之前定义好的修改方法updateWmNews()
+     * 在查询列表的方法需要通过远程接口进行分页查看，返回值是PageResponseResult对象
+     */
+    @PostMapping("/api/v1/news/findList/")
+    public PageResponseResult findList(NewsAuthDto dto);
+    @GetMapping("/api/v1/news/find_news_vo/{id}")
+    public WmNewsVo findWmNewsVo(@PathVariable("id") Integer id);
 }

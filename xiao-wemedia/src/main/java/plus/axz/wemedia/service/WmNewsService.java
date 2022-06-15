@@ -1,10 +1,13 @@
 package plus.axz.wemedia.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import plus.axz.model.admin.dtos.NewsAuthDto;
+import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 
 import java.util.List;
 
@@ -68,4 +71,22 @@ public interface WmNewsService extends IService<WmNews> {
      * @return java.util.List<java.lang.Integer>
      */
     List<Integer> findRelease();
+
+    /**
+     * 根据标题模糊分页查询文章信息
+     * @author xiaoxiang
+     * @date 2022/6/15
+     * @param dto
+     * @return PageResponseResult
+     */
+    public PageResponseResult findList(NewsAuthDto dto);
+
+    /**
+     * 根据文章id查询文章详情
+     * @author xiaoxiang
+     * @date 2022/6/15
+     * @param id
+     * @return WmNewsVo
+     */
+    public WmNewsVo findWmNewsVo(Integer id);
 }

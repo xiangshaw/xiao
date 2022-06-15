@@ -1,10 +1,13 @@
 package plus.axz.api.wemedia;
 
 import io.swagger.annotations.ApiOperation;
+import plus.axz.model.admin.dtos.NewsAuthDto;
+import plus.axz.model.common.dtos.PageResponseResult;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 
 import java.util.List;
 
@@ -49,4 +52,10 @@ public interface WmNewsControllerApi {
      */
     @ApiOperation("查询待发布文章")
     List<Integer> findRelease();
+
+    @ApiOperation("根据标题模糊分页查询文章列表信息")
+    public PageResponseResult findList(NewsAuthDto dto);
+
+    @ApiOperation("根据文章id查询文章详情")
+    public WmNewsVo findWmNewsVo(Integer id) ;
 }

@@ -14,13 +14,18 @@ import plus.axz.admin.service.WeMediaNewsAutoScanService;
 import plus.axz.common.aliyun.GreeTextScan;
 import plus.axz.common.aliyun.GreenImageScan;
 import plus.axz.common.fastdfs.FastDFSClient;
+import plus.axz.model.admin.dtos.NewsAuthDto;
 import plus.axz.model.admin.pojos.Tag;
 import plus.axz.model.article.pojos.Article;
 import plus.axz.model.article.pojos.ArticleConfig;
 import plus.axz.model.article.pojos.ArticleContent;
 import plus.axz.model.article.pojos.Author;
+import plus.axz.model.common.dtos.PageResponseResult;
+import plus.axz.model.common.dtos.ResponseResult;
+import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.wemedia.pojos.WmNews;
 import plus.axz.model.wemedia.pojos.WmUser;
+import plus.axz.model.wemedia.vo.WmNewsVo;
 import plus.axz.utils.common.SensitiveWordUtil;
 
 import java.util.*;
@@ -85,6 +90,50 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
             // 4.5 审核通过，修改自媒体文章状态为9 保存app文章相关数据
             saveWmArticle(wmNews);
         }
+    }
+
+    @Override
+    public PageResponseResult findNews(NewsAuthDto dto) {
+        // 分页查询
+        PageResponseResult responseResult = wemediaFeign.findList(dto);
+        // 返回的数据中有图片需要显示，需要回显一个fasfdfs服务器地址
+        responseResult.setHost(fileServerUrl);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult findOne(Integer id) {
+        // 1.参数检查
+        if (id == null) {
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
+        }
+        // 2.查询数据
+        WmNewsVo wmNewsVo = wemediaFeign.findWmNewsVo(id);
+        // 3.结果封装
+        ResponseResult responseResult = ResponseResult.okResult(wmNewsVo);
+        responseResult.setHost(fileServerUrl);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult updateStatus(NewsAuthDto dto, Integer type) {
+        // 1.参数检查
+        if (dto == null || dto.getId() == null) {
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
+        }
+        // 2.查询文章信息
+        WmNews wmNews = wemediaFeign.findById(dto.getId());
+        if (wmNews == null) {
+            return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST);
+        }
+        // 3.审核失败
+        if (type.equals(0)) {/*失败*/
+            updateWmNews(wmNews, (short) 2, dto.getMsg());
+        } else if (type.equals(1)) {/*成功*/
+            // 4.审核成功
+            updateWmNews(wmNews, (short) 4, "人工审核通过");
+        }
+        return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
     // 抽取文本内容和图片
