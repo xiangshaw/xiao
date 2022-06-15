@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.axz.article.mapper.ArticleMapper">
+
+    <resultMap id="resultMap" type="plus.axz.model.article.pojos.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="author_id" property="authorId"/>
+        <result column="author_name" property="authorName"/>
+        <result column="tag_id" property="tagId"/>
+        <result column="tag_name" property="tagName"/>
+        <result column="layout" property="layout"/>
+        <result column="flag" property="flag"/>
+        <result column="images" property="images"/>
+        <result column="labels" property="labels"/>
+        <result column="likes" property="likes"/>
+        <result column="collection" property="collection"/>
+        <result column="comment" property="comment"/>
+        <result column="views" property="views"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="county_id" property="countyId"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="sync_status" property="syncStatus"/>
+    </resultMap>
+    <select id="loadArticleList" resultMap="resultMap">
+        SELECT
+        aa.*
+        FROM
+        `article` aa
+        LEFT JOIN article_config aac ON aa.id = aac.article_id
+        <where>
+            and aac.is_delete != 1
+            and aac.is_down != 0
+            <!-- loadmore -->
+            <if test="type != null and type == 1">/*加载更多*/
+                and aa.publish_time <![CDATA[<]]> #{dto.minBehotTime}/*传过来最小的值大于发布时间*/
+            </if>
+            <if test="type != null and type == 2">/*加载最新*/
+                and aa.publish_time <![CDATA[>]]> #{dto.maxBehotTime}/*传过来最大的值小于发布时间*/
+            </if>
+            <if test="dto.tag !='__all__'">
+                and aa.tag_id = #{dto. tag}
+            </if>
+        </where>/*倒叙*/
+        order by aa.publish_time desc
+        limit #{dto.size}
+    </select>
+
+    <!--
+    SELECT
+	*
+FROM
+	`article` aa
+	LEFT JOIN article_config aac ON aa.id = aac.article_id
+	WHERE aac.is_delete !=1 and aac.is_down !=0
+	ORDER BY aa.publish_time DESC
+	LIMIT 5
+    -->
+</mapper>
