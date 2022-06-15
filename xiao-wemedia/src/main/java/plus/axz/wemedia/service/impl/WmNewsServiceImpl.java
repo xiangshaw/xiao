@@ -207,6 +207,17 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
+    //  在自媒体文章审核的时候，审核通过后，判断了文章的发布时间大于当前时间，这个时候并没有真正的发布文章，而是把文章的状态设置为了8（审核通过待发布）
+    // 定时任务的作用就是每分钟去扫描这些待发布的文章，如果当前文章的状态为8，并且发布时间小于当前时间的，立刻发布当前文章
+    @Override
+    public List<Integer> findRelease() {
+        //文章状态为8发布时间要小于等于当前时间
+        List<WmNews> list = list(Wrappers.<WmNews>lambdaQuery().eq(WmNews::getStatus, 8).le(WmNews::getPublishTime, new Date()));
+        //WmNews中都是对象，转为list集合
+        List<Integer> idList = list.stream().map(WmNews::getId).collect(Collectors.toList());
+        return idList;
+    }
+
     // =======================各方法实现====================================
     @Autowired
     private WmNewsMaterialMapper wmNewsMaterialMapper;

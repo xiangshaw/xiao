@@ -6,6 +6,8 @@ import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
 
+import java.util.List;
+
 /**
  * @author xiaoxiang
  * @date 2022年04月03日
@@ -39,4 +41,12 @@ public interface WmNewsControllerApi {
      */
     @ApiOperation("修改文章")
     ResponseResult updateWmNews(WmNews wmNews);
+
+    /**
+     * 查询待发布文章
+     * admin远程调用，xxl-job
+     * @return
+     */
+    @ApiOperation("查询待发布文章")
+    List<Integer> findRelease();
 }

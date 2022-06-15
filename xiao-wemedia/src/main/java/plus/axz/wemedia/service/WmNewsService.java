@@ -6,6 +6,8 @@ import plus.axz.model.wemedia.dtos.WmNewsDto;
 import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
 
+import java.util.List;
+
 /**
  * @author xiaoxiang
  * @date 2022年04月03日
@@ -47,6 +49,7 @@ public interface WmNewsService extends IService<WmNews> {
      * @param id
      * @return plus.axz.model.common.dtos.ResponseResult
      */
+
     public ResponseResult delNews(Integer id);
     /**
      * 文章上下架
@@ -56,4 +59,13 @@ public interface WmNewsService extends IService<WmNews> {
      * @return plus.axz.model.common.dtos.ResponseResult
      */
     public ResponseResult downOrUp(WmNewsDto dto);
+
+    /**
+     * 查询待发布文章
+     * admin远程调用，xxl-job
+     * @author xiaoxiang
+     * @date 2022/6/15
+     * @return java.util.List<java.lang.Integer>
+     */
+    List<Integer> findRelease();
 }

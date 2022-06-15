@@ -10,6 +10,8 @@ import plus.axz.model.wemedia.dtos.WmNewsPageReqDto;
 import plus.axz.model.wemedia.pojos.WmNews;
 import plus.axz.wemedia.service.WmNewsService;
 
+import java.util.List;
+
 /**
  * @author xiaoxiang
  * @date 2022年04月03日
@@ -68,5 +70,12 @@ public class WmNewsController implements WmNewsControllerApi {
     public ResponseResult updateWmNews(@RequestBody WmNews wmNews) {
         boolean b = wmNewsService.updateById(wmNews);
         return ResponseResult.okResult(ResultEnum.SUCCESS);
+    }
+
+    /*admin远程调用，查看状态为8的id*/
+    @GetMapping("/findRelease")
+    @Override
+    public List<Integer> findRelease() {
+        return wmNewsService.findRelease();
     }
 }

@@ -61,6 +61,7 @@
         <curator.version>4.2.0</curator.version>
         <kafka.version>2.2.7.RELEASE</kafka.version>
         <kafka.client.version>2.0.1</kafka.client.version>
+        <xxl.job.version>2.2.0-SNAPSHOT</xxl.job.version>
     </properties>
 
     <dependencies>
@@ -284,6 +285,12 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-green</artifactId>
                 <version>${aliyun.green.version}</version>
+            </dependency>
+            <!-- xxl-job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl.job.version}</version>
             </dependency>
         </dependencies>
 

@@ -32,6 +32,15 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml # 读取mapper包下映射
   # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
   type-aliases-package: plus.axz.model.admin.pojos
+xxljob:
+  admin:
+    # 调度中心
+    addresses: http://localhost:8888/xxl-job-admin
+  executor:
+    # 执行器的名称
+    appname: xiao-executor
+    # 执行器端口号
+    port: 9999
 
 # 测试了文件上传
 file:

@@ -8,6 +8,8 @@ import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.wemedia.pojos.WmNews;
 import plus.axz.model.wemedia.pojos.WmUser;
 
+import java.util.List;
+
 /**
  * @author xiaoxiang
  * @date 2022年05月02日
@@ -24,4 +26,6 @@ public interface WemediaFeign {
     ResponseResult updateWmNews(WmNews wmNews);/*修改文章*/
     @GetMapping("/api/v1/user/findOne/{id}")
     WmUser findWmUserById(@PathVariable("id") Integer id);/*查询用户*/
+    @GetMapping("/api/v1/news/findRelease")/*查看状态为8的id*/
+    public List<Integer> findRelease();
 }
