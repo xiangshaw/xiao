@@ -1,4 +1,4 @@
-package plus.axz.model.wemedia.pojos;
+package plus.axz.model.user.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -12,12 +12,12 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars 自媒体图文信息表
+ * @date 2022年06月20日
+ * @particulars APP用户粉丝表
  */
 @Data
-@TableName("material")
-public class WmMaterial implements Serializable {
+@TableName("user_fan")
+public class UserFan implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -25,32 +25,58 @@ public class WmMaterial implements Serializable {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
     /**
-     * 自媒体用户ID
+     * 用户ID
      */
     @TableField("user_id")
     private Integer userId;
+
     /**
-     * 图片地址
+     * 粉丝ID
      */
-    @TableField("url")
-    private String url;
+    @TableField("fans_id")
+    private Long fansId;
+
     /**
-     * 素材类型
-     0 图片
-     1 视频
+     * 粉丝昵称
      */
-    @TableField("type")
-    private Short type;
+    @TableField("fans_name")
+    private String fansName;
+
     /**
-     * 是否收藏
+     * 粉丝忠实度
+     * 0 正常
+     * 1 潜力股
+     * 2 勇士
+     * 3 铁杆
+     * 4 老铁
      */
-    @TableField("is_collection")
-    private Short isCollection;
+    @TableField("level")
+    private Short level;
+
     /**
      * 创建时间
      */
     @TableField("created_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createdTime;
+
+    /**
+     * 是否可见我动态
+     */
+    @TableField("is_display")
+    private Boolean isDisplay;
+
+    /**
+     * 是否屏蔽私信
+     */
+    @TableField("is_shield_letter")
+    private Boolean isShieldLetter;
+
+    /**
+     * 是否屏蔽评论
+     */
+    @TableField("is_shield_comment")
+    private Boolean isShieldComment;
 }

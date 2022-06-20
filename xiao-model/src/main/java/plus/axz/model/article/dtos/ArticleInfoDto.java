@@ -1,5 +1,7 @@
 package plus.axz.model.article.dtos;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import plus.axz.model.common.annotation.IdEncrypt;
 

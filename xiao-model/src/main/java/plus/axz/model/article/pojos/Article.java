@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import plus.axz.model.common.annotation.IdEncrypt;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 @TableName("article")
 public class Article {
     @TableId(value = "id", type = IdType.ASSIGN_ID)/*雪花算法*/
+    @IdEncrypt
     private Long id;
     /**
      * 标题
@@ -27,6 +29,7 @@ public class Article {
      * 作者id
      */
     @TableField("author_id")
+    @IdEncrypt
     private Long authorId;
     /**
      * 作者名称

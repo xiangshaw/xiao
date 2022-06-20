@@ -40,7 +40,8 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 3.查询文章内容--非下架非删除内容
-        if (!articleConfig.getIsDelete() && !articleConfig.getIsDown()) {
+        // 1上0下 1删0未删
+        if (!articleConfig.getIsDelete() && articleConfig.getIsDown()) {
             ArticleContent articleContent = articleContentMapper.selectOne(Wrappers.<ArticleContent>lambdaQuery().eq(ArticleContent::getArticleId, dto.getArticleId()));
             resultMap.put("content",articleContent);
         }

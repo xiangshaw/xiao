@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
+import plus.axz.model.common.annotation.IdEncrypt;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -58,11 +60,13 @@ public class WmNews implements Serializable {
      * 创建时间
      */
     @TableField("created_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createdTime;
     /**
      * 提交时间
      */
     @TableField("submited_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date submitedTime;
     /**
      * 当前状态
@@ -80,6 +84,7 @@ public class WmNews implements Serializable {
      * 定时发布时间，不定时则为空
      */
     @TableField("publish_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date publishTime;
     /**
      * 拒绝理由
@@ -90,6 +95,7 @@ public class WmNews implements Serializable {
      * 发布库文章ID
      */
     @TableField("article_id")
+    @IdEncrypt
     private Long articleId;
     /**
      * //图片用逗号分隔

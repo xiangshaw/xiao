@@ -23,4 +23,7 @@ public interface ArticleFeign {
     @PostMapping("/api/v1/author/save")
     public ResponseResult save(@RequestBody Author author);
 
+    @GetMapping("/api/v1/author/one/{id}")
+    public Author findById(@PathVariable("id") Integer id);
+
 }

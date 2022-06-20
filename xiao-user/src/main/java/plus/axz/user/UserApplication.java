@@ -1,11 +1,7 @@
 package plus.axz.user;
 
-import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import org.aspectj.weaver.ast.Var;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @MapperScan("plus.axz.user.mapper")
 @EnableDiscoveryClient
-@ServletComponentScan/*生效TokenFilter*/
+@ServletComponentScan("plus.axz.user.filter")/*生效TokenFilter*/
 @EnableFeignClients // 开启远程调用
 public class UserApplication {
     public static void main(String[] args) {

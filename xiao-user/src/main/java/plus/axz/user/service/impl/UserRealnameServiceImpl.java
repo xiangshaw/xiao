@@ -89,7 +89,7 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
             }
         }
         // 4. 异常回滚测试
-        int a = 1/0;
+//        int a = 1/0;
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
