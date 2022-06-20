@@ -2,7 +2,7 @@ server:
   port: 2003
 spring:
   application:
-    name: axz-gateway
+    name: xiao-gateway
   cloud:
     nacos:
       discovery:

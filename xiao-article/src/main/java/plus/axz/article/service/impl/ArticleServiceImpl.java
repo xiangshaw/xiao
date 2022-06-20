@@ -43,8 +43,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             loadType = ArticleConstans.LOADTYPE_LOAD_MORE;/*加载更多*/
         }
         //文章频道校验
-        if (StringUtils.isEmpty(dto.getTag())) {
-            dto.setTag(ArticleConstans.DEFAULT_TAG);/*tag为空，给 __all__ 值*/
+        if (StringUtils.isEmpty(dto.getTagId())) {
+            dto.setTagId(ArticleConstans.DEFAULT_TAG);/*tag为空，给 __all__ 值*/
         }
         //时间校验
         if (dto.getMaxBehotTime() == null) dto.setMaxBehotTime(new Date());/*为空，给个当前时间*/

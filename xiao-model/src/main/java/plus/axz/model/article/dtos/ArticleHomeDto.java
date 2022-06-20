@@ -18,5 +18,5 @@ public class ArticleHomeDto {
     // 分页size
     Integer size;
     // 数据范围，比如频道标签ID
-    String tag;
+    String tagId;
 }

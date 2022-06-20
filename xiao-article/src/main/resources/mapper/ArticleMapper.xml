@@ -40,8 +40,8 @@
             <if test="type != null and type == 2">/*加载最新*/
                 and aa.publish_time <![CDATA[>]]> #{dto.maxBehotTime}/*传过来最大的值小于发布时间*/
             </if>
-            <if test="dto.tag !='__all__'">
-                and aa.tag_id = #{dto. tag}
+            <if test="dto.tagId !='__all__'">
+                and aa.tag_id = #{dto.tagId}
             </if>
         </where>/*倒叙*/
         order by aa.publish_time desc

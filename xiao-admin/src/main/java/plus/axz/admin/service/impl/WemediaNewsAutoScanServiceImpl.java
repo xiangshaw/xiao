@@ -303,7 +303,8 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
         article.setLayout(wmNews.getType()); // 布局
         article.setImages(wmNews.getImages());
         article.setLabels(wmNews.getLabels());
-        article.setCreatedTime(new Date());
+        article.setCreatedTime(new Date()); // 创建时间
+        article.setPublishTime(new Date()); // 发布时间
         // 获取作者 - 根据自媒体用户id取自媒体人
         Integer wmNewsUserId = wmNews.getUserId();
         WmUser wmUser = wemediaFeign.findWmUserById(wmNewsUserId);
