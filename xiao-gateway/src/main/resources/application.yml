@@ -25,3 +25,10 @@ spring:
             - Path=/article/**
           filters:
             - StripPrefix= 1
+        #用户微服务
+        - id: axz-user
+          uri: lb://xiao-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix= 1
