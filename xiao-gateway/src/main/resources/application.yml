@@ -26,9 +26,16 @@ spring:
           filters:
             - StripPrefix= 1
         #用户微服务
-        - id: axz-user
+        - id: xiao-user
           uri: lb://xiao-user
           predicates:
             - Path=/user/**
+          filters:
+            - StripPrefix= 1
+        #行为微服务
+        - id: xiao-behavior
+          uri: lb://xiao-behavior
+          predicates:
+            - Path=/behavior/**
           filters:
             - StripPrefix= 1

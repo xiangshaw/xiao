@@ -13,6 +13,6 @@ import plus.axz.model.common.dtos.ResponseResult;
 public interface BehaviorEntryControllerApi {
     @ApiOperation("根据用户或设备查询行为实体")
     public BehaviorEntry findByUserIdOrEquipmentId(Integer userId, Integer equipmentId);
-    @ApiOperation("存储关注数据")
+    @ApiOperation("存储关注行为数据")
     public ResponseResult saveFollowBehavior(FollowBehaviorDto dto);
 }
