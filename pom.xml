@@ -20,7 +20,8 @@
         <module>xiao-article</module>
         <module>xiao-seata</module>
         <module>xiao-wemedia-gateway</module>
-        <module>xiao-gateway</module><!--admin网关-->
+        <module>xiao-gateway</module>
+        <module>xiao-behavior</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>

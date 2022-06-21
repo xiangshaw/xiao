@@ -1,11 +1,15 @@
 package plus.axz.user.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import plus.axz.common.constants.message.FollowBehaviorConstants;
 import plus.axz.model.article.pojos.Author;
+import plus.axz.model.behavior.dtos.FollowBehaviorDto;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.user.dtos.UserRelationDto;
@@ -107,6 +111,8 @@ public class UserRelationServiceImpl implements UserRelationService {
     private UserFollowMapper userFollowMapper;
     @Autowired
     private UserFanMapper userFanMapper;
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
 
     /**
      * 关注的处理逻辑
@@ -153,7 +159,13 @@ public class UserRelationServiceImpl implements UserRelationService {
             userFollow.setIsNotice(true); // 动态通知
             userFollow.setLevel((short) 1);
             userFollowMapper.insert(userFollow);
-            //记录关注文章的行为 TODO
+            //记录关注文章的行为
+            FollowBehaviorDto behaviorDto = new FollowBehaviorDto();
+            behaviorDto.setFollowId(followId);
+            behaviorDto.setArticleId(articleId);
+            behaviorDto.setUserId(user.getId());
+            //异步发送消息，保存关注行为
+            kafkaTemplate.send(FollowBehaviorConstants.FOLLOW_BEHAVIOR_TOPIC, JSON.toJSONString(behaviorDto));
             return ResponseResult.okResult(ResultEnum.SUCCESS);
         }else {
             // 已关注
