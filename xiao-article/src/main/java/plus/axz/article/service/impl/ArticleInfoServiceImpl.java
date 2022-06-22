@@ -102,7 +102,7 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
             isLike = true;
         }
 
-        //5.查询收藏行为  //TODO 待解决数据不在文章端
+        //5.查询收藏行为
         Collection apCollection = collectionMapper.selectOne(Wrappers.<Collection>lambdaQuery()
                 .eq(Collection::getEntryId, behaviorEntry.getId())
                 .eq(Collection::getArticleId, dto.getArticleId())
@@ -119,7 +119,6 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
                 isFollow = true;
             }
         }
-
 
         //7.结果返回  {"isfollow":true,"islike":true,"isunlike":false,"iscollection":true}
         Map<String, Object> resultMap = new HashMap<>();

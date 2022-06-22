@@ -1,4 +1,4 @@
-package plus.axz.model.behavior.dtos;
+package plus.axz.model.article.dtos;
 
 import lombok.Data;
 import plus.axz.model.common.annotation.IdEncrypt;
@@ -7,11 +7,11 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 收藏行为
+ * @date 2022年06月22日
+ * @particulars
  */
 @Data
-public class CollectionBehaviorDto {
+public class CollectionDto {
     // 设备ID
     @IdEncrypt
     Integer equipmentId;
