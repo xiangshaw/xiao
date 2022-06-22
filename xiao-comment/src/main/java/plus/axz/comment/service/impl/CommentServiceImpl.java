@@ -1,7 +1,9 @@
 package plus.axz.comment.service.impl;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -11,20 +13,19 @@ import plus.axz.comment.feign.UserFeign;
 import plus.axz.comment.service.CommentService;
 import plus.axz.common.aliyun.GreeTextScan;
 import plus.axz.model.admin.pojos.Sensitive;
+import plus.axz.model.comment.dtos.CommentDto;
 import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.comment.pojos.Comment;
 import plus.axz.model.comment.pojos.CommentLike;
+import plus.axz.model.comment.vo.CommentVo;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.user.pojos.User;
 import plus.axz.utils.common.SensitiveWordUtil;
 import plus.axz.utils.threadlocal.AppThreadLocalUtils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -154,5 +155,59 @@ public class CommentServiceImpl implements CommentService {
         HashMap<String, Object> map = new HashMap<>();
         map.put("likes",comment.getLikes());
         return ResponseResult.okResult(map);
+    }
+
+    // 查询文章评论列表
+    @Override
+    public ResponseResult findByArticleId(CommentDto dto) {
+        // 1.检查参数
+        if (dto.getArticleId() == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
+        }
+        // 默认十条
+        int size  = 10;
+        // 2.根据文章id过滤查询，设置分页和排序
+        Query query = Query.query(Criteria.where("entryId")
+                .is(dto.getArticleId())
+                .and("createdTime")
+                .lt(dto.getMinDate())); // 根据文章或动态ID进行检索-- is等于 lt小于
+        // 设置分页和排序  -- 根据创建时间倒叙排序
+        query.limit(size).with(Sort.by(Sort.Direction.DESC,"createdTime"));
+        // 分页之后的评论列表
+        List<Comment> comments = mongoTemplate.find(query, Comment.class);
+        // 3.用户未登录，直接返回数据
+        User user = AppThreadLocalUtils.getUser();
+        if (user == null){
+            return ResponseResult.okResult(comments);
+        }
+        // 4.用户已登录，需要检索当前用户点赞了哪些评论
+        // 4.1查询点赞列表 userId和评论id
+        List<String> idList = comments.stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<CommentLike> commentLikes = mongoTemplate.find(Query.query(Criteria
+                .where("authorId")
+                .is(user.getId())
+                .and("commentId")
+                .in(idList)), CommentLike.class);
+        // 4.2检索判断当前哪些评论点赞了
+        List<CommentVo> commentVoList = new ArrayList<>();
+        if (commentLikes != null){
+            // 有被点赞
+            comments.stream().forEach(comment -> {
+                CommentVo vo = new CommentVo();
+                // 拷贝工作，创建VO
+                BeanUtils.copyProperties(comment,vo);
+                for (CommentLike commentLike : commentLikes) {
+                    if (comment.getId().equals(commentLike.getCommentId())){
+                        vo.setOperation((short) 0);
+                        break;
+                    } // 找评论哪些被点赞（标识0）
+                }
+                commentVoList.add(vo);
+            });
+            return ResponseResult.okResult(commentVoList);
+        }else {
+            // 未点赞
+            return ResponseResult.okResult(comments);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package plus.axz.comment.service;
 
+import plus.axz.model.comment.dtos.CommentDto;
 import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -18,4 +19,8 @@ public interface CommentService {
      * 点赞或取消点赞
      */
     public ResponseResult like(CommentLikeDto dto);
+    /**
+     * 查询文章评论列表
+     */
+    public ResponseResult findByArticleId(CommentDto dto);
 }

@@ -1,6 +1,7 @@
 package plus.axz.api.comment;
 
 import io.swagger.annotations.ApiOperation;
+import plus.axz.model.comment.dtos.CommentDto;
 import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -15,4 +16,6 @@ public interface CommentControllerApi {
     public ResponseResult saveComment(CommentSaveDto dto);
     @ApiOperation("点赞或取消点赞")
     public ResponseResult like(CommentLikeDto dto);
+    @ApiOperation("查询评论")
+    public ResponseResult findByArticleId(CommentDto dto);
 }

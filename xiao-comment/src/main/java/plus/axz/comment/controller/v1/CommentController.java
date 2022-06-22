@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import plus.axz.api.comment.CommentControllerApi;
 import plus.axz.comment.service.CommentService;
+import plus.axz.model.comment.dtos.CommentDto;
 import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -34,5 +35,12 @@ public class CommentController implements CommentControllerApi {
     @Override
     public ResponseResult like(@RequestBody CommentLikeDto dto) {
         return commentService.like(dto);
+    }
+
+    // 查询文章评论列表
+    @PostMapping("/load")
+    @Override
+    public ResponseResult findByArticleId(@RequestBody CommentDto dto) {
+        return commentService.findByArticleId(dto);
     }
 }
