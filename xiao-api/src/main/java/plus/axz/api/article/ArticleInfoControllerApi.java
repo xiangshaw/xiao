@@ -17,4 +17,7 @@ public interface ArticleInfoControllerApi {
      */
     @ApiOperation("加载文章详情")
     public ResponseResult loadArticleInfo(ArticleInfoDto dto);
+
+    @ApiOperation("加载文章详情的初始化配置信息，比如关注、喜欢、不喜欢等")
+    ResponseResult loadArticleBehavior(ArticleInfoDto dto);
 }
