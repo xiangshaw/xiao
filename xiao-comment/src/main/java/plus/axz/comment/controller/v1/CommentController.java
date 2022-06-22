@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import plus.axz.api.comment.CommentControllerApi;
 import plus.axz.comment.service.CommentService;
+import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.common.dtos.ResponseResult;
 
@@ -28,4 +29,10 @@ public class CommentController implements CommentControllerApi {
         return commentService.saveComment(dto);
     }
 
+    // 点赞或取消点赞
+    @PostMapping("/like")
+    @Override
+    public ResponseResult like(@RequestBody CommentLikeDto dto) {
+        return commentService.like(dto);
+    }
 }

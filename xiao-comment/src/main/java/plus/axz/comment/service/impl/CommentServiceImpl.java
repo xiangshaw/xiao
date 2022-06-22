@@ -3,14 +3,18 @@ package plus.axz.comment.service.impl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import plus.axz.comment.feign.SensitiveFeign;
 import plus.axz.comment.feign.UserFeign;
 import plus.axz.comment.service.CommentService;
 import plus.axz.common.aliyun.GreeTextScan;
 import plus.axz.model.admin.pojos.Sensitive;
+import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
 import plus.axz.model.comment.pojos.Comment;
+import plus.axz.model.comment.pojos.CommentLike;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.user.pojos.User;
@@ -18,6 +22,7 @@ import plus.axz.utils.common.SensitiveWordUtil;
 import plus.axz.utils.threadlocal.AppThreadLocalUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -104,5 +109,50 @@ public class CommentServiceImpl implements CommentService {
         return flag;
     }
 
-
+    // 点赞或取消点赞
+    @Override
+    public ResponseResult like(CommentLikeDto dto) {
+        // 1.检查参数
+        if (dto == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
+        }
+        // 2.判断登录
+        User user = new User();
+        if (user == null){
+            return ResponseResult.errorResult(ResultEnum.NEED_LOGIN);
+        }
+        Comment comment = mongoTemplate.findById(dto.getCommentId(), Comment.class);
+        if (comment == null){
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"当前评论未找到");
+        }
+        // 3.点赞操作
+        if (dto.getOperation() == 0){
+            // 更新评论点赞数据
+            comment.setLikes(comment.getLikes()+1);
+            // 更新数据-save既有保存也有更新效果
+            mongoTemplate.save(comment);
+            // 新增评论点赞数据
+            CommentLike commentLike = new CommentLike();
+            commentLike.setAuthorId(user.getId());
+            commentLike.setCommentId(comment.getId());
+            // 保存评论点赞数据
+            mongoTemplate.save(commentLike);
+        }else {
+            // 4.取消点赞的操作
+            // 更新评论点赞数据--小于0就设置为0，不小于0 才-1
+            comment.setLikes(comment.getLikes() <=0 ? 0 :comment.getLikes()-1);
+            mongoTemplate.save(comment);
+            // 删除评论点赞数据--需加上指定集合
+            mongoTemplate.remove(Query
+                    .query(Criteria
+                            .where("authorId")
+                            .is(user.getId())
+                            .and("commentId")
+                            .is(comment.getId())),CommentLike.class);
+        }
+        // 5.结果封装返回 -》评论点赞数量
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("likes",comment.getLikes());
+        return ResponseResult.okResult(map);
+    }
 }
