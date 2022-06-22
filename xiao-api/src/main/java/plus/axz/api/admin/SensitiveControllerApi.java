@@ -6,6 +6,8 @@ import plus.axz.model.admin.dtos.SensitiveDto;
 import plus.axz.model.admin.pojos.Sensitive;
 import plus.axz.model.common.dtos.ResponseResult;
 
+import java.util.List;
+
 @Api(value = "敏感词管理", tags = "Sensitive", description = "敏感词管理API")
 public interface SensitiveControllerApi {
     /**
@@ -45,4 +47,7 @@ public interface SensitiveControllerApi {
      */
     @ApiOperation("删除敏感词")
     public ResponseResult deleteById(Integer id);
+
+    @ApiOperation("查所有敏感词")
+    List<Sensitive> findAllSensitive();
 }

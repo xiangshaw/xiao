@@ -39,3 +39,10 @@ spring:
             - Path=/behavior/**
           filters:
             - StripPrefix= 1
+        #评论微服务
+        - id: xiao-comment
+          uri: lb://xiao-comment
+          predicates:
+            - Path=/comment/**
+          filters:
+            - StripPrefix= 1

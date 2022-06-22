@@ -21,7 +21,8 @@
         <module>xiao-seata</module>
         <module>xiao-wemedia-gateway</module>
         <module>xiao-gateway</module>
-        <module>xiao-behavior</module><!--admin网关-->
+        <module>xiao-behavior</module>
+        <module>xiao-comment</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>

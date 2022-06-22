@@ -8,6 +8,8 @@ import plus.axz.model.admin.dtos.SensitiveDto;
 import plus.axz.model.admin.pojos.Sensitive;
 import plus.axz.model.common.dtos.ResponseResult;
 
+import java.util.List;
+
 /**
  * @author xiaoxiang
  * @date 2022年03月23日
@@ -41,5 +43,11 @@ public class SensitiveController implements SensitiveControllerApi {
     @DeleteMapping("/del/{id}")
     public ResponseResult deleteById(@PathVariable("id") Integer id) {
         return sensitiveService.deleteById(id);
+    }
+
+    @Override
+    @GetMapping("/all")
+    public List<Sensitive> findAllSensitive() {
+        return  sensitiveService.list();
     }
 }

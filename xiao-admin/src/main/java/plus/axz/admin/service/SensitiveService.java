@@ -1,7 +1,6 @@
 package plus.axz.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Mapper;
 import plus.axz.model.admin.dtos.SensitiveDto;
 import plus.axz.model.admin.pojos.Sensitive;
 import plus.axz.model.common.dtos.ResponseResult;
