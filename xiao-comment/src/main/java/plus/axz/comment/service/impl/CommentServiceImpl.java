@@ -64,8 +64,8 @@ public class CommentServiceImpl implements CommentService {
 
         //3.安全过滤-调用阿里云检测文本是否合规
         boolean sensitiveScanBoolean = handleSensitive(dto.getContent());
-        if (!sensitiveScanBoolean){
-            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"评论包含敏感词");
+        if (!sensitiveScanBoolean) {
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID, "评论包含敏感词");
         }
 
         //4.保存评论
@@ -78,8 +78,10 @@ public class CommentServiceImpl implements CommentService {
         apComment.setAuthorName(user1.getName());
         apComment.setContent(dto.getContent());/*评论内容*/
         apComment.setEntryId(dto.getArticleId());
-        apComment.setCreatedTime(new Date());
-        apComment.setUpdatedTime(new Date());
+        /*获取MongoDB的当前时间，时区UTC转GMT*/
+        Calendar calle = getMongoDBTime();
+        apComment.setCreatedTime(calle.getTime());
+        apComment.setUpdatedTime(calle.getTime());
         apComment.setImage(user1.getImage());
         apComment.setLikes(0);
         apComment.setReply(0);
@@ -90,11 +92,20 @@ public class CommentServiceImpl implements CommentService {
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
+    // 时间换算
+    private Calendar getMongoDBTime() {
+        Calendar calle = Calendar.getInstance();
+        calle.setTime(new Date());
+        calle.add(Calendar.HOUR_OF_DAY, +8);
+        return calle;
+    }
+
     @Autowired
     private SensitiveFeign sensitiveFeign;
+
     // 评论审核
     private boolean handleSensitive(String content) {
-        boolean flag =true;
+        boolean flag = true;
         // 返回所有敏感词
         List<Sensitive> findallSensitive = sensitiveFeign.findAllSensitive();
         List<String> list = findallSensitive.stream().map(Sensitive::getSensitives).distinct().collect(Collectors.toList());
@@ -114,22 +125,22 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ResponseResult like(CommentLikeDto dto) {
         // 1.检查参数
-        if (dto == null){
+        if (dto == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 2.判断登录
         User user = new User();
-        if (user == null){
+        if (user == null) {
             return ResponseResult.errorResult(ResultEnum.NEED_LOGIN);
         }
         Comment comment = mongoTemplate.findById(dto.getCommentId(), Comment.class);
-        if (comment == null){
-            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"当前评论未找到");
+        if (comment == null) {
+            return ResponseResult.errorResult(ResultEnum.PARAM_INVALID, "当前评论未找到");
         }
         // 3.点赞操作
-        if (dto.getOperation() == 0){
+        if (dto.getOperation() == 0) {
             // 更新评论点赞数据
-            comment.setLikes(comment.getLikes()+1);
+            comment.setLikes(comment.getLikes() + 1);
             // 更新数据-save既有保存也有更新效果
             mongoTemplate.save(comment);
             // 新增评论点赞数据
@@ -138,10 +149,10 @@ public class CommentServiceImpl implements CommentService {
             commentLike.setCommentId(comment.getId());
             // 保存评论点赞数据
             mongoTemplate.save(commentLike);
-        }else {
+        } else {
             // 4.取消点赞的操作
             // 更新评论点赞数据--小于0就设置为0，不小于0 才-1
-            comment.setLikes(comment.getLikes() <=0 ? 0 :comment.getLikes()-1);
+            comment.setLikes(comment.getLikes() <= 0 ? 0 : comment.getLikes() - 1);
             mongoTemplate.save(comment);
             // 删除评论点赞数据--需加上指定集合
             mongoTemplate.remove(Query
@@ -149,11 +160,11 @@ public class CommentServiceImpl implements CommentService {
                             .where("authorId")
                             .is(user.getId())
                             .and("commentId")
-                            .is(comment.getId())),CommentLike.class);
+                            .is(comment.getId())), CommentLike.class);
         }
         // 5.结果封装返回 -》评论点赞数量
         HashMap<String, Object> map = new HashMap<>();
-        map.put("likes",comment.getLikes());
+        map.put("likes", comment.getLikes());
         return ResponseResult.okResult(map);
     }
 
@@ -161,23 +172,32 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ResponseResult findByArticleId(CommentDto dto) {
         // 1.检查参数
-        if (dto.getArticleId() == null){
+        if (dto.getArticleId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 默认十条
-        int size  = 10;
+        int size = 10;
         // 2.根据文章id过滤查询，设置分页和排序
         Query query = Query.query(Criteria.where("entryId")
                 .is(dto.getArticleId())
                 .and("createdTime")
-                .lt(dto.getMinDate())); // 根据文章或动态ID进行检索-- is等于 lt小于
+                .lt(dto.getMinDate()));// 根据文章或动态ID进行检索
+/*
+         is  精确匹配
+         模糊匹配 使用regex
+        "$gte"---大于等于
+        "$gt"----大于
+        "$lt"----小于
+        "$lte"----小于等于
+        "$in"----在此范围
+        "$nin"----不在此范围*/
         // 设置分页和排序  -- 根据创建时间倒叙排序
-        query.limit(size).with(Sort.by(Sort.Direction.DESC,"createdTime"));
+        query.limit(size).with(Sort.by(Sort.Direction.DESC, "createdTime"));
         // 分页之后的评论列表
         List<Comment> comments = mongoTemplate.find(query, Comment.class);
         // 3.用户未登录，直接返回数据
         User user = AppThreadLocalUtils.getUser();
-        if (user == null){
+        if (user == null) {
             return ResponseResult.okResult(comments);
         }
         // 4.用户已登录，需要检索当前用户点赞了哪些评论
@@ -190,14 +210,14 @@ public class CommentServiceImpl implements CommentService {
                 .in(idList)), CommentLike.class);
         // 4.2检索判断当前哪些评论点赞了
         List<CommentVo> commentVoList = new ArrayList<>();
-        if (commentLikes != null){
+        if (commentLikes != null) {
             // 有被点赞
             comments.stream().forEach(comment -> {
                 CommentVo vo = new CommentVo();
                 // 拷贝工作，创建VO
-                BeanUtils.copyProperties(comment,vo);
+                BeanUtils.copyProperties(comment, vo);
                 for (CommentLike commentLike : commentLikes) {
-                    if (comment.getId().equals(commentLike.getCommentId())){
+                    if (comment.getId().equals(commentLike.getCommentId())) {
                         vo.setOperation((short) 0);
                         break;
                     } // 找评论哪些被点赞（标识0）
@@ -205,7 +225,7 @@ public class CommentServiceImpl implements CommentService {
                 commentVoList.add(vo);
             });
             return ResponseResult.okResult(commentVoList);
-        }else {
+        } else {
             // 未点赞
             return ResponseResult.okResult(comments);
         }

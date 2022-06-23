@@ -23,18 +23,21 @@ public class CommentRepayController implements CommentRepayControllerApi {
     @Autowired
     private CommentRepayService commentRepayService;
 
+    // 加载评论回复列表
     @PostMapping("/load")
     @Override
     public ResponseResult loadCommentRepay(@RequestBody CommentRepayDto dto) {
         return commentRepayService.loadCommentRepay(dto);
     }
 
+    // 保存回复内容
     @PostMapping("/save")
     @Override
     public ResponseResult saveCommentRepay(@RequestBody CommentRepaySaveDto dto) {
         return commentRepayService.saveCommentRepay(dto);
     }
 
+    // 点赞回复内容
     @PostMapping("/like")
     @Override
     public ResponseResult saveCommentRepayLike(@RequestBody CommentRepayLikeDto dto) {
