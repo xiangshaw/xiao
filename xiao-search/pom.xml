@@ -9,31 +9,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>xiao-article</artifactId>
+    <artifactId>xiao-search</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
         <!-- 引入依赖模块 -->
         <dependency>
             <groupId>plus.axz</groupId>
-            <artifactId>xiao-model</artifactId><!--存实体类-->
+            <artifactId>xiao-model</artifactId>
         </dependency>
         <dependency>
             <groupId>plus.axz</groupId>
-            <artifactId>xiao-common</artifactId><!--存技术解决方案-->
+            <artifactId>xiao-common</artifactId>
         </dependency>
         <dependency>
             <groupId>plus.axz</groupId>
-            <artifactId>xiao-api</artifactId><!--对外的接口-->
+            <artifactId>xiao-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>plus.axz</groupId>
-            <artifactId>xiao-seata</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <!-- Spring boot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,12 +45,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <dependency><!--feign远程接口定义-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
         <!--elasticsearch-->
-        <!--这个只有在项目的数据初始化的时候才会使用，在后期自动审核文章的时候会自动创建索引-->
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>

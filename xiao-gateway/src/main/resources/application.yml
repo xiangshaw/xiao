@@ -46,3 +46,10 @@ spring:
             - Path=/comment/**
           filters:
             - StripPrefix= 1
+        #搜索微服务
+        - id: xiao-search
+          uri: lb://xiao-search
+          predicates:
+            - Path=/search/**
+          filters:
+            - StripPrefix= 1

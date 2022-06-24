@@ -3,6 +3,9 @@ package plus.axz.admin.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.log4j.Log4j2;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,7 @@ import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.model.wemedia.vo.WmNewsVo;
 import plus.axz.utils.common.SensitiveWordUtil;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -276,6 +280,8 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
 
     @Autowired
     private ArticleFeign articleFeign;
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
 
     /**
      * 保存文章相关数据
@@ -293,7 +299,24 @@ public class WemediaNewsAutoScanServiceImpl implements WeMediaNewsAutoScanServic
         // 修改自媒体文章状态为9
         wmNews.setArticleId(article.getId());
         updateWmNews(wmNews, (short) 9, "审核通过");
-        // TODO ES索引创建
+
+        // ES索引创建
+        HashMap<String,Object> map = new HashMap();
+        map.put("id",article.getId().toString());
+        map.put("publishTime",article.getPublishTime());
+        map.put("layout",article.getLayout());
+        map.put("images",article.getImages());
+        map.put("authorId",article.getAuthorId());
+        map.put("title",article.getTitle());
+        map.put("content",wmNews.getContent());
+        // 创建文档添加到索引库中
+        IndexRequest indexRequest = new IndexRequest("article_info").id(article.getId().toString()).source(map);
+        try {
+            restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // 保存文章

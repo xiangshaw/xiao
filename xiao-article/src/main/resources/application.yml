@@ -3,6 +3,11 @@ server:
 spring:
  application:
    name: xiao-article
+   # 文章微服务加载的时候，
+   # 忽略DataSourceAutoConfiguration、忽略事务DataSourceTransactionManagerAutoConfiguration，
+   # 有集成seata,可查询到数据，不用担心忽略而找不到数据
+ autoconfigure:
+   exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
  kafka:
    bootstrap-servers: 192.168.20.221:9092
    consumer:
@@ -39,3 +44,13 @@ mybatis-plus:
 
 #图片访问ip
 fdfs.url: http://192.168.20.221/
+
+#取消对elastsearch的健康检查
+management:
+  health:
+    elasticsearch:
+      enabled: false
+#自定义elasticsearch连接配置
+elasticsearch:
+  host: 192.168.20.221
+  port: 9200

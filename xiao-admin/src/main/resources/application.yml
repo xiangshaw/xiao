@@ -48,3 +48,13 @@ file:
 
 # 图片访问ip
 fdfs.url: http://192.168.20.221/
+
+#取消对elastsearch的健康检查
+management:
+  health:
+    elasticsearch:
+      enabled: false
+#自定义elasticsearch连接配置
+elasticsearch:
+  host: 192.168.20.221
+  port: 9200

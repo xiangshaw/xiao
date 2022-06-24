@@ -22,7 +22,8 @@
         <module>xiao-wemedia-gateway</module>
         <module>xiao-gateway</module>
         <module>xiao-behavior</module>
-        <module>xiao-comment</module><!--admin网关-->
+        <module>xiao-comment</module>
+        <module>xiao-search</module><!--admin网关-->
     </modules>
     <!--继承Spring boot工程-->
     <parent>
@@ -66,6 +67,7 @@
         <kafka.client.version>2.0.1</kafka.client.version>
         <xxl.job.version>2.2.0-SNAPSHOT</xxl.job.version>
         <jsoup.version>1.10.2</jsoup.version>
+        <es.version>7.4.0</es.version>
     </properties>
 
     <dependencies>
@@ -301,6 +303,22 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl.job.version}</version>
+            </dependency>
+            <!--elasticsearch-->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${es.version}</version>
             </dependency>
         </dependencies>
 
