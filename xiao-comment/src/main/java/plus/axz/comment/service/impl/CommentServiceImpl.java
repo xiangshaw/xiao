@@ -195,6 +195,10 @@ public class CommentServiceImpl implements CommentService {
         query.limit(size).with(Sort.by(Sort.Direction.DESC, "createdTime"));
         // 分页之后的评论列表
         List<Comment> comments = mongoTemplate.find(query, Comment.class);
+        for (Comment comment : comments) {
+            Date date = setMongoDBDate(comment);
+            comment.setUpdatedTime(date);
+        }
         // 3.用户未登录，直接返回数据
         User user = AppThreadLocalUtils.getUser();
         if (user == null) {
@@ -229,5 +233,13 @@ public class CommentServiceImpl implements CommentService {
             // 未点赞
             return ResponseResult.okResult(comments);
         }
+    }
+
+    // 设置获取的时间差 -- 待优化
+    private Date setMongoDBDate(Comment comment) {
+        long time = comment.getUpdatedTime().getTime();
+        long a = time - 28800000;
+        Date date = new Date(a);
+        return date;
     }
 }

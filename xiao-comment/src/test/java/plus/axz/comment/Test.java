@@ -67,8 +67,13 @@ public class Test {
         formattedDate.setTimeZone(TimeZone.getTimeZone("UTC"));
         System.out.println(formattedDate.format(date));*/
         Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
         long time = date.getTime();
         long a = time - 28800000;
+        Date date1 = new Date(a);
+        String format = dateFormat.format(a);
         System.out.println(a);
+        System.out.println(date1);
+        System.out.println(format);
     }
 }
