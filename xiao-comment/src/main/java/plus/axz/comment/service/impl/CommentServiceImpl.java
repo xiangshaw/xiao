@@ -1,5 +1,6 @@
 package plus.axz.comment.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import plus.axz.comment.feign.SensitiveFeign;
 import plus.axz.comment.feign.UserFeign;
 import plus.axz.comment.service.CommentService;
 import plus.axz.common.aliyun.GreeTextScan;
+import plus.axz.common.constants.message.HotArticleConstants;
 import plus.axz.model.admin.pojos.Sensitive;
+import plus.axz.model.article.mess.UpdateArticleMess;
 import plus.axz.model.comment.dtos.CommentDto;
 import plus.axz.model.comment.dtos.CommentLikeDto;
 import plus.axz.model.comment.dtos.CommentSaveDto;
@@ -45,6 +49,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private GreeTextScan greeTextScan;
+
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
 
     @Override
     public ResponseResult saveComment(CommentSaveDto dto) {
@@ -89,6 +96,12 @@ public class CommentServiceImpl implements CommentService {
         apComment.setFlag((short) 0);
         mongoTemplate.insert(apComment);
 
+        // 发送消息
+        UpdateArticleMess mess = new UpdateArticleMess();
+        mess.setAdd(1);
+        mess.setArticleId(dto.getArticleId());
+        mess.setType(UpdateArticleMess.UpdateArticleType.COMMENT);
+        kafkaTemplate.send(HotArticleConstants.HOT_ARTICLE_SCORE_TOPIC, JSON.toJSONString(mess));
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 

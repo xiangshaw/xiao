@@ -1,5 +1,6 @@
 package plus.axz.behavior.service.Impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import plus.axz.behavior.mapper.LikesBehaviorMapper;
 import plus.axz.behavior.service.BehaviorEntryService;
 import plus.axz.behavior.service.LikesBehaviorService;
+import plus.axz.common.constants.message.HotArticleConstants;
+import plus.axz.model.article.mess.UpdateArticleMess;
 import plus.axz.model.behavior.dtos.LikesBehaviorDto;
 import plus.axz.model.behavior.pojos.BehaviorEntry;
 import plus.axz.model.behavior.pojos.LikesBehavior;
@@ -49,7 +52,15 @@ public class LikesBehaviorServiceImpl extends ServiceImpl<LikesBehaviorMapper, L
         LikesBehavior likesBehavior = getOne(Wrappers.<LikesBehavior>lambdaQuery()
                 .eq(LikesBehavior::getArticleId, dto.getArticleId())
                 .eq(LikesBehavior::getEntryId, behaviorEntry.getId()));
-        // 发送消息 TODO
+        // 发送消息
+        if (dto.getOperation() == 0){
+            UpdateArticleMess mess = new UpdateArticleMess();
+            mess.setAdd(1);
+            mess.setArticleId(dto.getArticleId());
+            mess.setType(UpdateArticleMess.UpdateArticleType.LIKES);
+            kafkaTemplate.send(HotArticleConstants.HOT_ARTICLE_SCORE_TOPIC, JSON.toJSONString(mess));
+        }
+
         if (likesBehavior == null && dto.getOperation() == 0){
              likesBehavior = new LikesBehavior();
              likesBehavior.setOperation(dto.getOperation());

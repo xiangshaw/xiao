@@ -61,3 +61,6 @@ xxljob:
   executor:
     appname: xiao-article-executor
     port: 6666
+kafka:
+  hosts: 192.168.20.221:9092
+  group: ${spring.application.name}

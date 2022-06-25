@@ -1,5 +1,6 @@
 package plus.axz.behavior.service.Impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import plus.axz.behavior.mapper.ReadBehaviorMapper;
 import plus.axz.behavior.service.BehaviorEntryService;
 import plus.axz.behavior.service.ReadBehaviorService;
+import plus.axz.common.constants.message.HotArticleConstants;
+import plus.axz.model.article.mess.UpdateArticleMess;
 import plus.axz.model.behavior.dtos.ReadBehaviorDto;
 import plus.axz.model.behavior.pojos.BehaviorEntry;
 import plus.axz.model.behavior.pojos.ReadBehavior;
@@ -71,7 +74,12 @@ public class ReadBehaviorServiceImpl extends ServiceImpl<ReadBehaviorMapper, Rea
             readBehavior.setLoadDuration(dto.getLoadDuration());
             updateById(readBehavior);
         }
-        // 发送消息 TODO
+        // 发送消息
+        UpdateArticleMess mess = new UpdateArticleMess();
+        mess.setAdd(1);
+        mess.setArticleId(dto.getArticleId());
+        mess.setType(UpdateArticleMess.UpdateArticleType.VIEWS);
+        kafkaTemplate.send(HotArticleConstants.HOT_ARTICLE_SCORE_TOPIC, JSON.toJSONString(mess));
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 }

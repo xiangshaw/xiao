@@ -2,6 +2,7 @@ package plus.axz.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import plus.axz.model.article.dtos.ArticleHomeDto;
+import plus.axz.model.article.mess.ArticleVisitStreamMess;
 import plus.axz.model.article.pojos.Article;
 import plus.axz.model.common.dtos.ResponseResult;
 
@@ -19,4 +20,19 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     public ResponseResult load(ArticleHomeDto dto, Short loadType);
+
+    /**
+     * 重新计算文章分值
+     * @param mess
+     */
+    public void updateArticle(ArticleVisitStreamMess mess);
+
+    /**
+     * 根据参数加载文章列表  v2
+     * @param loadtypeLoadMore
+     * @param dto
+     * @param firstPage
+     * @return
+     */
+    public ResponseResult load2(ArticleHomeDto dto, Short loadtypeLoadMore, boolean firstPage);
 }

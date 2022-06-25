@@ -25,7 +25,8 @@ public class ArticleHomeController implements ArticleHomeControllerApi {
     @PostMapping("/load")
     @Override
     public ResponseResult load(@RequestBody ArticleHomeDto dto) {
-        return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_MORE);
+//        return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_MORE);
+        return articleService.load2(dto, ArticleConstans.LOADTYPE_LOAD_MORE,true);
     }
 
     @PostMapping("/loadmore")
