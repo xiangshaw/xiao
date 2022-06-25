@@ -49,7 +49,7 @@ public class BehaviorEntry implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createdTime;
 
-    @Alias("ApBehaviorEntryEnumType")
+    @Alias("BehaviorEntryEnumType")
     public enum  Type{
         USER((short)1),EQUIPMENT((short)0);
         @Getter

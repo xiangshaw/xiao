@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author xiaoxiang
  * @date 2022年06月24日
- * @particulars
+ * @particulars es搜索文章、搜索历史记录
  */
 @Data
 public class UserSearchDto {
@@ -35,8 +35,6 @@ public class UserSearchDto {
 
     /**
      * 接收搜索历史记录id
-     *
-     * @return
      */
     Integer id;
 

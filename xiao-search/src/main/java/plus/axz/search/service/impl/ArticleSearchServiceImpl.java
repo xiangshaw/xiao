@@ -12,10 +12,15 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import plus.axz.model.behavior.pojos.BehaviorEntry;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.search.dtos.UserSearchDto;
+import plus.axz.model.user.pojos.User;
+import plus.axz.search.feign.BehaviorFeign;
 import plus.axz.search.service.ArticleSearchService;
+import plus.axz.search.service.UserSearchService;
+import plus.axz.utils.threadlocal.AppThreadLocalUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,12 +38,27 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+
+    @Autowired
+    private UserSearchService userSearchService;
+
     @Override
     public ResponseResult search(UserSearchDto dto) throws IOException {
         // 1.检查参数
         if (dto == null || StringUtils.isBlank(dto.getSearch_words())){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
+        // 只有在首页查询的时候才会保存
+        if (dto.getFromIndex() == 0){
+            BehaviorEntry entry = getEntry(dto);
+            if (entry == null){
+                return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
+            }
+            // 行为实体 和 搜索词
+            userSearchService.insert(entry.getEntryId(),dto.getSearch_words());
+
+        }
+
         // 2.从ES索引库中检索数据
         //构建搜索请求对象，需要指定索引库名称
         SearchRequest searchRequest = new SearchRequest("article_info");
@@ -68,5 +88,17 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
             articleList.add(map);
         }
         return ResponseResult.okResult(articleList);
+    }
+    @Autowired
+    private BehaviorFeign behaviorFeign;
+
+    /**
+     * 获取行为实体
+     * @param userSearchDto
+     * @return
+     */
+    private BehaviorEntry getEntry(UserSearchDto userSearchDto) {
+        User user = AppThreadLocalUtils.getUser();
+        return behaviorFeign.findByUserIdOrEntryId(user.getId(),userSearchDto.getEquipmentId());
     }
 }
