@@ -19,7 +19,7 @@ public class ComputeHotArticleJob {
     @Autowired
     private HotArticlesService hotArticlesService;
 
-    @XxlJob("computeHotArticleJob")/*和xxljob 的JobHandler 填的一定要保持一致**/
+    @XxlJob("xcomputeHotArticleJob")/*和xxljob 的JobHandler 填的一定要保持一致**/
     public ReturnT<String> handle(String param) throws Exception {
         log.info("热文章分值计算调度任务开始执行....");
         hotArticlesService.computeHotArticle();

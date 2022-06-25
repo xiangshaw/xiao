@@ -37,6 +37,9 @@ public class HotArticleServiceImpl implements HotArticlesService {
     // 定时 计算热点文章数据
     @Override
     public void computeHotArticle() {
+
+        // 数据库要保证有前几天的数据
+
         // 1.查询前5天的文章数据
         String s = DateTime.now().minusDays(5).toString("yyyy-MM-dd 00:00:00");
         // gt 大于 发布时间大于前五天的点
