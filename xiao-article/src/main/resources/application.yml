@@ -54,3 +54,9 @@ management:
 elasticsearch:
   host: 192.168.20.221
   port: 9200
+xxljob:
+  admin:
+    addresses: http://localhost:8888/xxl-job-admin
+  executor:
+    appname: xiao-article-executor
+    port: 6666
