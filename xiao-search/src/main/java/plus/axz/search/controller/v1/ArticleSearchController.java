@@ -1,4 +1,4 @@
-package plus.axz.search.controller;
+package plus.axz.search.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

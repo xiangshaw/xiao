@@ -1,4 +1,4 @@
-package plus.axz.search.controller;
+package plus.axz.search.controller.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
