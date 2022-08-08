@@ -23,7 +23,7 @@ import java.util.*;
 @Getter
 @Setter
 @Component/*当前类放入springboot中创建对象*/
-@PropertySource("classpath:/aliyun.properties")
+@PropertySource("classpath:aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun")
 public class GreeTextScan {
 

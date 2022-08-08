@@ -24,7 +24,7 @@ import java.util.*;
 @Getter
 @Setter
 @Component
-@PropertySource("classpath:/aliyun.properties")
+@PropertySource("classpath:aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun")
 public class GreenImageScan {
 

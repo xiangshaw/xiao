@@ -1,4 +1,3 @@
-/*
 package plus.axz.admin.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
@@ -7,12 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-*/
 /**
  * @author xiaoxiang
  * @date 2022年06月15日
  * @particulars 引入xxl-job
- *//*
+ * */
+
 
 @Log4j2
 @Configuration
@@ -38,4 +37,3 @@ public class XxlJobConfig {
         return xxlJobSpringExecutor;
     }
 }
-*/

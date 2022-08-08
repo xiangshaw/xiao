@@ -1,7 +1,8 @@
 package plus.axz.model.wemedia.dtos;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -31,6 +32,8 @@ public class WmNewsDto {
     /**
      * 发布时间
      */
+//    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    @JSONField(format ="yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
     /**
      * 文章内容
@@ -47,6 +50,7 @@ public class WmNewsDto {
     /**
      * 提交时间
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date submitedTime;
     /**
      * 状态    提交为1  草稿为0

@@ -5,7 +5,7 @@
         SELECT
         wn.*, wu.`name` authorName
         FROM
-        wm_news wn
+        news wn
         LEFT JOIN wm_user wu ON wn.user_id = wu.id
         <where>
             <if test="dto.title != null and dto.title != ''">
@@ -20,7 +20,7 @@
         SELECT
         count(1)
         FROM
-        wm_news wn
+        news wn
         LEFT JOIN wm_user wu ON wn.user_id = wu.id
         <where>
             <if test="dto.title != null and dto.title != ''">

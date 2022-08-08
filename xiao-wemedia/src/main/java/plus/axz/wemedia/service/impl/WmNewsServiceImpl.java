@@ -81,6 +81,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         lambdaQueryWrapper.eq(WmNews::getUserId,user.getId());
         // 按照发布时间倒序排序
         lambdaQueryWrapper.orderByDesc(WmNews::getCreatedTime);
+
         Page pageResult = page(pageParam, lambdaQueryWrapper);
         // 3.结果封装查询
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) pageResult.getTotal());
