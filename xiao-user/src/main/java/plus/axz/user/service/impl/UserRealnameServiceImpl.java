@@ -130,7 +130,8 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
         }
         // 创建作者信息
         createAuthor(wmUser);
-
+        // 是验证用户
+        user.setIdentityAuthentication(true);
         // 都创建好之后（ap_user的flag属性）需要标识为自媒体人，，0普通用户，1自媒体人，2大V
         user.setFlag((short) 1);
         userMapper.updateById(user);

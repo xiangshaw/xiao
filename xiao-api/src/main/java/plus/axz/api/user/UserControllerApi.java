@@ -1,6 +1,7 @@
 package plus.axz.api.user;
 
 import io.swagger.annotations.ApiOperation;
+import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.user.pojos.User;
 
 /**
@@ -11,4 +12,6 @@ import plus.axz.model.user.pojos.User;
 public interface UserControllerApi {
     @ApiOperation("根据id查询app端用户信息")
     User  findUserById(Integer id);
+    @ApiOperation("用户注册")
+    ResponseResult UserRegister(User user);
 }
