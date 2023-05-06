@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.12.RELEASE</version>
+        <version>2.1.5.RELEASE</version>
         <relativePath/>
     </parent>
     <properties>
@@ -41,22 +41,26 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!--依赖包管理-->
         <lombok.version>1.18.8</lombok.version>
-        <spring.boot.version>2.1.12.RELEASE</spring.boot.version>
+        <!--https://github.com/alibaba/spring-cloud-alibaba/wiki/版本说明-->
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <com.alibaba.cloud>2.1.0.RELEASE</com.alibaba.cloud>
+        <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
+        <seata.all.version>0.9.0</seata.all.version>
+
         <spring.jwt.version>1.0.9.RELEASE</spring.jwt.version>
         <reflections.version>0.9.11</reflections.version>
-        <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
-        <fastjson.version>2.0.7</fastjson.version>
+        <fastjson.version>1.2.58</fastjson.version>
         <fastjson.dataformat.version>2.9.9</fastjson.dataformat.version>
         <swagger.version>2.9.2</swagger.version>
         <knife4j.version>2.0.2</knife4j.version>
-        <mysql.version>8.0.27</mysql.version>
+        <!--数据库的datetime 被解析为java.sql.Timestamp，解决java.time.LocalDateTime无法反序列化的问题-->
+        <!--seata 1.5.x版本修复了 FastjsonUndoLogParser 中 LocalDataTime 类型无法回滚的问题-->
+        <mysql.version>8.0.22</mysql.version>
         <mybatis.version>3.5.1</mybatis.version>
         <mybatis.spring.version>2.0.1</mybatis.spring.version>
-        <mybatis.plus.version>3.4.0</mybatis.plus.version>
+        <mybatis.plus.version>3.1.1</mybatis.plus.version>
         <pagehelper.version>1.2.3</pagehelper.version>
-        <lang3.version>3.5</lang3.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <com.alibaba.cloud>2.1.0.RELEASE</com.alibaba.cloud>
         <hutool.version>5.7.3</hutool.version>
         <aliyun.version>3.10.2</aliyun.version>
         <aliyun.core.version>4.1.1</aliyun.core.version>
@@ -140,21 +144,6 @@
                 </exclusions>
                 <version>${spring.boot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${spring.boot.version}</version>
-            </dependency>
             <!-- spring colud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -168,6 +157,16 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${com.alibaba.cloud}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.cloud</groupId>
+                        <artifactId>spring-cloud-alibaba-seata</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba.cloud</groupId>
+                        <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                    </exclusion>
+                </exclusions>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -319,6 +318,11 @@
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
                 <version>${es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.all.version}</version>
             </dependency>
         </dependencies>
 

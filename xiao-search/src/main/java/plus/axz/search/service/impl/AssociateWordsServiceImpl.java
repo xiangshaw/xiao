@@ -1,6 +1,7 @@
 package plus.axz.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -37,7 +38,7 @@ public class AssociateWordsServiceImpl extends ServiceImpl<AssociateWordsMapper,
         // 2.模糊查询数据
         Page pageNum = new Page(0, userSearchDto.getPage_size());
         List<AssociateWords> list = list();
-        Page page = page(pageNum, Wrappers.<AssociateWords>lambdaQuery().like(AssociateWords::getAssociateWords, userSearchDto.getSearch_words()));
+        IPage page = page(pageNum, Wrappers.<AssociateWords>lambdaQuery().like(AssociateWords::getAssociateWords, userSearchDto.getSearch_words()));
         return ResponseResult.okResult(page.getRecords());
     }
 

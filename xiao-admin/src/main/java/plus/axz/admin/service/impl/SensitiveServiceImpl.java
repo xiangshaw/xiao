@@ -1,6 +1,7 @@
 package plus.axz.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -46,7 +47,7 @@ public class SensitiveServiceImpl extends ServiceImpl<SensitiveMapper, Sensitive
             // 模糊查询属性(名称)字段，前台传过来的值
             lambdaQueryWrapper.like(Sensitive::getSensitives,dto.getSensitives());
         }
-        Page result = page(page, lambdaQueryWrapper);
+        IPage result = page(page, lambdaQueryWrapper);
         // 3. 结果返回
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) result.getTotal());
         pageResponseResult.setData(result.getRecords());

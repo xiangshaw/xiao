@@ -1,6 +1,7 @@
 package plus.axz.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import plus.axz.admin.mapper.BadgeMapper;
 import plus.axz.admin.service.BadgeService;
-import plus.axz.api.admin.BadgeControllerApi;
 import plus.axz.model.admin.dtos.BadgeDto;
 import plus.axz.model.admin.pojos.Badge;
 import plus.axz.model.common.dtos.PageResponseResult;
@@ -41,7 +41,7 @@ public class BadgeServiceImpl extends ServiceImpl<BadgeMapper, Badge> implements
         if(StringUtils.isNotBlank(dto.getBadge_name())){
             lambdaQueryWrapper.like(Badge::getBadge_name,dto.getBadge_name());
         }
-        Page result = page(page, lambdaQueryWrapper);
+        IPage result = page(page, lambdaQueryWrapper);
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) result.getTotal());
         pageResponseResult.setData(result.getRecords());
         return pageResponseResult;

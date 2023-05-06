@@ -1,5 +1,6 @@
 package plus.axz.search.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -43,7 +44,7 @@ public class UserSearchServiceImpl extends ServiceImpl<UserSearchMapper, UserSea
         // 3.分页查询，默认查询5条数据返回
         Page pageNum = new Page(0, userSearchDto.getPage_size());
         // 条件，行为实体id，有效ID ，状态1有效
-        Page page = page(pageNum, Wrappers.<UserSearch>lambdaQuery()
+        IPage page = page(pageNum, Wrappers.<UserSearch>lambdaQuery()
                 .eq(UserSearch::getEntryId, behaviorEntry.getEntryId())
                 .eq(UserSearch::getStatus,1));
         return ResponseResult.okResult(page.getRecords());

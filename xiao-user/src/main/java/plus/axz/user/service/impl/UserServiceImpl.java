@@ -3,12 +3,12 @@ package plus.axz.user.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import plus.axz.model.common.dtos.ResponseResult;
 import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.user.pojos.User;
 import plus.axz.user.mapper.UserMapper;
 import plus.axz.user.service.UserService;
-import plus.axz.utils.common.MD5Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -37,7 +37,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setStatus(false);
         user.setFlag((short) 0);
         user.setCreatedTime(new Date());
-        user.setPassword(MD5Utils.encodeWithSalt(user.getPassword(),user.getSalt()));
+        String pwd = user.getPassword() + user.getSalt();
+        user.setPassword(DigestUtils.md5DigestAsHex(pwd.getBytes()));
+        user.setImage("https://thirdqq.qlogo.cn/g?b=sdk&k=lgsciaC6XjwmDyty0LTIlfQ&s=100&t=1653756339");
         save(user);
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }

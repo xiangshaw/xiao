@@ -1,6 +1,7 @@
 package plus.axz.wemedia.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,9 +19,9 @@ import plus.axz.model.wemedia.pojos.WmMaterial;
 import plus.axz.model.wemedia.pojos.WmNewsMaterial;
 import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.utils.threadlocal.WmThreadLocalUtils;
-import plus.axz.wemedia.service.WmMaterialService;
 import plus.axz.wemedia.mapper.WmMaterialMapper;
 import plus.axz.wemedia.mapper.WmNewsMaterialMapper;
+import plus.axz.wemedia.service.WmMaterialService;
 
 import java.io.IOException;
 import java.util.Date;
@@ -88,8 +89,8 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         }
         // 5. 按照日期倒序排序
         lambdaQueryWrapper.orderByDesc(WmMaterial::getCreatedTime);
-        Page pageParam  = new Page(dto.getPage(), dto.getSize());
-        Page resultPage = page(pageParam, lambdaQueryWrapper);
+        IPage pageParam  = new Page(dto.getPage(), dto.getSize());
+        IPage resultPage = page(pageParam, lambdaQueryWrapper);
         // 6. 结果返回
         PageResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) resultPage.getTotal());
         List<WmMaterial> datas = resultPage.getRecords();

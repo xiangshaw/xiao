@@ -13,13 +13,13 @@ import java.util.*;
  */
 public class JwtUtil {
     // TOKEN的有效期一天（S）
-    private static final int TOKEN_TIME_OUT = 3_600;
+    private static final int TOKEN_TIME_OUT = 3600000;// 60 * 60 *1000  一个小时
     // 加密KEY
     private static final String TOKEN_ENCRY_KEY = "AxzXiAo9ZNIoJiUXiaNg1PLdi6NI";
     // 最小刷新间隔(S)
     private static final int REFRESH_TIME = 300;
 
-    // 生产ID
+    // 生产ID(创建token)
     public static String getToken(Long id){
         Map<String, Object> claimMaps = new HashMap<>();
         claimMaps.put("id",id);

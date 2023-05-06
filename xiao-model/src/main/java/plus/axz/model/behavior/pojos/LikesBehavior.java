@@ -23,7 +23,7 @@ public class LikesBehavior implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     @IdEncrypt
     private Long id;
 

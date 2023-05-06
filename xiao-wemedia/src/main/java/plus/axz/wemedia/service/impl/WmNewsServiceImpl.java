@@ -2,6 +2,7 @@ package plus.axz.wemedia.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -82,7 +83,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         // 按照发布时间倒序排序
         lambdaQueryWrapper.orderByDesc(WmNews::getCreatedTime);
 
-        Page pageResult = page(pageParam, lambdaQueryWrapper);
+        IPage pageResult = page(pageParam, lambdaQueryWrapper);
         // 3.结果封装查询
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) pageResult.getTotal());
         pageResponseResult.setData(pageResult.getRecords());

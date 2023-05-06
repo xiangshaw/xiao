@@ -58,3 +58,30 @@ management:
 elasticsearch:
   host: 192.168.20.221
   port: 9200
+
+# seata配置
+seata:
+  enabled: true
+  # seata应用名
+  application-id: ${spring.application.name}
+  # 事务分组名
+  tx-service-group: my_test_tx_group
+  data-source-proxy-mode: AT
+  # 开启自动代理
+  enable-auto-data-source-proxy: true
+  use-jdk-proxy: true
+  # 服务配置项
+  service:
+    # 虚拟组和分组的映射
+    vgroup-mapping:
+      xiao-admin-group: default
+  # 服务注册到nacos
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      #namespace:
+      username:
+      password:
+      group: SEATA_GROUP

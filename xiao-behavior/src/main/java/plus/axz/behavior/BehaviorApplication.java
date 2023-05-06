@@ -1,7 +1,6 @@
 package plus.axz.behavior;
 
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,15 +26,15 @@ public class BehaviorApplication {
      * mybatis-plus分页插件
      * 3.4版本以前
      */
-    /*@Bean
+    @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
-    }*/
+    }
 
     /*
      3.4版本后
     */
-    @Bean
+   /* @Bean
     public MybatisPlusInterceptor paginationInterceptor(){
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         // 分页拦截器
@@ -44,5 +43,5 @@ public class BehaviorApplication {
         paginationInnerInterceptor.setMaxLimit(500L);
         mybatisPlusInterceptor.addInnerInterceptor(paginationInnerInterceptor);
         return mybatisPlusInterceptor;
-    }
+    }*/
 }

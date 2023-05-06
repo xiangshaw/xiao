@@ -1,11 +1,8 @@
 package plus.axz.admin;
 
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -28,15 +25,15 @@ public class AdminApplication {
      * mybatis-plus分页插件
      * 3.4版本以前
      */
-    /*@Bean
+    @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
-    }*/
+    }
 
     /*
      3.4版本后
     */
-    @Bean
+   /* @Bean
     public MybatisPlusInterceptor paginationInterceptor(){
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         // 分页拦截器
@@ -45,5 +42,5 @@ public class AdminApplication {
         paginationInnerInterceptor.setMaxLimit(500L);
         mybatisPlusInterceptor.addInnerInterceptor(paginationInnerInterceptor);
         return mybatisPlusInterceptor;
-    }
+    }*/
 }

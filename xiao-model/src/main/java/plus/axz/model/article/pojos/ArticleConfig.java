@@ -15,7 +15,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 @Data
 @TableName("article_config")
 public class ArticleConfig {
-    @TableId(value = "id", type = IdType.ASSIGN_ID)/*雪花算法*/
+    @TableId(value = "id", type = IdType.ID_WORKER)/*雪花算法*/
     @IdEncrypt
     private Long id;
     /**

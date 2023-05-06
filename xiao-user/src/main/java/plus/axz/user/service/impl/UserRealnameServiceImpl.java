@@ -1,8 +1,11 @@
 package plus.axz.user.service.impl;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,18 +51,20 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
             lambdaQueryWrapper.eq(UserRealname::getStatus, dto.getStatus());
         }
         // 分页条件构建
-        Page pageParam = new Page(dto.getPage(), dto.getSize());
+        IPage pageParam = new Page(dto.getPage(), dto.getSize());
         // 需要 分页对象 和 状态
-        Page page = page(pageParam, lambdaQueryWrapper);
+        IPage page = page(pageParam, lambdaQueryWrapper);
 
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         pageResponseResult.setData(page.getRecords());
         return pageResponseResult;
     }
 
+    @GlobalTransactional(rollbackFor = Exception.class)
     @Override
-    @GlobalTransactional
+    // 审核user_realname表中用户，通过后状态为9，然后wm_user、author表新增用户数据
     public ResponseResult updateStatusById(AuthDto dto, Short status) {
+        System.out.println("seata全局事务id====================>"+ RootContext.getXID());
         // 1.  检查参数
         if (dto == null || dto.getId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -82,14 +87,16 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
         updateById(userRealname);
         // 3. 如果审核状态是9通过，创建自媒体账户，创建作者信息
         if (status.equals(UserConstants.PASS_AUTH)) {
+            // 4. 异常回滚测试， 测试本地事务
+            // int a = 1/0;
             //9通过，创建自媒体账户和作者信息
             ResponseResult result = createWmUserAndAuthor(dto);
             if (result != null) {
                 return result;
             }
         }
-        // 4. 异常回滚测试
-//        int a = 1/0;
+        // 4. 异常回滚测试， 测试分布式事务
+        int a = 1 / 0;
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
@@ -130,8 +137,6 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
         }
         // 创建作者信息
         createAuthor(wmUser);
-        // 是验证用户
-        user.setIdentityAuthentication(true);
         // 都创建好之后（ap_user的flag属性）需要标识为自媒体人，，0普通用户，1自媒体人，2大V
         user.setFlag((short) 1);
         userMapper.updateById(user);

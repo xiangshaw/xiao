@@ -1,10 +1,10 @@
 package plus.axz.article;
 
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Bean;
  * @date 2022年03月21日
  * @particulars Article微服务引导类
  */
-@SpringBootApplication
+// 移除自动数据源配置，采取自定义数据源配置方式
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan("plus.axz.article.mapper")/*扫描mapper接口*/
 @EnableDiscoveryClient
 @EnableFeignClients //开启feign调用
@@ -28,15 +29,15 @@ public class ArticleApplication {
      * mybatis-plus分页插件
      * 3.4版本以前
      */
-    /*@Bean
+    @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
-    }*/
+    }
 
     /*
      3.4版本后
     */
-    @Bean
+   /* @Bean
     public MybatisPlusInterceptor paginationInterceptor(){
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         // 分页拦截器
@@ -45,5 +46,5 @@ public class ArticleApplication {
         paginationInnerInterceptor.setMaxLimit(500L);
         mybatisPlusInterceptor.addInnerInterceptor(paginationInnerInterceptor);
         return mybatisPlusInterceptor;
-    }
+    }*/
 }

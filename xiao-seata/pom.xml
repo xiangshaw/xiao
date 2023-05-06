@@ -17,31 +17,38 @@
     </properties>
 
     <dependencies>
-    <dependency>
-        <groupId>plus.axz</groupId>
-        <artifactId>xiao-common</artifactId><!--存技术解决方案-->
-    </dependency>
-    <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-        <version>2.1.0.RELEASE</version>
-    </dependency>
-    <dependency>
-    <groupId>io.seata</groupId>
-    <artifactId>seata-all</artifactId>
-    <version>0.9.0</version>
-        <exclusions>
-            <exclusion>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-    <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>druid</artifactId>
-        <version>1.1.21</version>
-    </dependency>
+        <dependency>
+            <groupId>plus.axz</groupId>
+            <artifactId>xiao-common</artifactId><!--存技术解决方案-->
+        </dependency>
+        <!--https://github.com/alibaba/spring-cloud-alibaba/wiki/版本说明-->
+        <!--在1.0版本之后 seata-spring-boot-starter替换 seata-all-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <version>2.1.0.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.21</version>
+        </dependency>
     </dependencies>
 
 </project>

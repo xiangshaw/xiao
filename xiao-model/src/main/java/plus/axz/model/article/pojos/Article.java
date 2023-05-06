@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 @TableName("article")
 public class Article {
-    @TableId(value = "id", type = IdType.ASSIGN_ID)/*雪花算法*/
+    @TableId(value = "id", type = IdType.ID_WORKER)/*雪花算法*/
     @IdEncrypt
     private Long id;
     /**
