@@ -57,7 +57,7 @@ elasticsearch:
   port: 9200
 
 xxljob:
-  admin:
+  article:
     addresses: http://localhost:8888/xxl-job-admin
   executor:
     appname: xiao-article-executor
