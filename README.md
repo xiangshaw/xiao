@@ -4,7 +4,14 @@
     <a href="https://gitee.com/iaxz/" target="_blank"><img alt="gitee" src="https://img.shields.io/badge/gitee-axz-d05577?style=flat-square&logo=gitee"></a>
 </p>
 
-> 总结自己学过的技术，编写项目
+> 结合自己学过的技术，编写项目
+
+>项目描述: 本地热点新闻是一款最热最新的新闻资讯平台，通过系统计算分类，分析用户喜好精准推送资讯新闻从而满足用户的需求。
+整个项目采用前后端分离技术架构，基于 SpringBoot+SpringCloud 构建，数据访问层使用 MyBatis Plus；
+使用MySQL 进行数据存储，通过消息中间件 Kafka 实现的消息的 异步处理和服务之间松耦合，通过缓存 Redis、以及评论数据存储 MongDB 减轻数据库访问压力；
+搜索功能使用 ElasticSearch 配合 IK 分词器实现站内搜索；
+- 软件环境: MySQL + Redis + MongoDB + FastDFS + Ngnix + Maven + Git + IDEA + JDK1.8
+- 项目技术: SpringBoot + SpringCloud + Nacos + Seata + MyBatis Plus + Kafka + Elasticsearch + xxl-job + kafka stream
 ## 已经完成的功能
 - [x] 接口通用请求和响应
 - [x] 标签管理

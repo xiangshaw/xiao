@@ -146,6 +146,7 @@ public class CommentServiceImpl implements CommentService {
         if (user == null) {
             return ResponseResult.errorResult(ResultEnum.NEED_LOGIN);
         }
+        // 查找评论
         Comment comment = mongoTemplate.findById(dto.getCommentId(), Comment.class);
         if (comment == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID, "当前评论未找到");
@@ -173,10 +174,11 @@ public class CommentServiceImpl implements CommentService {
                             .where("authorId")
                             .is(user.getId())
                             .and("commentId")
+                            // 后面一定记得加上CommentLike.class，也就是指定要删除的集合
                             .is(comment.getId())), CommentLike.class);
         }
         // 5.结果封装返回 -》评论点赞数量
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("likes", comment.getLikes());
         return ResponseResult.okResult(map);
     }

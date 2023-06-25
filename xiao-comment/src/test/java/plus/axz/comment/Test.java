@@ -72,6 +72,11 @@ public class Test {
         long a = time - 28800000;
         Date date1 = new Date(a);
         String format = dateFormat.format(a);
+        /**
+         1687373093771
+         Thu Jun 22 02:44:53 CST 2023
+         2023-06-22 02:44:53:771
+         */
         System.out.println(a);
         System.out.println(date1);
         System.out.println(format);
