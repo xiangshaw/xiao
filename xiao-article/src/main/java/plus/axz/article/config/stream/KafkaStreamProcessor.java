@@ -10,10 +10,10 @@ import org.springframework.util.Assert;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars kafka自动处理包装类
+ * description kafka自动处理包装类
  */
 public class KafkaStreamProcessor {
     // 流构建器
@@ -21,27 +21,26 @@ public class KafkaStreamProcessor {
     private String type;
     KafkaStreamListener listener;
 
-    public KafkaStreamProcessor(StreamsBuilder streamsBuilder,KafkaStreamListener kafkaStreamListener){
+    public KafkaStreamProcessor(StreamsBuilder streamsBuilder, KafkaStreamListener kafkaStreamListener) {
         this.streamsBuilder = streamsBuilder;
         this.listener = kafkaStreamListener;
         this.parseType();
-        Assert.notNull(this.type,"Kafka Stream 监听器只支持kstream、ktable,当前类型是"+this.type);
+        Assert.notNull(this.type, "Kafka Stream 监听器只支持kstream、ktable,当前类型是" + this.type);
     }
 
     /**
      * 通过泛型类型自动注册对应类型的流处理器对象
      * 支持KStream、KTable
-     * @return
      */
-    public Object doAction(){
-        if("kstream".equals(this.type)) {
+    public Object doAction() {
+        if ("kstream".equals(this.type)) {
             KStream<?, ?> stream = streamsBuilder.stream(listener.listenerTopic(), Consumed.with(Topology.AutoOffsetReset.LATEST));
-            stream=(KStream)listener.getService(stream);
+            stream = (KStream) listener.getService(stream);
             stream.to(listener.sendTopic());
             return stream;
-        }else{
+        } else {
             KTable<?, ?> table = streamsBuilder.table(listener.listenerTopic(), Consumed.with(Topology.AutoOffsetReset.LATEST));
-            table = (KTable)listener.getService(table);
+            table = (KTable) listener.getService(table);
             table.toStream().to(listener.sendTopic());
             return table;
         }
@@ -50,15 +49,15 @@ public class KafkaStreamProcessor {
     /**
      * 解析传入listener类的泛型类
      */
-    private void parseType(){
+    private void parseType() {
         Type[] types = listener.getClass().getGenericInterfaces();
-        if(types!=null){
+        if (types != null) {
             for (int i = 0; i < types.length; i++) {
-                if( types[i] instanceof ParameterizedType){
-                    ParameterizedType t = (ParameterizedType)types[i];
+                if (types[i] instanceof ParameterizedType) {
+                    ParameterizedType t = (ParameterizedType) types[i];
                     String name = t.getActualTypeArguments()[0].getTypeName().toLowerCase();
-                    if(name.contains("org.apache.kafka.streams.kstream.kstream")||name.contains("org.apache.kafka.streams.kstream.ktable")){
-                        this.type = name.substring(0,name.indexOf('<')).replace("org.apache.kafka.streams.kstream.","").trim();
+                    if (name.contains("org.apache.kafka.streams.kstream.kstream") || name.contains("org.apache.kafka.streams.kstream.ktable")) {
+                        this.type = name.substring(0, name.indexOf('<')).replace("org.apache.kafka.streams.kstream.", "").trim();
                         break;
                     }
                 }

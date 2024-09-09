@@ -7,12 +7,10 @@ import plus.axz.model.user.pojos.UserFollow;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 用户远程接口
+ * description 用户远程接口
  */
 @FeignClient("xiao-user")
 public interface UserFeign {
-
     @GetMapping("/api/v1/user_follow/one")
     UserFollow findByUserIdAndFollowId(@RequestParam("userId") Integer userId, @RequestParam("followId") Integer followId);
 }

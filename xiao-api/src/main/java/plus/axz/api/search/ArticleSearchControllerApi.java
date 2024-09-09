@@ -8,10 +8,9 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 搜索文章
+ * description 搜索文章
  */
 public interface ArticleSearchControllerApi {
     @ApiOperation("ES分页搜索文章")
-    public ResponseResult search(UserSearchDto dto) throws IOException;
+     ResponseResult<?> search(UserSearchDto dto) throws IOException;
 }

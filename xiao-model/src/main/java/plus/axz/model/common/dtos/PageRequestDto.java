@@ -4,11 +4,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author xiaoxiang
+ * description 分页请求参数
+ */
 @Data
 @Slf4j
 public class PageRequestDto {
 
-    @ApiModelProperty(value="每页显示条数",required = true)/*required 参数必须要传*/
+    @ApiModelProperty(value="每页显示条数",required = true)
     protected Integer size;
     @ApiModelProperty(value="当前页",required = true)
     protected Integer page;

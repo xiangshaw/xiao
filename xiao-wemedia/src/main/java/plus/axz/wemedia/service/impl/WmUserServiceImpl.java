@@ -10,21 +10,20 @@ import plus.axz.model.common.enums.ResultEnum;
 import plus.axz.model.wemedia.dtos.WmUserDto;
 import plus.axz.model.wemedia.pojos.WmUser;
 import plus.axz.utils.common.JwtUtil;
-import plus.axz.wemedia.service.WmUserService;
 import plus.axz.wemedia.mapper.WmUserMapper;
+import plus.axz.wemedia.service.WmUserService;
 
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 @Service
 public class WmUserServiceImpl extends ServiceImpl<WmUserMapper, WmUser> implements WmUserService {
     @Override
-    public ResponseResult login(WmUserDto dto) {
+    public ResponseResult<?> login(WmUserDto dto) {
         // 1.检查参数
         if (StringUtils.isEmpty(dto.getName()) || StringUtils.isEmpty(dto.getPassword())){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"用户名或密码错误");

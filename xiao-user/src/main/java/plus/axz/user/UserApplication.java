@@ -12,19 +12,20 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月24日
- * @particulars 用户引导类
+ * description 用户引导类
  */
 // 移除自动数据源配置，采取自定义数据源配置方式
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan("plus.axz.user.mapper")
 @EnableDiscoveryClient
-@ServletComponentScan("plus.axz.user.filter")/*生效TokenFilter*/
+// 生效TokenFilter
+@ServletComponentScan("plus.axz.user.filter")
 @EnableFeignClients // 开启远程调用
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);
     }
+
     /**
      * mybatis-plus分页插件
      * 3.4版本以前

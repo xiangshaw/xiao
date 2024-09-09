@@ -5,8 +5,7 @@ import plus.axz.model.article.pojos.Author;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 public interface AuthorService  extends IService<Author> {
 }

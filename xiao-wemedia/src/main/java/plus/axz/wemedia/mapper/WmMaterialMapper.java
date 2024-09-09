@@ -6,8 +6,7 @@ import plus.axz.model.wemedia.pojos.WmMaterial;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月02日
- * @particulars 素材图片上传
+ * description 素材图片上传
  */
 @Mapper
 public interface WmMaterialMapper extends BaseMapper<WmMaterial> {

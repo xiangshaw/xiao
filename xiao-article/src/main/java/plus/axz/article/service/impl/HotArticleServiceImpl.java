@@ -2,9 +2,9 @@ package plus.axz.article.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.RequiredArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +24,14 @@ import java.util.stream.Collectors;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 计算热文章
+ * description 计算热文章
  */
-
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class HotArticleServiceImpl implements HotArticlesService {
-    @Autowired
-    private ArticleMapper articleMapper;
+
+    private final ArticleMapper articleMapper;
 
     // 定时 计算热点文章数据
     @Override
@@ -50,10 +49,6 @@ public class HotArticleServiceImpl implements HotArticlesService {
 
     /**
      * 计算文章分值
-     * @param articles
-     * @return java.util.List<plus.axz.model.article.pojos.Article>
-     * @author xiaoxiang
-     * @date 2022/6/25
      */
     private List<HotArticleVo> computeHotArticle(List<Article> articles) {
         List<HotArticleVo> resultList = new ArrayList<>();
@@ -77,13 +72,10 @@ public class HotArticleServiceImpl implements HotArticlesService {
 
     /**
      * 计算某一个文章的分值
-     * @param article
-     * @author xiaoxiang
-     * @date 2022/6/25
      */
     private Integer computeScore(Article article) {
         // 默认分值0
-        Integer score = 0;
+        int score = 0;
         if (article.getLikes() != null) {
             // 喜欢量 的权重
             score += article.getLikes() * ArticleConstans.HOT_ARTICLE_LIKE_WEIGHT;
@@ -103,20 +95,16 @@ public class HotArticleServiceImpl implements HotArticlesService {
         return score;
     }
 
-    @Autowired
-    private AdminFeign adminFeign;
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    private final AdminFeign adminFeign;
+
+    private final StringRedisTemplate redisTemplate;
 
     /**
      * 给每一个频道缓存分值较高的30条数据
-     * @param hotArticleVoList
-     * @author xiaoxiang
-     * @date 2022/6/25
      */
     private void cacheTagToRedis(List<HotArticleVo> hotArticleVoList) {
         // 1.查询所有频道标签
-        ResponseResult responseResult = adminFeign.selectAllTag();
+        ResponseResult<?> responseResult = adminFeign.selectAllTag();
         // 拿到所有频道标签信息 （先将JSON数据转为对象）
         List<Tag> tags = JSON.parseArray(JSON.toJSONString(responseResult.getData()), Tag.class);
         // 2.检索出频道对应的文章列表，给每个频道 分值较高的 存30条数据 到Redis
@@ -134,10 +122,6 @@ public class HotArticleServiceImpl implements HotArticlesService {
 
     /**
      * 排序并缓存
-     * @param hotArticleVos
-     * @param s
-     * @author xiaoxiang
-     * @date 2022/6/25
      */
     private void sortAndCache(List<HotArticleVo> hotArticleVos, String s) {
         // sort排序

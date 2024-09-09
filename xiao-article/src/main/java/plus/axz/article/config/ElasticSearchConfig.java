@@ -2,6 +2,7 @@ package plus.axz.article.config;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -11,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 配置es环境
+ * description 配置es环境
  */
+@Log4j2
 @Getter
 @Setter
 @Configuration
@@ -24,8 +25,8 @@ public class ElasticSearchConfig {
 
     @Bean
     public RestHighLevelClient client(){/*客户端*/
-        System.out.println(host);
-        System.out.println(port);
+        log.info("当前elasticsearch host: {}", host);
+        log.info("当前elasticsearch port: {}", port);
         return new RestHighLevelClient(RestClient.builder(
                 new HttpHost(
                         host,

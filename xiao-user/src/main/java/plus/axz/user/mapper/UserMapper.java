@@ -6,8 +6,7 @@ import plus.axz.model.user.pojos.User;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {

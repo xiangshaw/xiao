@@ -1,9 +1,9 @@
 package plus.axz.comment.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -34,27 +34,23 @@ import java.util.stream.Collectors;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 评论服务实现类
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
-    @Autowired
-    private UserFeign userFeign;
+    private final UserFeign userFeign;
 
-    @Autowired
-    private GreeTextScan greeTextScan;
+    private final GreeTextScan greeTextScan;
 
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate kafkaTemplate;
 
     @Override
-    public ResponseResult saveComment(CommentSaveDto dto) {
+    public ResponseResult<?> saveComment(CommentSaveDto dto) {
         //1.检查参数
         if (dto.getArticleId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_REQUIRE);
@@ -83,9 +79,10 @@ public class CommentServiceImpl implements CommentService {
         Comment apComment = new Comment();
         apComment.setAuthorId(user1.getId());
         apComment.setAuthorName(user1.getName());
-        apComment.setContent(dto.getContent());/*评论内容*/
+        // 评论内容
+        apComment.setContent(dto.getContent());
         apComment.setEntryId(dto.getArticleId());
-        /*获取MongoDB的当前时间，时区UTC转GMT*/
+        // 获取MongoDB的当前时间，时区UTC转GMT
         Calendar calle = getMongoDBTime();
         apComment.setCreatedTime(calle.getTime());
         apComment.setUpdatedTime(calle.getTime());
@@ -113,8 +110,7 @@ public class CommentServiceImpl implements CommentService {
         return calle;
     }
 
-    @Autowired
-    private SensitiveFeign sensitiveFeign;
+    private final SensitiveFeign sensitiveFeign;
 
     // 评论审核
     private boolean handleSensitive(String content) {
@@ -136,7 +132,7 @@ public class CommentServiceImpl implements CommentService {
 
     // 点赞或取消点赞
     @Override
-    public ResponseResult like(CommentLikeDto dto) {
+    public ResponseResult<?> like(CommentLikeDto dto) {
         // 1.检查参数
         if (dto == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -185,7 +181,7 @@ public class CommentServiceImpl implements CommentService {
 
     // 查询文章评论列表
     @Override
-    public ResponseResult findByArticleId(CommentDto dto) {
+    public ResponseResult<?> findByArticleId(CommentDto dto) {
         // 1.检查参数
         if (dto.getArticleId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -196,8 +192,9 @@ public class CommentServiceImpl implements CommentService {
         Query query = Query.query(Criteria.where("entryId")
                 .is(dto.getArticleId())
                 .and("createdTime")
-                .lt(dto.getMinDate()));// 根据文章或动态ID进行检索
-/*
+                // 根据文章或动态ID进行检索
+                .lt(dto.getMinDate()));
+        /*
          is  精确匹配
          模糊匹配 使用regex
         "$gte"---大于等于
@@ -205,7 +202,8 @@ public class CommentServiceImpl implements CommentService {
         "$lt"----小于
         "$lte"----小于等于
         "$in"----在此范围
-        "$nin"----不在此范围*/
+        "$nin"----不在此范围
+        */
         // 设置分页和排序  -- 根据创建时间倒叙排序
         query.limit(size).with(Sort.by(Sort.Direction.DESC, "createdTime"));
         // 分页之后的评论列表
@@ -254,7 +252,6 @@ public class CommentServiceImpl implements CommentService {
     private Date setMongoDBDate(Comment comment) {
         long time = comment.getUpdatedTime().getTime();
         long a = time - 28800000;
-        Date date = new Date(a);
-        return date;
+        return new Date(a);
     }
 }

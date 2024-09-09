@@ -5,9 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -23,29 +22,27 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词实现类
+ * description 联想词实现类
  */
-@Slf4j
+@RequiredArgsConstructor
 @Service
 public class AssociateWordsServiceImpl extends ServiceImpl<AssociateWordsMapper, AssociateWords> implements AssociateWordsService {
     @Override
-    public ResponseResult search(UserSearchDto userSearchDto) {
+    public ResponseResult<?> search(UserSearchDto userSearchDto) {
         // 1.检查参数
         if (userSearchDto.getPage_size()>50){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"搜索词过多，输入关键字再重试下~");
         }
         // 2.模糊查询数据
-        Page pageNum = new Page(0, userSearchDto.getPage_size());
+        Page<AssociateWords> pageNum = new Page<>(0, userSearchDto.getPage_size());
         List<AssociateWords> list = list();
-        IPage page = page(pageNum, Wrappers.<AssociateWords>lambdaQuery().like(AssociateWords::getAssociateWords, userSearchDto.getSearch_words()));
+        IPage<AssociateWords> page = page(pageNum, Wrappers.<AssociateWords>lambdaQuery().like(AssociateWords::getAssociateWords, userSearchDto.getSearch_words()));
         return ResponseResult.okResult(page.getRecords());
     }
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
     @Override
-    public ResponseResult searchV2(UserSearchDto userSearchDto) {
+    public ResponseResult<?> searchV2(UserSearchDto userSearchDto) {
         // 1.从缓存中获取数据
         String associateList = redisTemplate.opsForValue().get("associate_list");
         List<AssociateWords> associateWords = null;

@@ -11,18 +11,21 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 搜索微服务
+ * description 搜索微服务
  */
 @SpringBootApplication
 @MapperScan("plus.axz.search.mapper")
-@EnableDiscoveryClient/*将一个微服务注册到Eureka Server*/
-@ServletComponentScan/*Servlet、Filter、Listener可以直接通过@WebServlet、@WebFilter、@WebListener注解自动注册，无需其他代码。*/
-@EnableFeignClients/*开启远程接口调用*/
+/*将一个微服务注册到Eureka Server*/
+@EnableDiscoveryClient
+/*Servlet、Filter、Listener可以直接通过@WebServlet、@WebFilter、@WebListener注解自动注册，无需其他代码。*/
+@ServletComponentScan
+/*开启远程接口调用*/
+@EnableFeignClients
 public class SearchApplication {
     public static void main(String[] args) {
         SpringApplication.run(SearchApplication.class, args);
     }
+
     /**
      * mybatis-plus分页插件
      * 3.4版本以前

@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars 行为微服务
+ * description 行为微服务
  */
 @SpringBootApplication
 @MapperScan("plus.axz.behavior.mapper")
-@ServletComponentScan("plus.axz.behavior.filter")/*生效TokenFilter*/
+/*生效TokenFilter*/
+@ServletComponentScan("plus.axz.behavior.filter")
 @EnableDiscoveryClient
 public class BehaviorApplication {
     public static void main(String[] args) {

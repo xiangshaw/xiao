@@ -10,11 +10,10 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月21日
- * @particulars admin微服务引导类
+ * description admin微服务引导类
  */
 @SpringBootApplication
-@MapperScan("plus.axz.admin.mapper")/*扫描mapper接口*/
+@MapperScan("plus.axz.admin.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients
 public class AdminApplication {

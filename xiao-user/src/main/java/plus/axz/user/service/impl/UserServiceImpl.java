@@ -15,14 +15,13 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 根据id查询app用户信息
+ * description 根据id查询app用户信息
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     // 用户注册
     @Override
-    public ResponseResult UserRegister(User user) {
+    public ResponseResult<?> userRegister(User user) {
         // 1.检查参数
         if (user == null){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);

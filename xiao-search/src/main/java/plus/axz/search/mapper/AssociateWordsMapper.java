@@ -6,8 +6,7 @@ import plus.axz.model.search.pojos.AssociateWords;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词的mapper接口
+ * description 联想词的mapper接口
  */
 @Mapper
 public interface AssociateWordsMapper extends BaseMapper<AssociateWords> {

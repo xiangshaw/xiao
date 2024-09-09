@@ -2,8 +2,8 @@ package plus.axz.admin.job;
 
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import plus.axz.admin.feign.WemediaFeign;
 import plus.axz.admin.service.WeMediaNewsAutoScanService;
@@ -12,23 +12,20 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 创建任务,查询自媒体文章后进行审核
+ * description 创建任务,查询自媒体文章后进行审核
  */
-@Component
+@RequiredArgsConstructor
 @Log4j2
+@Component
 public class WeMediaNewsAutoScanJob {
-    @Autowired
-    private WeMediaNewsAutoScanService weMediaNewsAutoScanService;/*自动审核*/
 
-    @Autowired
-    private WemediaFeign wemediaFeign;
+    /*自动审核*/
+    private final WeMediaNewsAutoScanService weMediaNewsAutoScanService;
+
+    private final WemediaFeign wemediaFeign;
 
     /**
      * 每天0点执行一次
-     * @param param
-     * @return
-     * @throws Exception
      */
     @XxlJob("wemediaAutoScanJob")
     public ReturnT<String> hello(String param) throws Exception {

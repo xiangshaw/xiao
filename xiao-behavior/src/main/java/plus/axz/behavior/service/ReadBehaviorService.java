@@ -7,9 +7,8 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 保存阅读行为
+ * description 保存阅读行为
  */
 public interface ReadBehaviorService extends IService<ReadBehavior> {
-    ResponseResult readBehavior(ReadBehaviorDto dto);
+    ResponseResult<?> readBehavior(ReadBehaviorDto dto);
 }

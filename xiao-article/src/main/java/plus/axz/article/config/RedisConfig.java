@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 文章新数据分值计算
+ * description 文章新数据分值计算
  */
 @Configuration
 @ComponentScan("plus.axz.common.redis")

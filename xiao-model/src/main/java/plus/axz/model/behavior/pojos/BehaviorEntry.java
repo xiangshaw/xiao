@@ -14,8 +14,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars APP行为实体表,一个行为实体可能是用户或者设备，或者其它
+ * description APP行为实体表,一个行为实体可能是用户或者设备，或者其它
  */
 @Data
 @TableName("behavior_entry")

@@ -1,6 +1,6 @@
 package plus.axz.admin.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,19 +11,18 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月24日
- * @particulars admin登录
+ * description admin登录
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/login")
 public class LoginController implements LoginControllerApi {
 
-    @Autowired
-    private UserLoginService userLoginService;
+    private final UserLoginService userLoginService;
 
     @Override
     @PostMapping("/in")
-    public ResponseResult login(AdUserDto dto) {
+    public ResponseResult<?> login(AdUserDto dto) {
         return userLoginService.login(dto);
     }
 }

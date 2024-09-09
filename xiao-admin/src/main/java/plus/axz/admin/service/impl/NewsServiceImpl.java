@@ -20,13 +20,12 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月26日
- * @Description:
+ * description 新闻实现类
  */
 @Service
 public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements NewsService {
     @Override
-    public ResponseResult insert(News news) {
+    public ResponseResult<?> insert(News news) {
         // 1. 检查参数
         if (news == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -44,7 +43,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     }
 
     @Override
-    public ResponseResult update(News news) {
+    public ResponseResult<?> update(News news) {
         // 1. 检查参数
         if (news == null && news.getId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -56,13 +55,13 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     }
 
     @Override
-    public ResponseResult deleteById(Integer id) {
+    public ResponseResult<?> deleteById(Integer id) {
         // 1. 检查参数
         if (id == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 2.判断当前标签是否存在 和 是否 有效
-        News news = getById(id);/*先根据id查数据*/
+        News news = getById(id);
         if (news == null) {
             return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST);
         }
@@ -72,7 +71,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     }
 
     @Override
-    public ResponseResult findByNameAndPage(NewsDto dto) {
+    public ResponseResult<?> findByNameAndPage(NewsDto dto) {
         // 1. 检查参数
         if (dto == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID, "作者不存在");
@@ -81,16 +80,16 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
         dto.checkParam();
         // 3. mybatis-plus 按照名称 模糊 分页查询
         // 当前页，每页显示条数
-        Page page = new Page(dto.getPage(), dto.getSize());
+        Page<News> page = new Page<>(dto.getPage(), dto.getSize());
         // 泛型
-        LambdaQueryWrapper<News> lambdaQueryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<News> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         // 判断拿到的name不为空
         if (StringUtils.isNotBlank(dto.getAuthor())) {
             // 模糊查询属性名称（字段），传过来的值
             lambdaQueryWrapper.like(News::getAuthor, dto.getAuthor());
         }
 
-        IPage result = page(page, lambdaQueryWrapper);
+        IPage<News> result = page(page, lambdaQueryWrapper);
         // 4. 结果封装          当前页数，每页条数，总条数
         PageResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) result.getTotal());
         // 要把数据都携带过去，从result中拿到每一行记录

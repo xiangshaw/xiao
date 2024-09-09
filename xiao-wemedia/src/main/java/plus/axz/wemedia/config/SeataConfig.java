@@ -4,7 +4,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 引入Seata工程
+ * @author xiaoxiang
+ * description 引入Seata工程
  */
 
 @Configuration

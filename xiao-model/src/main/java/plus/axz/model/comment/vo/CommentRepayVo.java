@@ -1,13 +1,14 @@
 package plus.axz.model.comment.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import plus.axz.model.comment.pojos.CommentRepay;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 加载评论回复列表数据封装类
+ * description 加载评论回复列表数据封装类
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CommentRepayVo extends CommentRepay {
     /**

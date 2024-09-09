@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 发表评论
+ * description 发表评论
  */
 @Data
 public class CommentSaveDto {

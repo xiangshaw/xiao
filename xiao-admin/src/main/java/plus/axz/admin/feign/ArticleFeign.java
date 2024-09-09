@@ -12,9 +12,7 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars
-在文章审核成功以后需要在app的article库中新增文章数据
+ * description 在文章审核成功以后需要在app的article库中新增文章数据
  * 1 保存文章信息    article，需要返回当前文章，并且需要获取保存后获取到的主键
  * 2 保存文章配置信息    article_config
  * 3 保存文章内容    article_content
@@ -22,12 +20,17 @@ import plus.axz.model.common.dtos.ResponseResult;
  */
 @FeignClient("xiao-article")
 public interface ArticleFeign {
-    @PostMapping("/api/v1/article/save")//返回值就是需要保存的数据
-    public Article saveArticle(Article Article);
+    //返回值就是需要保存的数据
+    @PostMapping("/api/v1/article/save")
+    Article saveArticle(Article article);
+
     @PostMapping("/api/v1/article_config/save")
-    public ResponseResult saveArticleConfig(ArticleConfig ArticleConfig);
+    ResponseResult<ArticleConfig> saveArticleConfig(ArticleConfig articleConfig);
+
     @PostMapping("/api/v1/article_content/save")
-    public  ResponseResult saveArticleContent(ArticleContent apArticleContent);
+    ResponseResult<ArticleContent> saveArticleContent(ArticleContent apArticleContent);
+
+    /*根据名称去查询*/
     @GetMapping("/api/v1/author/findByName/{name}")
-    public Author selectAuthorByName(@PathVariable("name") String name);/*根据名称去查询*/
+    Author selectAuthorByName(@PathVariable("name") String name);
 }

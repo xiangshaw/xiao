@@ -6,14 +6,13 @@ import plus.axz.model.search.dtos.UserSearchDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars app端搜索记录
+ * description app端搜索记录
  */
 public interface UserSearchControllerApi {
 
     @ApiOperation("查询搜索历史")
-    public ResponseResult findUserSearch(UserSearchDto userSearchDto);
+    ResponseResult<?> findUserSearch(UserSearchDto userSearchDto);
 
     @ApiOperation("删除搜索历史")
-    public ResponseResult delUserSearch(UserSearchDto userSearchDto);
+    ResponseResult<?> delUserSearch(UserSearchDto userSearchDto);
 }

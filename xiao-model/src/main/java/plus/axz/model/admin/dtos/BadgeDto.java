@@ -1,13 +1,15 @@
 package plus.axz.model.admin.dtos;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import plus.axz.model.common.dtos.PageRequestDto;
 
-@Data/*重写get、set方法*/
+/**
+ * @author xiaoxiang
+ * description
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class BadgeDto extends PageRequestDto {
     /**
      * badge_name名称
      */
-    @ApiModelProperty("徽章名称")/*描述当前接收参数的信息，，比如该name就是指标签名称*/
-    private String badge_name;
+    /*描述当前接收参数的信息，比如该name就是指标签名称*/
+    @ApiModelProperty("徽章名称")
+    private String badgeName;
 }

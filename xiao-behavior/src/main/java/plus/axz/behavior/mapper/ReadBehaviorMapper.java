@@ -6,8 +6,7 @@ import plus.axz.model.behavior.pojos.ReadBehavior;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 阅读行为表mapper
+ * description 阅读行为表mapper
  */
 @Mapper
 public interface ReadBehaviorMapper extends BaseMapper<ReadBehavior> {

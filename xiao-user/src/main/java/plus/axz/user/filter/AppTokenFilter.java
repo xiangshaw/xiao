@@ -14,9 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Order(1)/*范围小，越先执行*/
-@WebFilter(filterName = "appTokenFilter", urlPatterns = "/*")/*/ 拦截所有请求*/
-public class AppTokenFilter extends GenericFilterBean {/*该类需要生效，需要在启动类添加注解*/
+/**
+ * @author xiaoxiang
+ * description 自定义过滤器，用于从header中获取用户id，并装入线程变量中
+ */
+// 范围小，越先执行
+@Order(1)
+/*/ 拦截所有请求*/
+@WebFilter(filterName = "appTokenFilter", urlPatterns = "/*")
+// 该类需要生效，需要在启动类添加注解
+public class AppTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;

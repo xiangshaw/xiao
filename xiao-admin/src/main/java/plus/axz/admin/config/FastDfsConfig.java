@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月26日
- * @particulars fastdfs
+ * description fastdfs
  */
 
 @Configuration

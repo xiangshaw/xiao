@@ -17,10 +17,8 @@ import javax.sql.DataSource;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月30日
- * @particulars 代理数据源
+ * description 代理数据源
  */
-
 @Configuration
 // 让使用了 @ConfigurationProperties 注解的类生效,并且将该类注入到 IOC 容器中,交由 IOC 容器进行管理
 @EnableConfigurationProperties({MybatisPlusProperties.class})

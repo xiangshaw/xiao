@@ -14,8 +14,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 不喜欢行为表
+ * description 不喜欢行为表
  */
 @Data
 @TableName("unlikes_behavior")

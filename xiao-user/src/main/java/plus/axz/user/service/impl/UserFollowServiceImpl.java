@@ -9,8 +9,7 @@ import plus.axz.user.service.UserFollowService;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 远程接口- APP用户关注信息表 服务实现类
+ * description 远程接口- APP用户关注信息表 服务实现类
  */
 @Slf4j
 @Service

@@ -7,13 +7,12 @@ import plus.axz.model.behavior.pojos.BehaviorEntry;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 在查询用户搜索记录的时候需要根据行为实体查询
+ * description 在查询用户搜索记录的时候需要根据行为实体查询
  */
 @FeignClient("xiao-behavior")
 public interface BehaviorFeign {
 
     @GetMapping("/api/v1/behavior_entry/one")
-    public BehaviorEntry findByUserIdOrEntryId(@RequestParam("userId") Integer userId, @RequestParam("equipmentId") Integer equipmentId);
+    BehaviorEntry findByUserIdOrEntryId(@RequestParam("userId") Integer userId, @RequestParam("equipmentId") Integer equipmentId);
 
 }

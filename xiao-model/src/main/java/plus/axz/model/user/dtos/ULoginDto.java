@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年08月10日
- * @particulars
+ * description
  */
 @Data
 public class ULoginDto {

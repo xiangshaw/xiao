@@ -8,14 +8,15 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 评论
+ * description 评论
  */
 public interface CommentControllerApi {
     @ApiOperation("保存评论")
-    public ResponseResult saveComment(CommentSaveDto dto);
+    ResponseResult<?> saveComment(CommentSaveDto dto);
+
     @ApiOperation("点赞或取消点赞")
-    public ResponseResult like(CommentLikeDto dto);
+    ResponseResult<?> like(CommentLikeDto dto);
+
     @ApiOperation("查询评论")
-    public ResponseResult findByArticleId(CommentDto dto);
+    ResponseResult<?> findByArticleId(CommentDto dto);
 }

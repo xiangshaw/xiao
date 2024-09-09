@@ -18,20 +18,20 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月23日
- * @particulars admin登录实现
+ * description admin登录实现
  */
 @Service
 public class UserLoginServiceImpl extends ServiceImpl<AdUserMapper, AdUser> implements UserLoginService {
     @Override
-    public ResponseResult login(AdUserDto dto) {
+    public ResponseResult<?> login(AdUserDto dto) {
         // 1. 检验用户名或密码为空
         if (StringUtils.isEmpty(dto.getName()) || StringUtils.isEmpty(dto.getPassword())){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID,"用户名或密码错误");
         }
         // 2. 查询数据库中用户信息（mybatis:）
         List<AdUser> list = list(Wrappers.<AdUser>lambdaQuery().eq(AdUser::getName, dto.getName()));
-        if (list != null && list.size() == 1){ //=1有数据
+        //=1有数据
+        if (list != null && list.size() == 1){
             // 拿数据
             AdUser adUser = list.get(0);
             // 3. 比对密码

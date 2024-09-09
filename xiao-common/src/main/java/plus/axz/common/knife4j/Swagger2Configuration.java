@@ -1,10 +1,5 @@
 package plus.axz.common.knife4j;
 
-/**
- * @author xiaoxiang
- * @date 2022年03月22日
- * @particulars
- */
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +13,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * @author xiaoxiang
+ * description swagger 配置
+ */
 @Configuration
 @EnableSwagger2
 @EnableKnife4j
@@ -26,7 +25,7 @@ public class Swagger2Configuration {
 
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 //分组名称
                 .groupName("1.0")
@@ -35,12 +34,12 @@ public class Swagger2Configuration {
                 .apis(RequestHandlerSelectors.basePackage("plus.axz"))
                 .paths(PathSelectors.any())
                 .build();
-        return docket;
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("axz-博客API文档")
-                .description("axz-博客API文档")
+                .title("平台API文档")
+                .description("API文档")
                 .version("1.0")
                 .build();
     }

@@ -1,4 +1,4 @@
-package plus.axz.behavior.service.Impl;
+package plus.axz.behavior.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,8 +10,7 @@ import plus.axz.model.behavior.pojos.BehaviorEntry;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 根据用户、设备ID查询行为实体
+ * description 根据用户、设备ID查询行为实体
  */
 @Service
 @Log4j2

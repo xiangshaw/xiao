@@ -11,6 +11,10 @@ import org.apache.ibatis.type.Alias;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author xiaoxiang
+ * description 新闻表
+ */
 @Data
 @TableName("tb_news")
 public class News implements Serializable {

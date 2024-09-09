@@ -6,8 +6,7 @@ import plus.axz.model.article.pojos.Collection;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 远程接口-收藏信息表
+ * description 远程接口-收藏信息表
  */
 @Mapper
 public interface CollectionMapper extends BaseMapper<Collection> {

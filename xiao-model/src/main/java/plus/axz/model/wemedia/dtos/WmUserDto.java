@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars
+ * description
  */
 @Data
 public class WmUserDto {

@@ -7,12 +7,11 @@ import plus.axz.model.search.pojos.AssociateWords;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词表 业务类
+ * description 联想词表 业务类
  */
 public interface AssociateWordsService extends IService<AssociateWords> {
     // 联想词
-    ResponseResult search(UserSearchDto userSearchDto);
+    ResponseResult<?> search(UserSearchDto userSearchDto);
     // 优化联想词
-    ResponseResult searchV2(UserSearchDto userSearchDto);
+    ResponseResult<?> searchV2(UserSearchDto userSearchDto);
 }

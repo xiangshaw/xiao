@@ -7,9 +7,8 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars ES文章分页搜索
+ * description ES文章分页搜索
  */
 public interface ArticleSearchService {
-    ResponseResult search(UserSearchDto dto) throws IOException;
+    ResponseResult<?> search(UserSearchDto dto) throws IOException;
 }

@@ -9,8 +9,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars App评论回复信息
+ * description App评论回复信息
  */
 @Data
 @Document("comment_repay")

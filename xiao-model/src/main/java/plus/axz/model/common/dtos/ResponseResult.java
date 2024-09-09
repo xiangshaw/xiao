@@ -1,14 +1,19 @@
 package plus.axz.model.common.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
 import plus.axz.model.common.enums.ResultEnum;
 
 
 import java.io.Serializable;
 
 /**
- * 通用的结果返回类
+ * @author xiaoxiang
+ * description 通用的结果返回类
  * @param <T>
  */
+@Setter
+@Getter
 public class ResponseResult<T> implements Serializable {
 
     private String host;
@@ -95,38 +100,6 @@ public class ResponseResult<T> implements Serializable {
     public ResponseResult<?> ok(T data) {
         this.data = data;
         return this;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getmessage() {
-        return message;
-    }
-
-    public void setmessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
     }
 
 

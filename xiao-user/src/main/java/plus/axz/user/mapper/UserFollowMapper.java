@@ -6,8 +6,7 @@ import plus.axz.model.user.pojos.UserFollow;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars APP用户关注信息表 Mapper 接口
+ * description APP用户关注信息表 Mapper 接口
  */
 @Mapper
 public interface UserFollowMapper extends BaseMapper<UserFollow> {

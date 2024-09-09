@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars
+ * description
  */
 @Data
 public class UserRelationDto {

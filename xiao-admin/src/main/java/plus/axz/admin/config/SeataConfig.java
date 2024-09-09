@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 引入Seata
+ * description 引入Seata
  */
 @Configuration
 @ComponentScan("plus.axz.seata.config")

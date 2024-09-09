@@ -6,10 +6,9 @@ import plus.axz.model.search.dtos.UserSearchDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词
+ * description 联想词
  */
 public interface AssociateWordsControllerApi {
     @ApiOperation("联想词")
-    ResponseResult search(UserSearchDto userSearchDto);
+    ResponseResult<?> search(UserSearchDto userSearchDto);
 }

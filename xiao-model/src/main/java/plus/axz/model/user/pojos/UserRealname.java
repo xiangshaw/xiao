@@ -10,9 +10,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户实名认证信息表
  * @author xiaoxiang
- * @date 2022/3/24
+ * description 用户实名认证信息表
  */
 @Data
 @TableName("user_realname")

@@ -7,9 +7,8 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 不喜欢行为
+ * description 不喜欢行为
  */
 public interface UnlikesBehaviorService extends IService<UnlikesBehavior> {
-    ResponseResult unlikeBehavior(UnLikesBehaviorDto dto);
+    ResponseResult<?> unlikeBehavior(UnLikesBehaviorDto dto);
 }

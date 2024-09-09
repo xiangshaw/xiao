@@ -1,5 +1,6 @@
 package plus.axz.common.aliyun.util;
 
+import lombok.extern.log4j.Log4j2;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.*;
@@ -8,11 +9,12 @@ import java.net.URL;
 import java.util.*;
 
 /**
+ * @author xiaoxiang
+ * description
  * 用于自定义图库上传图片
  */
+@Log4j2
 public class CustomLibUploader {
-
-
     public String uploadFile(String host, String uploadFolder, String ossAccessKeyId,
                              String policy, String signature,
                              String filepath) throws Exception {
@@ -21,7 +23,7 @@ public class CustomLibUploader {
         String objectName = uploadFolder + "/imglib_" + UUID.randomUUID().toString() + ".jpg";
         textMap.put("key", objectName);
         // Content-Disposition
-        textMap.put("Content-Disposition", "attachment;filename="+filepath);
+        textMap.put("Content-Disposition", "attachment;filename=" + filepath);
         // OSSAccessKeyId
         textMap.put("OSSAccessKeyId", ossAccessKeyId);
         // policy
@@ -33,8 +35,8 @@ public class CustomLibUploader {
         fileMap.put("file", filepath);
 
         String ret = formUpload(host, textMap, fileMap);
-        System.out.println("[" + host + "] post_object:" + objectName);
-        System.out.println("post reponse:" + ret);
+        log.info("[{}] post_object:{}", host, objectName);
+        log.info("post reponse:{}", ret);
         return objectName;
     }
 
@@ -144,7 +146,7 @@ public class CustomLibUploader {
             reader.close();
             reader = null;
         } catch (Exception e) {
-            System.err.println("发送POST请求出错: " + urlStr);
+            log.error("发送POST请求出错: {}", urlStr);
             throw e;
         } finally {
             if (conn != null) {
@@ -154,6 +156,4 @@ public class CustomLibUploader {
         }
         return res;
     }
-
-
 }

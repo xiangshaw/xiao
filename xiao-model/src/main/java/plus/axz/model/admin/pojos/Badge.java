@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月29日
- * @particulars 徽标
+ * description 徽标
  */
 @Data
 @TableName("tb_badge")
@@ -29,7 +28,7 @@ public class Badge implements Serializable {
     private String url;
     // 主体
     @TableField("badge_name")
-    private String badge_name;
+    private String badgeName;
     // 值
     @TableField("value")
     private String value;
@@ -40,12 +39,12 @@ public class Badge implements Serializable {
      * 创建时间
      */
     @TableField("create_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 修改时间
      */
     @TableField("update_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }

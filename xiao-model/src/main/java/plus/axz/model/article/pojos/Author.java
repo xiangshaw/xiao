@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars 文章作者信息表
+ * description 文章作者信息表
  */
 @Data
 @TableName("author")

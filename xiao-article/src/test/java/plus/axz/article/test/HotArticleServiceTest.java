@@ -10,8 +10,7 @@ import plus.axz.article.service.HotArticlesService;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 测试查询热点文章
+ * description 测试查询热点文章
  */
 @SpringBootTest(classes = ArticleApplication.class)
 @RunWith(SpringRunner.class)
@@ -21,7 +20,7 @@ public class HotArticleServiceTest {
     private HotArticlesService hotArticlesService;
 
     @Test
-    public void tCHA(){
+    public void testComputeHotArticle(){
         hotArticlesService.computeHotArticle();
-    }/*testComputeHotArticle*/
+    }
 }

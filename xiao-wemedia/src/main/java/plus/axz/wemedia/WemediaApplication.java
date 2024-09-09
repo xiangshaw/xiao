@@ -11,18 +11,20 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月21日
- * @particulars admin微服务引导类
+ * description
  */
 // 移除自动数据源配置，采取自定义数据源配置方式
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@MapperScan("plus.axz.wemedia.mapper")/*扫描mapper接口*/
+/*扫描mapper接口*/
+@MapperScan("plus.axz.wemedia.mapper")
 @EnableDiscoveryClient
-@ServletComponentScan //  @Order(2) 和 @WebFilter 两个注解生效
+//  @Order(2) 和 @WebFilter 两个注解生效
+@ServletComponentScan
 public class WemediaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WemediaApplication.class,args);
+        SpringApplication.run(WemediaApplication.class, args);
     }
+
     /**
      * mybatis-plus分页插件
      * 3.4版本以前

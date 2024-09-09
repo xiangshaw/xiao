@@ -13,80 +13,47 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月03日
- * @particulars 自媒体文章业务类
+ * description 自媒体文章业务类
  */
 public interface WmNewsService extends IService<WmNews> {
     /**
      * 分页带条件查询自媒体文章列表
-     * @author xiaoxiang
-     * @date 2022/4/3
-     * @param dto
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    public ResponseResult findAll(WmNewsPageReqDto dto);
+    ResponseResult<?> findAll(WmNewsPageReqDto dto);
 
     /**
      * 自媒体文章发布
-     * @author xiaoxiang
-     * @date 2022/4/4
-     * @param dto
-     * @param isSubmit
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    public ResponseResult saveNews(WmNewsDto dto, Short isSubmit);
+    ResponseResult<?> saveNews(WmNewsDto dto, Short isSubmit);
 
     /**
      * 根据id查询文章
-     * @author xiaoxiang
-     * @date 2022/4/25
-     * @param id
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    public ResponseResult findWmNewById(Integer id);
+    ResponseResult<?> findWmNewById(Integer id);
 
     /**
      * 删除文章
-     * @author xiaoxiang
-     * @date 2022/4/25
-     * @param id
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
 
-    public ResponseResult delNews(Integer id);
+    ResponseResult<?> delNews(Integer id);
     /**
      * 文章上下架
-     * @author xiaoxiang
-     * @date 2022/4/25
-     * @param dto
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    public ResponseResult downOrUp(WmNewsDto dto);
+    ResponseResult<?> downOrUp(WmNewsDto dto);
 
     /**
      * 查询待发布文章
      * admin远程调用，xxl-job
-     * @author xiaoxiang
-     * @date 2022/6/15
-     * @return java.util.List<java.lang.Integer>
      */
     List<Integer> findRelease();
 
     /**
      * 根据标题模糊分页查询文章信息
-     * @author xiaoxiang
-     * @date 2022/6/15
-     * @param dto
-     * @return PageResponseResult
      */
-    public PageResponseResult findList(NewsAuthDto dto);
+    PageResponseResult findList(NewsAuthDto dto);
 
     /**
      * 根据文章id查询文章详情
-     * @author xiaoxiang
-     * @date 2022/6/15
-     * @param id
-     * @return WmNewsVo
      */
-    public WmNewsVo findWmNewsVo(Integer id);
+    WmNewsVo findWmNewsVo(Integer id);
 }

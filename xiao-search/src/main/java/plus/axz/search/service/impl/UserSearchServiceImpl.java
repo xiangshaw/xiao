@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import plus.axz.model.behavior.pojos.BehaviorEntry;
@@ -23,14 +23,14 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 搜索记录
+ * description 搜索记录
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 public class UserSearchServiceImpl extends ServiceImpl<UserSearchMapper, UserSearch> implements UserSearchService {
     @Override
-    public ResponseResult findUserSearch(UserSearchDto userSearchDto) {
+    public ResponseResult<?> findUserSearch(UserSearchDto userSearchDto) {
         // 1.检查参数
         // 大于50条搜索记录，大于50条搜索记录，搜索框装不下，返回错误
         if (userSearchDto.getPage_size() > 50){
@@ -42,22 +42,17 @@ public class UserSearchServiceImpl extends ServiceImpl<UserSearchMapper, UserSea
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 3.分页查询，默认查询5条数据返回
-        Page pageNum = new Page(0, userSearchDto.getPage_size());
+        Page<UserSearch> pageNum = new Page<>(0, userSearchDto.getPage_size());
         // 条件，行为实体id，有效ID ，状态1有效
-        IPage page = page(pageNum, Wrappers.<UserSearch>lambdaQuery()
+        IPage<UserSearch> page = page(pageNum, Wrappers.<UserSearch>lambdaQuery()
                 .eq(UserSearch::getEntryId, behaviorEntry.getEntryId())
                 .eq(UserSearch::getStatus,1));
         return ResponseResult.okResult(page.getRecords());
     }
 
-    @Autowired
-    private BehaviorFeign behaviorFeign;
+    private final BehaviorFeign behaviorFeign;
     /**
      * 获取行为实体
-     * @author xiaoxiang
-     * @date 2022/6/24
-     * @param userSearchDto
-     * @return plus.axz.model.behavior.pojos.BehaviorEntry
      */
     private BehaviorEntry getEntry(UserSearchDto userSearchDto) {
         User user = AppThreadLocalUtils.getUser();
@@ -65,7 +60,7 @@ public class UserSearchServiceImpl extends ServiceImpl<UserSearchMapper, UserSea
     }
 
     @Override
-    public ResponseResult delUserSearch(UserSearchDto userSearchDto) {
+    public ResponseResult<?> delUserSearch(UserSearchDto userSearchDto) {
         // 1.检查参数
         if (userSearchDto.getId() == null){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);

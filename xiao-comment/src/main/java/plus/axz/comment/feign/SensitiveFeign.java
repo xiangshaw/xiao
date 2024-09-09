@@ -8,11 +8,10 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 敏感词feign接口
  */
 @FeignClient("xiao-admin")
 public interface SensitiveFeign {
     @GetMapping("/api/v1/sensitive/all")
-    public List<Sensitive> findAllSensitive();
+    List<Sensitive> findAllSensitive();
 }

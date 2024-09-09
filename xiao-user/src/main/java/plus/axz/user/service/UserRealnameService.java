@@ -9,13 +9,13 @@ import plus.axz.model.user.pojos.UserRealname;
 
 /**
  * @author xiaoxiang
- * @date 2022/3/25
+ * description 用户实名认证服务
  */
 @Mapper
 public interface UserRealnameService extends IService<UserRealname> {
     @ApiOperation("分页查询用户列表")
-    public ResponseResult loadListByStatus(AuthDto dto);
+    ResponseResult<?> loadListByStatus(AuthDto dto);
 
     @ApiOperation("修改用户认证状态")
-    public ResponseResult updateStatusById(AuthDto dto, Short status);
+    ResponseResult<?> updateStatusById(AuthDto dto, Short status);
 }

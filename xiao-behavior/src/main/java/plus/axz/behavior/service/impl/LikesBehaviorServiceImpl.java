@@ -1,9 +1,9 @@
-package plus.axz.behavior.service.Impl;
+package plus.axz.behavior.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import plus.axz.behavior.mapper.LikesBehaviorMapper;
@@ -23,21 +23,19 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars
+ * description 点赞行为实现类
  */
+@RequiredArgsConstructor
 @Service
 public class LikesBehaviorServiceImpl extends ServiceImpl<LikesBehaviorMapper, LikesBehavior>implements LikesBehaviorService {
 
-    @Autowired
-    private BehaviorEntryService behaviorEntryService;
+    private final BehaviorEntryService behaviorEntryService;
 
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
 
     @Override
-    public ResponseResult like(LikesBehaviorDto dto) {
+    public ResponseResult<?> like(LikesBehaviorDto dto) {
         // 1.检查参数
         if (dto == null || dto.getArticleId() == null ||  (dto.getType() < 0 && dto.getType() > 2) || (dto.getOperation() < 0 && dto.getOperation() > 1)){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);

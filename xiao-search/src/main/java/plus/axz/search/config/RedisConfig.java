@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars
+ * description
  */
 @Configuration
 @ComponentScan("plus.axz.common.redis")

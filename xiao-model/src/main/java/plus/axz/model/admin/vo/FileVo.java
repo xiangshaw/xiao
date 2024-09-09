@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月26日
- * @Description:
+ * description 文件上传返回值
  */
 @Data
 public class FileVo {

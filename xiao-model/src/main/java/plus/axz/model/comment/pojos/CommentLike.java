@@ -5,8 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 评论点赞信息
+ * description 评论点赞信息
  */
 @Data
 @Document("comment_like")

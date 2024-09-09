@@ -1,13 +1,14 @@
 package plus.axz.model.comment.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import plus.axz.model.comment.pojos.Comment;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 登录后封装数据vo
+ * description 登录后封装数据vo
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CommentVo extends Comment {
     /**

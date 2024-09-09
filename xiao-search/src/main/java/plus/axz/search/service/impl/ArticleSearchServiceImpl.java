@@ -1,6 +1,7 @@
 package plus.axz.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchRequest;
@@ -10,7 +11,6 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plus.axz.model.behavior.pojos.BehaviorEntry;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -29,21 +29,19 @@ import java.util.Map;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars App文章搜索
+ * description App文章搜索
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 public class ArticleSearchServiceImpl implements ArticleSearchService {
 
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
+    private final RestHighLevelClient restHighLevelClient;
 
-    @Autowired
-    private UserSearchService userSearchService;
+    private final UserSearchService userSearchService;
 
     @Override
-    public ResponseResult search(UserSearchDto dto) throws IOException {
+    public ResponseResult<?> search(UserSearchDto dto) throws IOException {
         // 1.检查参数
         if (dto == null || StringUtils.isBlank(dto.getSearch_words())){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -89,13 +87,12 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
         }
         return ResponseResult.okResult(articleList);
     }
-    @Autowired
-    private BehaviorFeign behaviorFeign;
+
+    private final BehaviorFeign behaviorFeign;
 
     /**
      * 获取行为实体
-     * @param userSearchDto
-     * @return
+     * @param userSearchDto 搜索参数
      */
     private BehaviorEntry getEntry(UserSearchDto userSearchDto) {
         User user = AppThreadLocalUtils.getUser();

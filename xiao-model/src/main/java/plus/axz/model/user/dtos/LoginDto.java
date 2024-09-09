@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月19日
- * @particulars
+ * description 登录dto
  */
 @Data
 public class LoginDto {

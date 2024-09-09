@@ -7,8 +7,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars es搜索文章、搜索历史记录
+ * description es搜索文章、搜索历史记录
  */
 @Data
 public class UserSearchDto {
@@ -40,10 +39,13 @@ public class UserSearchDto {
 
     /*查看是否首页*/
     public int getFromIndex() {
-        if (this.pageNum < 1)
-            return 0;/*0 即为首页*/
-        if (this.page_size < 1)
+        if (this.pageNum < 1) {
+            // 0 即为首页
+            return 0;
+        }
+        if (this.page_size < 1) {
             this.page_size = 10;
+        }
         return
                 this.page_size * (pageNum - 1);
     }

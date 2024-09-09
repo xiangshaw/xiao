@@ -6,8 +6,7 @@ import plus.axz.model.article.pojos.ArticleConfig;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars 文章配置
+ * description 文章配置
  */
 @Mapper
 public interface ArticleConfigMapper extends BaseMapper<ArticleConfig> {

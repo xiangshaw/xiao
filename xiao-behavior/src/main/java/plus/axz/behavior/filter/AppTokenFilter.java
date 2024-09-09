@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.GenericFilterBean;
 import plus.axz.model.user.pojos.User;
 import plus.axz.utils.threadlocal.AppThreadLocalUtils;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -15,6 +16,8 @@ import java.io.IOException;
 
 
 /**
+ * @author xiaoxiang
+ * description: 自定义filter，用于获取用户信息，并放到当前线程中
  * 在功能实现的时候需要得到行为实体，所以需要得到当前登录的用户信息，
  * 参考文章微服务，添加filter，获取用户信息放到当前线程中
  */

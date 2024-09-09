@@ -9,13 +9,12 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月02日
- * @particulars 文章内容表
+ * description 文章内容表
  */
 @Data
 @TableName("article_content")
 public class ArticleContent {
-    @TableId(value = "id", type = IdType.ID_WORKER)/*雪花算法*/
+    @TableId(value = "id", type = IdType.ID_WORKER)
     @IdEncrypt
     private Long id;
     /**

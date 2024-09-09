@@ -6,8 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars
+ * description redis配置类
  */
 @Configuration
 @PropertySource("classpath:redis.properties")

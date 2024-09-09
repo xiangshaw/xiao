@@ -9,8 +9,7 @@ import plus.axz.model.common.enums.ResultEnum;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月23日
- * 抓捕全局异常
+ * description 抓捕全局异常
  */
 @ControllerAdvice//控制器增强
 @Log4j2//记录日志信息
@@ -20,10 +19,8 @@ public class ExceptionCatch {
     /*返回JSON数据*/
     @ResponseBody
     /*Exception接收错误信息*/
-    public ResponseResult exception(Exception e){
+    public ResponseResult<?> exception(Exception e){
         /*打印异常信息*/
-        e.printStackTrace();
-        /*拿到错误信息，记录日志*/
         log.error("catch exception:{}",e.getMessage());
         /*返回通用的异常信息*/
         return ResponseResult.errorResult(ResultEnum.SERVER_ERROR);

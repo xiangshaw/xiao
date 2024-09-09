@@ -6,8 +6,7 @@ import plus.axz.model.admin.pojos.News;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月26日
- * @Description:
+ * description 新闻mapper
  */
 @Mapper
 public interface NewsMapper extends BaseMapper<News> {

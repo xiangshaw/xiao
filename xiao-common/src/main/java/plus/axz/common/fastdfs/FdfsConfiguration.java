@@ -7,11 +7,11 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars FastDFSClient配置类
+ * description FastDFSClient配置类
  */
 @Configuration
-@Import(FdfsClientConfig.class) // 导入FastDFS-Client组件
+// 导入FastDFS-Client组件
+@Import(FdfsClientConfig.class)
 @PropertySource("classpath:fast_dfs.properties")
 public class FdfsConfiguration {
 }

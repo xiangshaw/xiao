@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars APP用户关注信息表
+ * description APP用户关注信息表
  */
 @Data
 @TableName("user_follow")

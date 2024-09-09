@@ -6,8 +6,7 @@ import plus.axz.model.wemedia.pojos.WmUser;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 @Mapper
 public interface WmUserMapper extends BaseMapper<WmUser> {

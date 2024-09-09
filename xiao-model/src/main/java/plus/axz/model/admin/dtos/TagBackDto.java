@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月22日
- * @particulars 后台标签
+ * description 后台标签
  */
 @Data
 @AllArgsConstructor
@@ -36,5 +35,4 @@ public class TagBackDto {
      * 创建时间
      */
     private LocalDateTime createTime;
-
 }

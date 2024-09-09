@@ -47,7 +47,7 @@
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
         <seata.all.version>0.9.0</seata.all.version>
 
-        <spring.jwt.version>1.0.9.RELEASE</spring.jwt.version>
+        <spring.jwt.version>1.1.1.RELEASE</spring.jwt.version>
         <reflections.version>0.9.11</reflections.version>
         <fastjson.version>1.2.58</fastjson.version>
         <fastjson.dataformat.version>2.9.9</fastjson.dataformat.version>
@@ -69,7 +69,7 @@
         <curator.version>4.2.0</curator.version>
         <kafka.version>2.2.7.RELEASE</kafka.version>
         <kafka.client.version>2.0.1</kafka.client.version>
-        <xxl.job.version>2.2.0-SNAPSHOT</xxl.job.version>
+        <xxl.job.version>2.4.1</xxl.job.version>
         <jsoup.version>1.10.2</jsoup.version>
         <es.version>7.4.0</es.version>
     </properties>

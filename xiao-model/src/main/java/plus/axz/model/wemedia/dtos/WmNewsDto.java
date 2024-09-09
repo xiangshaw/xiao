@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月04日
- * @particulars 保存、修改文章，保存草稿
+ * description 保存、修改文章，保存草稿
  */
 @Data
 public class WmNewsDto {

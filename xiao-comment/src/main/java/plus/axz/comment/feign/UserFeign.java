@@ -7,8 +7,7 @@ import plus.axz.model.user.pojos.User;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 用户服务feign接口
  */
 @FeignClient("xiao-user")
 public interface UserFeign {

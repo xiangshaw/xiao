@@ -17,8 +17,7 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars 过滤器解析header数据并设置到当前线程中
+ * description 过滤器解析header数据并设置到当前线程中
  */
 @Order(1)
 @WebFilter(filterName = "wmTokenFilter", urlPatterns = "/*")

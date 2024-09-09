@@ -2,10 +2,14 @@ package plus.axz.common.constants.user;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars 用户常量类
+ * description 用户常量类
  */
 public class UserConstants {
+
+    private UserConstants() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /*实名审核成功*/
     public static final Short PASS_AUTH = 9;
     /*实名审核失败*/

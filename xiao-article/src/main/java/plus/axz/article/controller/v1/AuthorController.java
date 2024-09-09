@@ -1,7 +1,7 @@
 package plus.axz.article.controller.v1;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import plus.axz.api.article.AuthorControllerApi;
 import plus.axz.article.service.AuthorService;
@@ -14,19 +14,20 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月30日
- * @particulars
+ * description 作者接口实现类
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/author")
 public class AuthorController implements AuthorControllerApi {
-    @Autowired
-    private AuthorService authorService;
+
+    private final AuthorService authorService;
+
     @Override
     @GetMapping("/findByUserId/{id}")
     public Author findByUserId(@PathVariable("id") Integer id) {
         List<Author> list = authorService.list(Wrappers.<Author>lambdaQuery().eq(Author::getId, id));
-        if (list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             return list.get(0);
         }
         return null;
@@ -34,7 +35,7 @@ public class AuthorController implements AuthorControllerApi {
 
     @Override
     @PostMapping("/save")
-    public ResponseResult save(@RequestBody Author author) {
+    public ResponseResult<?> save(@RequestBody Author author) {
         author.setCreatedTime(new Date());
         authorService.save(author);
         return ResponseResult.okResult(ResultEnum.SUCCESS);
@@ -43,8 +44,7 @@ public class AuthorController implements AuthorControllerApi {
     @Override
     @GetMapping("/findByName/{name}")
     public Author selectAuthorByName(@PathVariable("name") String name) {
-        Author author = authorService.getOne(Wrappers.<Author>lambdaQuery().eq(Author::getName, name));
-        return author;
+        return authorService.getOne(Wrappers.<Author>lambdaQuery().eq(Author::getName, name));
     }
 
     @Override

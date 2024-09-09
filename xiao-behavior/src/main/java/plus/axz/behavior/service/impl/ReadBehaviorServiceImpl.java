@@ -1,10 +1,10 @@
-package plus.axz.behavior.service.Impl;
+package plus.axz.behavior.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import plus.axz.behavior.mapper.ReadBehaviorMapper;
@@ -24,19 +24,19 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 保存阅读行为
+ * description 保存阅读行为
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 public class ReadBehaviorServiceImpl extends ServiceImpl<ReadBehaviorMapper, ReadBehavior> implements ReadBehaviorService {
-    @Autowired
-    private BehaviorEntryService behaviorEntryService;
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+
+    private final BehaviorEntryService behaviorEntryService;
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public ResponseResult readBehavior(ReadBehaviorDto dto) {
+    public ResponseResult<?> readBehavior(ReadBehaviorDto dto) {
         // 1.参数校验
         if (dto == null || dto.getArticleId() == null){
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -55,7 +55,8 @@ public class ReadBehaviorServiceImpl extends ServiceImpl<ReadBehaviorMapper, Rea
         // 判断阅读行为对象
         if (readBehavior == null){
             readBehavior = new ReadBehavior();
-            readBehavior.setCount(dto.getCount()); // 默认传1
+            // 默认传1
+            readBehavior.setCount(dto.getCount());
             readBehavior.setArticleId(dto.getArticleId());
             readBehavior.setPercentage(dto.getPercentage());
             readBehavior.setEntryId(behaviorEntry.getId());

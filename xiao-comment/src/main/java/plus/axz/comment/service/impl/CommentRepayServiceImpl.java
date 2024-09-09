@@ -1,8 +1,8 @@
 package plus.axz.comment.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,19 +27,18 @@ import java.util.stream.Collectors;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 评论回复服务实现类
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 public class CommentRepayServiceImpl implements CommentRepayService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     //加载评论回复列表
     @Override
-    public ResponseResult loadCommentRepay(CommentRepayDto dto) {
+    public ResponseResult<?> loadCommentRepay(CommentRepayDto dto) {
         //1.检查参数
         if (dto.getCommentId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -96,12 +95,11 @@ public class CommentRepayServiceImpl implements CommentRepayService {
         }
     }
 
-    @Autowired
-    private UserFeign userFeign;
+    private final UserFeign userFeign;
 
     //保存回复内容
     @Override
-    public ResponseResult saveCommentRepay(CommentRepaySaveDto dto) {
+    public ResponseResult<?> saveCommentRepay(CommentRepaySaveDto dto) {
         //1.检查参数
         if (dto.getCommentId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_REQUIRE);
@@ -145,7 +143,7 @@ public class CommentRepayServiceImpl implements CommentRepayService {
 
     //点赞回复内容
     @Override
-    public ResponseResult saveCommentRepayLike(CommentRepayLikeDto dto) {
+    public ResponseResult<?> saveCommentRepayLike(CommentRepayLikeDto dto) {
         //1.检查参数
         if (dto.getCommentRepayId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);

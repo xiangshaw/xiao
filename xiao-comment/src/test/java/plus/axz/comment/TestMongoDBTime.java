@@ -20,18 +20,16 @@ import java.util.TimeZone;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月23日
- * @particulars
+ * description
  */
-
 @SpringBootTest(classes = CommentApplication.class)
 @RunWith(SpringRunner.class)
-public class Test {
+public class TestMongoDBTime {
     @Autowired
     private MongoTemplate mongoTemplate;
 
     @org.junit.Test
-    public void testQuery(){
+    public void testQuery() {
         // 获取时间
         Calendar calendar = getMongoDBTime();
 
@@ -47,13 +45,14 @@ public class Test {
                         .and("createdTime")
                         .lt(10))
                 .limit(5)
-                .with(Sort.by(Sort.Direction.DESC,"createdTime"));/*倒叙查询*/
-        Pageable pageable = PageRequest.of(1,3);
+                .with(Sort.by(Sort.Direction.DESC, "createdTime"));/*倒叙查询*/
+        Pageable pageable = PageRequest.of(1, 3);
         query.with(pageable);/*分页查询*/
 
         List<Comment> comments = mongoTemplate.find(query, Comment.class);
         System.out.println(comments);
     }
+
     private Calendar getMongoDBTime() {
         Calendar calle = Calendar.getInstance();
         calle.setTime(new Date());

@@ -3,10 +3,15 @@ package plus.axz.common.jackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
-// 用于序列化自增数字的混淆
+/**
+ * @author xiaoxiang
+ * description: 用于序列化自增数字的混淆
+ */
+@Log4j2
 public class ConfusionSerializer extends JsonSerializer<Object> {
 
     @Override
@@ -17,7 +22,7 @@ public class ConfusionSerializer extends JsonSerializer<Object> {
                 return;
             }
         }catch (Exception e){
-            e.printStackTrace();
+            log.error("ConfusionSerializer error", e);
         }
         serializers.defaultSerializeValue(value, jsonGenerator);
     }

@@ -1,6 +1,6 @@
 package plus.axz.wemedia.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,19 +12,18 @@ import plus.axz.wemedia.service.WmUserService;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars
+ * description
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/login")
 public class LoginController implements LoginControllerApi {
 
-    @Autowired
-    private WmUserService wmUserService;
+    private final WmUserService wmUserService;
 
     @PostMapping("/in")
     @Override
-    public ResponseResult login(@RequestBody WmUserDto dto) {
+    public ResponseResult<?> login(@RequestBody WmUserDto dto) {
         return wmUserService.login(dto);
     }
 }

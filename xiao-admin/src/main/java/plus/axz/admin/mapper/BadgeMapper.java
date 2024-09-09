@@ -6,8 +6,7 @@ import plus.axz.model.admin.pojos.Badge;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月29日
- * @particulars
+ * description 徽章mapper
  */
 @Mapper
 public interface BadgeMapper extends BaseMapper<Badge> {

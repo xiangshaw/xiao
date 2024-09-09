@@ -6,8 +6,7 @@ import plus.axz.model.user.pojos.UserFan;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars APP用户粉丝信息表 Mapper 接口
+ * description APP用户粉丝信息表 Mapper 接口
  */
 @Mapper
 public interface UserFanMapper extends BaseMapper<UserFan> {

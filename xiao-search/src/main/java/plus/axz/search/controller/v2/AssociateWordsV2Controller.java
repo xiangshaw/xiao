@@ -1,6 +1,6 @@
 package plus.axz.search.controller.v2;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,19 +12,18 @@ import plus.axz.search.service.AssociateWordsService;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词V2
+ * description 联想词V2
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v2/associate")
 public class AssociateWordsV2Controller implements AssociateWordsControllerApi {
 
-    @Autowired
-    private AssociateWordsService associateWordsService;
+    private final AssociateWordsService associateWordsService;
 
     @PostMapping("/search")
     @Override
-    public ResponseResult search(@RequestBody UserSearchDto dto) {
+    public ResponseResult<?> search(@RequestBody UserSearchDto dto) {
         return associateWordsService.searchV2(dto);
     }
 }

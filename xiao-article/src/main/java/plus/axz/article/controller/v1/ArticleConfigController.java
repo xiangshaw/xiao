@@ -1,7 +1,6 @@
 package plus.axz.article.controller.v1;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +13,19 @@ import plus.axz.model.common.enums.ResultEnum;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars 文章配置
+ * description 文章配置
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/article_config")
 public class ArticleConfigController implements ArticleConfigControllerApi {
-    @Autowired
-    private ArticleConfigService articleConfigService;
+
+    private final ArticleConfigService articleConfigService;
+
     @PostMapping("/save")
     @Override
-    public ResponseResult saveArticleConfig(@RequestBody ArticleConfig ArticleConfig) {
-        articleConfigService.save(ArticleConfig);
+    public ResponseResult<?> saveArticleConfig(@RequestBody ArticleConfig articleConfig) {
+        articleConfigService.save(articleConfig);
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 }

@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月22日
- * @particulars
+ * description Knife4j 配置类
  */
 @Configuration
 @ComponentScan("plus.axz.common.knife4j")

@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars 自媒体图文信息表
+ * description 自媒体图文信息表
  */
 @Data
 @TableName("material")

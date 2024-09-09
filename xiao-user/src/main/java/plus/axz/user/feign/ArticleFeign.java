@@ -10,20 +10,19 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars 在实名认证是否通过，通过就 创建自媒体账户 并 创建作者
+ * description 在实名认证是否通过，通过就 创建自媒体账户 并 创建作者
  */
 //服务名称找nacos注册的那个
 @FeignClient("xiao-article")
 public interface ArticleFeign {
 
     @GetMapping("/api/v1/author/findByUserId/{id}")
-    public Author findByUserId(@PathVariable("id") Integer id);
+    Author findByUserId(@PathVariable("id") Integer id);
 
     @PostMapping("/api/v1/author/save")
-    public ResponseResult save(@RequestBody Author author);
+    ResponseResult<?> save(@RequestBody Author author);
 
     @GetMapping("/api/v1/author/one/{id}")
-    public Author findById(@PathVariable("id") Integer id);
+    Author findById(@PathVariable("id") Integer id);
 
 }

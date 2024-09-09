@@ -2,8 +2,8 @@ package plus.axz.user.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +27,18 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars
+ * description
  */
+@RequiredArgsConstructor
 @Service
 @Log4j2
 @Transactional
 public class UserRelationServiceImpl implements UserRelationService {
-    @Autowired
-    private ArticleFeign articleFeign;
+
+    private final ArticleFeign articleFeign;
 
     /* @Override
- public ResponseResult follow(UserRelationDto dto) {
+ public ResponseResult<?> follow(UserRelationDto dto) {
      //1.参数检查
      if (dto.getOperation() == null || dto.getOperation() < 0 || dto.getOperation() > 1) {
          return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
@@ -72,7 +72,7 @@ public class UserRelationServiceImpl implements UserRelationService {
             }
         }*/
     @Override
-    public ResponseResult follow(UserRelationDto dto) {
+    public ResponseResult<?> follow(UserRelationDto dto) {
         // 1.参数检查
         if (dto.getOperation() == null || dto.getOperation() < 0 || dto.getOperation() > 1) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -97,54 +97,50 @@ public class UserRelationServiceImpl implements UserRelationService {
             // 3.如果当前操作是0 创建数据（app用户关注信息和app的用户粉丝信息）
             return followByUserId(user, followId, dto.getArticleId());
         }
-        if (dto.getOperation() ==1){
+        if (dto.getOperation() == 1) {
             // 4.如果当前操作是1 删除数据（app用户关注信息和app的用户粉丝信息）
-            return followCancelByUserId(user,followId);
+            return followCancelByUserId(user, followId);
         }
         return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
     }
 
     // =================================================================================
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private UserFollowMapper userFollowMapper;
-    @Autowired
-    private UserFanMapper userFanMapper;
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+
+    private final UserMapper userMapper;
+
+    private final UserFollowMapper userFollowMapper;
+
+    private final UserFanMapper userFanMapper;
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     /**
      * 关注的处理逻辑
-     * @param user
-     * @param followId
-     * @param articleId
-     * @return plus.axz.model.common.dtos.ResponseResult
-     * @author xiaoxiang
-     * @date 2022/6/20
      */
-    private ResponseResult followByUserId(User user, Integer followId, Long articleId) {
+    private ResponseResult<?> followByUserId(User user, Integer followId, Long articleId) {
         // 1.判断当前关注人是否存在
         User followUser = userMapper.selectById(followId);
-        if (followUser == null){
+        if (followUser == null) {
             return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST, "关注用户不存在");
         }
         UserFollow userFollow = userFollowMapper.selectOne(Wrappers.<UserFollow>lambdaQuery()
                 .eq(UserFollow::getUserId, user.getId())
                 .eq(UserFollow::getFollowId, followId));
-        if (userFollow == null){
+        if (userFollow == null) {
             // 保存数据  user_follow   查user_fan
             UserFan userFan = userFanMapper.selectOne(Wrappers.<UserFan>lambdaQuery()
                     .eq(UserFan::getUserId, followId)
                     .eq(UserFan::getFansId, user.getId()));
             // 保存app用户粉丝信息
-            if (userFan == null){
+            if (userFan == null) {
                 userFan = new UserFan();
                 userFan.setUserId(followId);
                 userFan.setFansId(user.getId().longValue());
-                userFan.setFansName(userMapper.selectById(user.getId().longValue()).getName());/*当前登陆人名称*/
+                // 当前登陆人名称
+                userFan.setFansName(userMapper.selectById(user.getId().longValue()).getName());
                 userFan.setLevel((short) 0);
-                userFan.setIsDisplay(true);/*动态可见*/
+                // 动态可见
+                userFan.setIsDisplay(true);
                 userFan.setIsShieldLetter(false);
                 userFan.setIsShieldComment(false);
                 userFan.setCreatedTime(new Date());
@@ -156,7 +152,8 @@ public class UserRelationServiceImpl implements UserRelationService {
             userFollow.setFollowId(followId);
             userFollow.setFollowName(followUser.getName());
             userFollow.setCreatedTime(new Date());
-            userFollow.setIsNotice(true); // 动态通知
+            // 动态通知
+            userFollow.setIsNotice(true);
             userFollow.setLevel((short) 1);
             userFollowMapper.insert(userFollow);
             //记录关注文章的行为
@@ -167,41 +164,37 @@ public class UserRelationServiceImpl implements UserRelationService {
             //异步发送消息，保存关注行为
             kafkaTemplate.send(FollowBehaviorConstants.FOLLOW_BEHAVIOR_TOPIC, JSON.toJSONString(behaviorDto));
             return ResponseResult.okResult(ResultEnum.SUCCESS);
-        }else {
+        } else {
             // 已关注
-            return ResponseResult.errorResult(ResultEnum.DATA_EXIST,"已关注");
+            return ResponseResult.errorResult(ResultEnum.DATA_EXIST, "已关注");
         }
     }
+
     /**
      * 取消关注逻辑
-     * @author xiaoxiang
-     * @date 2022/6/20
-     * @param user
-     * @param followId
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    private ResponseResult followCancelByUserId(User user, Integer followId) {
+    private ResponseResult<?> followCancelByUserId(User user, Integer followId) {
         // 1.先查再删
         UserFollow userFollow = userFollowMapper.selectOne(Wrappers.<UserFollow>lambdaQuery()
                 .eq(UserFollow::getUserId, user.getId())
                 .eq(UserFollow::getFollowId, followId));
-        if (userFollow == null){
+        if (userFollow == null) {
             return ResponseResult.errorResult(ResultEnum.DATA_NOT_EXIST, "未关注");
-        }else {
+        } else {
             UserFan userFan = userFanMapper.selectOne(Wrappers.<UserFan>lambdaQuery()
                     .eq(UserFan::getUserId, followId)
                     .eq(UserFan::getFansId, user.getId()));
             // 删除用户粉丝信息
-            if (user != null){
+            if (user != null) {
                 // 查多少删多少
                 userFanMapper.delete(Wrappers.<UserFan>lambdaQuery()
-                        .eq(UserFan::getUserId,followId)
-                        .eq(UserFan::getUserId,user.getId()));
+                        .eq(UserFan::getUserId, followId)
+                        .eq(UserFan::getUserId, user.getId()));
             }
             // 删除用户关注信息
             userFollowMapper.delete(Wrappers.<UserFollow>lambdaQuery()
-                    .eq(UserFollow::getUserId,user.getId())
-                    .eq(UserFollow::getFollowId,followId));
+                    .eq(UserFollow::getUserId, user.getId())
+                    .eq(UserFollow::getFollowId, followId));
             return ResponseResult.okResult(ResultEnum.SUCCESS);
         }
     }

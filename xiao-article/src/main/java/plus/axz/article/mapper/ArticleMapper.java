@@ -10,11 +10,10 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars 文章信息
+ * description 文章信息
  */
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
     /*type 加载方式，见xml文件*/
-    public List<Article> loadArticleList(@Param("dto") ArticleHomeDto dto, @Param("type") Short type);
+    List<Article> loadArticleList(@Param("dto") ArticleHomeDto dto, @Param("type") Short type);
 }

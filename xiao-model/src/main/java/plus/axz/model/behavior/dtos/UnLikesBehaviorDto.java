@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars
+ * description : 不喜欢行为
  */
 @Data
 public class UnLikesBehaviorDto {

@@ -6,8 +6,7 @@ import plus.axz.model.behavior.pojos.UnlikesBehavior;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 不喜欢行为
+ * description 不喜欢行为
  */
 @Mapper
 public interface UnlikesBehaviorMapper extends BaseMapper<UnlikesBehavior> {

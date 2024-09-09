@@ -6,10 +6,9 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 收藏行为接口
  */
 public interface CollectionControllerApi {
     @ApiOperation("保存或更新收藏行为")
-    public ResponseResult collectionBehavior(CollectionDto dto);
+    ResponseResult<?> collectionBehavior(CollectionDto dto);
 }

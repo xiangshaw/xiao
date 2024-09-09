@@ -1,6 +1,6 @@
 package plus.axz.search.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +14,17 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars es文章搜索
+ * description es文章搜索
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/article/search")
 public class ArticleSearchController implements ArticleSearchControllerApi {
-    @Autowired
-    private ArticleSearchService articleSearchService;
+
+    private final ArticleSearchService articleSearchService;
     @Override
     @PostMapping("/search")
-    public ResponseResult search(@RequestBody UserSearchDto dto) throws IOException {
+    public ResponseResult<?> search(@RequestBody UserSearchDto dto) throws IOException {
         return articleSearchService.search(dto);
     }
 }

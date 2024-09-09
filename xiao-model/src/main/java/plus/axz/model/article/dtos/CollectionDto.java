@@ -7,8 +7,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description
  */
 @Data
 public class CollectionDto {

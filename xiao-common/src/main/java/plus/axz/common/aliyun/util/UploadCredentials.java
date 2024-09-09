@@ -2,6 +2,10 @@ package plus.axz.common.aliyun.util;
 
 import java.io.Serializable;
 
+/**
+ * @author xiaoxiang
+ * description 上传凭证类
+ */
 public class UploadCredentials implements Serializable {
 
     private String accessKeyId;

@@ -1,6 +1,6 @@
 package plus.axz.article.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,31 +13,31 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 首页文章加载
+ * description 首页文章加载
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/article")
 public class ArticleHomeController implements ArticleHomeControllerApi {
-    @Autowired
-    private ArticleService articleService;
+
+    private final ArticleService articleService;
 
     @PostMapping("/load")
     @Override
-    public ResponseResult load(@RequestBody ArticleHomeDto dto) {
-//        return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_MORE);
-        return articleService.load2(dto, ArticleConstans.LOADTYPE_LOAD_MORE,true);
+    public ResponseResult<?> load(@RequestBody ArticleHomeDto dto) {
+        // return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_MORE);
+        return articleService.load2(dto, ArticleConstans.LOADTYPE_LOAD_MORE, true);
     }
 
     @PostMapping("/loadmore")
     @Override
-    public ResponseResult loadMore(@RequestBody ArticleHomeDto dto) {
+    public ResponseResult<?> loadMore(@RequestBody ArticleHomeDto dto) {
         return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_MORE);
     }
 
     @PostMapping("/loadnew")
     @Override
-    public ResponseResult loadNew(@RequestBody ArticleHomeDto dto) {
+    public ResponseResult<?> loadNew(@RequestBody ArticleHomeDto dto) {
         return articleService.load(dto, ArticleConstans.LOADTYPE_LOAD_NEW);
     }
 }

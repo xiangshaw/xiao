@@ -14,8 +14,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars app收藏信息
+ * description app收藏信息
  */
 @Data
 @TableName("collection")

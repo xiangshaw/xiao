@@ -1,10 +1,10 @@
 package plus.axz.article.config.stream;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +12,15 @@ import java.util.Map;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars KafkaStreamListener扫描和实例化成KafkaStreamProcessor.doAction的返回类，完成监听器实际注册的过程
+ * description KafkaStreamListener扫描和实例化成KafkaStreamProcessor.doAction的返回类，完成监听器实际注册的过程
  */
+@RequiredArgsConstructor
 @Component
 public class KafkaStreamListenerFactory implements InitializingBean {
 
     Logger logger = LoggerFactory.getLogger(KafkaStreamListenerFactory.class);
 
-    @Autowired
-    DefaultListableBeanFactory defaultListableBeanFactory;
+    private final DefaultListableBeanFactory defaultListableBeanFactory;
 
     /**
      * 初始化完成后自动调用

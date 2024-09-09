@@ -6,11 +6,9 @@ import plus.axz.model.wemedia.dtos.WmUserDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月01日
- * @particulars 自媒体用户登录接口
+ * description 自媒体用户登录接口
  */
 public interface LoginControllerApi {
-
     @ApiOperation("自媒体用户登录")
-    public ResponseResult login(WmUserDto dto);
+    ResponseResult<?> login(WmUserDto dto);
 }

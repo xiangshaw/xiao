@@ -6,17 +6,16 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 首页文章展示
+ * description 首页文章展示
  */
 public interface ArticleHomeControllerApi {
 
     @ApiOperation("加载首页文章")
-    public ResponseResult load(ArticleHomeDto dto);
+     ResponseResult<?> load(ArticleHomeDto dto);
 
     @ApiOperation("加载更多")
-    public ResponseResult loadMore(ArticleHomeDto dto);
+     ResponseResult<?> loadMore(ArticleHomeDto dto);
 
     @ApiOperation("加载最新")
-    public ResponseResult loadNew(ArticleHomeDto dto);
+     ResponseResult<?> loadNew(ArticleHomeDto dto);
 }

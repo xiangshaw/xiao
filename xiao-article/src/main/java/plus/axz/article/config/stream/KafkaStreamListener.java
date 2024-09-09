@@ -2,8 +2,7 @@ package plus.axz.article.config.stream;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars
+ * description kafka 流数据监听消费者接口类
  *  流数据的监听消费者实现的接口类，系统自动会通过
  *  KafkaStreamListenerFactory类扫描项目中实现该接口的类
  *  并注册为流数据的消费端

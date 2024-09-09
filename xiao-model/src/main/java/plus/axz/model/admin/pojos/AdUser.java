@@ -10,6 +10,10 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author xiaoxiang
+ * description 用户表
+ */
 @Data
 @TableName("tb_user")
 public class AdUser implements Serializable {
@@ -17,7 +21,8 @@ public class AdUser implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)/*描述主键为id 主键自增*/
+    /*描述主键为id 主键自增*/
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 登录用户名

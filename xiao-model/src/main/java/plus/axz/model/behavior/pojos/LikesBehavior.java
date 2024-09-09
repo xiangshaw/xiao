@@ -14,8 +14,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars APP点赞行为表
+ * description app点赞行为表
  */
 @Data
 @TableName("likes_behavior")

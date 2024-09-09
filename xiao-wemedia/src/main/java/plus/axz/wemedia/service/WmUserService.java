@@ -7,16 +7,11 @@ import plus.axz.model.wemedia.pojos.WmUser;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 public interface WmUserService extends IService<WmUser> {
     /**
      * 登录
-     * @author xiaoxiang
-     * @date 2022/4/1
-     * @param dto
-     * @return plus.axz.model.common.dtos.ResponseResult
      */
-    public ResponseResult login(WmUserDto dto);
+    ResponseResult<?> login(WmUserDto dto);
 }

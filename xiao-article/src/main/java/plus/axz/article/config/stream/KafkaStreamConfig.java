@@ -18,8 +18,7 @@ import java.util.Map;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 通过重新注册KafkaStreamsConfiguration对象，设置自定配置参数
+ * description 通过重新注册KafkaStreamsConfiguration对象，设置自定配置参数
  */
 @Setter
 @Getter
@@ -36,7 +35,6 @@ public class KafkaStreamConfig {
      * 1、服务器地址
      * 2、应用ID
      * 3、流消息的副本数等配置
-     * @return
      */
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration defaultKafkaStreamsConfig() {

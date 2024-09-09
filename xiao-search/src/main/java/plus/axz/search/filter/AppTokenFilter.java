@@ -16,8 +16,7 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 因为需要获取到当前登录用户，所以需要增加获取用户的代码
+ * description 因为需要获取到当前登录用户，所以需要增加获取用户的代码
  */
 @Order(1)
 @WebFilter(filterName = "appTokenFilter", urlPatterns = "/*")

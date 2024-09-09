@@ -9,14 +9,13 @@ import plus.axz.model.behavior.pojos.UnlikesBehavior;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 行为远程接口
+ * description 行为远程接口
  */
 @FeignClient("xiao-behavior")
 public interface BehaviorFeign {
 
     @GetMapping("/api/v1/behavior_entry/one")
-    public BehaviorEntry findByUserIdOrEntryId(@RequestParam("userId") Integer userId, @RequestParam("equipmentId") Integer equipmentId);
+    BehaviorEntry findByUserIdOrEntryId(@RequestParam("userId") Integer userId, @RequestParam("equipmentId") Integer equipmentId);
 
     @GetMapping("/api/v1/unlikes_behavior/one")
     UnlikesBehavior findUnLikeByArticleIdAndEntryId(@RequestParam("entryId") Integer entryId, @RequestParam("articleId") Long articleId);

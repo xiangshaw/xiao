@@ -11,10 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 敏感词
- *
  * @author xiaoxiang
- * @date 2022/3/23
+ * description 敏感词
  */
 @Data
 @TableName("tb_sensitive")
@@ -34,12 +32,12 @@ public class Sensitive implements Serializable {
      * 创建时间
      */
     @TableField("created_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createdTime;
     /**
      * 修改时间
      */
     @TableField("update_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date updateTime;
 }

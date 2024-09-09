@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 引入xxl-job
- * */
-
-
+ * description 引入xxl-job
+ */
 @Log4j2
 @Configuration
 public class XxlJobConfig {
@@ -30,7 +27,7 @@ public class XxlJobConfig {
         log.info(">>>>>>>>>>> xxl-job config init.");
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
-        xxlJobSpringExecutor.setAppName(appName);
+        xxlJobSpringExecutor.setAppname(appName);
         xxlJobSpringExecutor.setPort(port);
         xxlJobSpringExecutor.setLogRetentionDays(30);
 

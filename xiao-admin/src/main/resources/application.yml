@@ -47,7 +47,8 @@ file:
   ip: localhost
 
 # 图片访问ip
-fdfs.url: http://192.168.20.221/
+fdfs:
+  url: http://192.168.20.221/
 
 #取消对elastsearch的健康检查
 management:

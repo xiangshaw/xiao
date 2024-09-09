@@ -1,8 +1,9 @@
 package plus.axz.model.common.dtos;
 
 import java.io.Serializable;
-/*
- * 分页通用返回
+/**
+ * @author xiaoxiang
+ * description 分页通用返回
  */
 public class PageResponseResult extends ResponseResult implements Serializable {
     private Integer currentPage;
@@ -18,7 +19,6 @@ public class PageResponseResult extends ResponseResult implements Serializable {
     public PageResponseResult() {
 
     }
-
 
     public int getCurrentPage() {
         return currentPage;

@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 点赞行为
+ * description 点赞行为
  */
 @Data
 public class LikesBehaviorDto {

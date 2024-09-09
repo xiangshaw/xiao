@@ -2,10 +2,14 @@ package plus.axz.common.constants.article;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars
+ * description 文章常量类
  */
 public class ArticleConstans {
+
+    private ArticleConstans() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static final Short LOADTYPE_LOAD_MORE = 1;
     public static final Short LOADTYPE_LOAD_NEW = 2;
     public static final String DEFAULT_TAG = "__all__";

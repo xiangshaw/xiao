@@ -10,14 +10,13 @@ import plus.axz.model.wemedia.pojos.WmUser;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars
+ * description
  */
 @FeignClient("xiao-wemedia")
 public interface WemediaFeign {
     @PostMapping("/api/v1/user/save")
-    public ResponseResult save(@RequestBody WmUser wmUser);
+    ResponseResult<?> save(@RequestBody WmUser wmUser);
 
     @GetMapping("/api/v1/user/findByName/{name}")
-    public WmUser findByName(@PathVariable("name") String name);
+    WmUser findByName(@PathVariable("name") String name);
 }

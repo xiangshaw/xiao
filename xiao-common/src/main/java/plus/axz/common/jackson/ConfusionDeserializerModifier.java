@@ -10,7 +10,10 @@ import com.fasterxml.jackson.databind.deser.SettableBeanProperty;
 
 import java.util.Iterator;
 
-// 用于过滤反序列化时处理的字段
+/**
+ * @author xiaoxiang
+ * description 用于过滤反序列化时处理的字段
+ */
 public class ConfusionDeserializerModifier extends BeanDeserializerModifier {
 
     @Override

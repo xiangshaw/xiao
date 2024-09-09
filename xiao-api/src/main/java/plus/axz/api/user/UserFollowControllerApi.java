@@ -5,11 +5,10 @@ import plus.axz.model.user.pojos.UserFollow;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description
  */
 public interface UserFollowControllerApi {
     //远程接口
     @ApiOperation("根据用户id和关注作者的id查询")
-    public UserFollow findByUserIdAndFollowId(Integer userId, Integer followId);
+    UserFollow findByUserIdAndFollowId(Integer userId, Integer followId);
 }

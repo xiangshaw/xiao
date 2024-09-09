@@ -7,8 +7,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 查询评论列表
+ * description 查询评论列表
  */
 @Data
 public class CommentDto {

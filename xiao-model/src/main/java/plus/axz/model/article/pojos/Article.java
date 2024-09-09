@@ -12,13 +12,12 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月02日
- * @particulars 文章信息表，存储已发布的文章
+ * description 文章信息表，存储已发布的文章
  */
 @Data
 @TableName("article")
 public class Article {
-    @TableId(value = "id", type = IdType.ID_WORKER)/*雪花算法*/
+    @TableId(value = "id", type = IdType.ID_WORKER)
     @IdEncrypt
     private Long id;
     /**
@@ -47,19 +46,19 @@ public class Article {
     @TableField("tag_name")
     private String tagName;
     /**
-     * 文章布局        0 无图文章            1 单图文章                 2 多图文章
+     * 文章布局 0 无图文章 1 单图文章  2 多图文章
      */
     private Short layout;
     /**
      4 大V 文章
      1 热点文章
      2 置顶文章
-     * 文章标记        0 普通文章
+     * 文章标记   0 普通文章
      */
     private Byte flag;
     /**
      3 精品文章
-     * 文章封面图片    多张逗号分隔
+     * 文章封面图片 多张逗号分隔
      */
     private String images;
     /**

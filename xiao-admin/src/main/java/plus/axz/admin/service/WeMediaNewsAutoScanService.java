@@ -6,8 +6,7 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars 自动审核
+ * description 自动审核
  */
 public interface WeMediaNewsAutoScanService {
     // 自媒体文章审核
@@ -18,13 +17,11 @@ public interface WeMediaNewsAutoScanService {
     public PageResponseResult findNews(NewsAuthDto dto);
 
     // 根据文章id文章信息
-    public ResponseResult findOne(Integer id);
+    public ResponseResult<?> findOne(Integer id);
 
     /**
      * 审核通过、驳回
-     * @param dto
      * @param type  0驳回 1通过
-     * @return
      */
-    public ResponseResult updateStatus(NewsAuthDto dto,Integer type);
+    public ResponseResult<?> updateStatus(NewsAuthDto dto,Integer type);
 }

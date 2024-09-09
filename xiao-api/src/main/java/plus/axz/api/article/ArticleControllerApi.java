@@ -5,8 +5,7 @@ import plus.axz.model.article.pojos.Article;
 
 /**
  * @author xiaoxiang
- * @date 2022年05月03日
- * @particulars admin端远程调用
+ * description admin端远程调用
 在文章审核成功以后需要在app的article库中新增文章数据
  * 1 保存文章信息    article，需要返回当前文章，并且需要获取保存后获取到的主键
  * 2 保存文章配置信息    article_config

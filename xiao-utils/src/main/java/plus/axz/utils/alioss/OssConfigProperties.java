@@ -1,4 +1,4 @@
-package plus.axz.utils.AliOss;
+package plus.axz.utils.alioss;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月26日
- * @Description:
+ * description
  */
 @Data
 @Configuration

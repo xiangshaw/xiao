@@ -7,9 +7,8 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 点赞行为 服务接口
+ * description 点赞行为 服务
  */
 public interface LikesBehaviorService extends IService<LikesBehavior> {
-    public ResponseResult like(LikesBehaviorDto dto);
+    ResponseResult<?> like(LikesBehaviorDto dto);
 }

@@ -22,8 +22,7 @@ import java.util.Map;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月24日
- * @particulars 文章ES测试
+ * description 文章ES测试
  */
 @SpringBootTest(classes = ArticleApplication.class)
 @RunWith(SpringRunner.class)

@@ -4,7 +4,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * 数字ID混淆器，用于前后端数据通信时候的处理
+ * @author xiaoxiang
+ * description 数字ID混淆器，用于前后端数据通信时候的处理
  */
 public class IdsUtils {
 

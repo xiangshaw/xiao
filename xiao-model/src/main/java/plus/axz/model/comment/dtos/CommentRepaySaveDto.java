@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 保存回复内容参数
+ * description 保存回复内容参数
  */
 @Data
 public class CommentRepaySaveDto {

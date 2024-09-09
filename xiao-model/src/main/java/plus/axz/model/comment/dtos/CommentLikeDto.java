@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 评论点赞
+ * description 评论点赞
  */
 @Data
 public class CommentLikeDto {

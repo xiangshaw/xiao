@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars
+ * description 修改文章的消息体
  */
 @Data
 public class UpdateArticleMess {

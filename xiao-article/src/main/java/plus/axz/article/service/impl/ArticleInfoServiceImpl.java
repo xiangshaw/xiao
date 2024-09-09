@@ -1,7 +1,7 @@
 package plus.axz.article.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import plus.axz.article.feign.BehaviorFeign;
 import plus.axz.article.feign.UserFeign;
@@ -29,54 +29,49 @@ import java.util.Map;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月17日
- * @particulars 文章详情
+ * description 文章详情
  */
+@RequiredArgsConstructor
 @Service
 public class ArticleInfoServiceImpl implements ArticleInfoService {
 
-    @Autowired
-    private ArticleConfigMapper articleConfigMapper;
-    @Autowired
-    private ArticleContentMapper articleContentMapper;
+    private final ArticleConfigMapper articleConfigMapper;
+
+    private final ArticleContentMapper articleContentMapper;
 
     @Override
-    public ResponseResult loadArticleInfo(ArticleInfoDto dto) {
+    public ResponseResult<?> loadArticleInfo(ArticleInfoDto dto) {
         HashMap<String, Object> resultMap = new HashMap<>();
         // 1.检查参数
-        if (dto == null || dto.getArticleId() == null){
+        if (dto == null || dto.getArticleId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 2.查询文章配置
         ArticleConfig articleConfig = articleConfigMapper.selectOne(Wrappers.<ArticleConfig>lambdaQuery().eq(ArticleConfig::getArticleId, dto.getArticleId()));
-        if (articleConfig == null){
+        if (articleConfig == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 3.查询文章内容--非下架非删除内容
         // 1上0下 1删0未删
         if (!articleConfig.getIsDelete() && articleConfig.getIsDown()) {
             ArticleContent articleContent = articleContentMapper.selectOne(Wrappers.<ArticleContent>lambdaQuery().eq(ArticleContent::getArticleId, dto.getArticleId()));
-            resultMap.put("content",articleContent);
+            resultMap.put("content", articleContent);
         }
-        resultMap.put("config",articleConfig);
+        resultMap.put("config", articleConfig);
         return ResponseResult.okResult(resultMap);
     }
 
-    // // 行为展示业务
-    @Autowired
-    private BehaviorFeign behaviorFeign;
+    // 行为展示业务
+    private final BehaviorFeign behaviorFeign;
 
-    @Autowired
-    private CollectionMapper collectionMapper;
+    private final CollectionMapper collectionMapper;
 
-    @Autowired
-    private UserFeign userFeign;
+    private final UserFeign userFeign;
 
-    @Autowired
-    private AuthorMapper authorMapper;
+    private final AuthorMapper authorMapper;
 
     @Override
-    public ResponseResult loadArticleBehavior(ArticleInfoDto dto) {
+    public ResponseResult<?> loadArticleBehavior(ArticleInfoDto dto) {
         //1.检查参数
         if (dto == null || dto.getArticleId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -112,7 +107,8 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
         }
 
         //6.查询是否关注
-        Author apAuthor = authorMapper.selectById(dto.getAuthorId());/*查出作者*/
+        // 查出作者
+        Author apAuthor = authorMapper.selectById(dto.getAuthorId());
         if (apAuthor != null) {
             UserFollow apUserFollow = userFeign.findByUserIdAndFollowId(user.getId(), apAuthor.getUserId());
             if (apUserFollow != null) {
@@ -120,7 +116,7 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
             }
         }
 
-        //7.结果返回  {"isfollow":true,"islike":true,"isunlike":false,"iscollection":true}
+        // 7.结果返回  {"isfollow":true,"islike":true,"isunlike":false,"iscollection":true}
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("isfollow", isFollow);
         resultMap.put("islike", isLike);

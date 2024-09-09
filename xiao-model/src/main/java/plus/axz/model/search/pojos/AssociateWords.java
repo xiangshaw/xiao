@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 联想词表
+ * description 联想词表
  */
 @Data
 @TableName("associate_words")

@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars 聚合
+ * description 聚合
  */
 @Data
 public class ArticleVisitStreamMess {

@@ -16,8 +16,7 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars mongodb连接配置
+ * description mongodb连接配置
  */
 @Data
 @Configuration
@@ -33,8 +32,6 @@ public class MongoDBconfigure {
 
     /**
      * 构建MongoTemplate
-     *
-     * @return
      */
     @Bean
     public MongoTemplate getMongoTemplate() {

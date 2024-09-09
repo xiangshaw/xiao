@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月17日
- * @particulars 加载文章详情
+ * description 加载文章详情
  */
 @Data
 public class ArticleInfoDto {

@@ -7,13 +7,12 @@ import plus.axz.model.user.dtos.ULoginDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月19日
- * @particulars app端登录 准备
+ * description app端登录 准备
  */
 public interface UserLoginControllerApi {
     @ApiOperation("app端登录")
-    public ResponseResult login(LoginDto dto);
+    ResponseResult<?> login(LoginDto dto);
 
     @ApiOperation("web端登录")
-    public ResponseResult ulogin(ULoginDto dto);
+    ResponseResult<?> ulogin(ULoginDto dto);
 }

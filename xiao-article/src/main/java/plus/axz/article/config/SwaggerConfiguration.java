@@ -14,14 +14,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 /**
  * @author xiaoxiang
- * @date 2022年03月22日
- * @particulars
+ * description Swagger配置类
  */
 @Configuration
-@EnableSwagger2//开启Swagger需要写这个注解
+//开启Swagger需要写这个注解
+@EnableSwagger2
 @EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
@@ -38,12 +37,12 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo buildApiInfo() {
-        Contact contact = new Contact("axz","https://axz.xz.cn","1056965430@qq.com");
+        Contact contact = new Contact("axz","https://coisini.cn","coisini.xiang@qq.com");
         return new ApiInfoBuilder()
-                .title("axz-博客API文档")
-                .description("axz平台管理服务api")
+                .title("ArticleAPI文档")
+                .description("平台管理服务api")
                 .contact(contact)
-                .termsOfServiceUrl("https://axz.xz.cn")
+                .termsOfServiceUrl("https://coisini.cn")
                 .version("1.0.0")
                 .build();
     }

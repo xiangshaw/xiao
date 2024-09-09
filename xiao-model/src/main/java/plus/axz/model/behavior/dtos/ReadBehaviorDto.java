@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars 阅读
+ * description 阅读
  */
 @Data
 public class ReadBehaviorDto {

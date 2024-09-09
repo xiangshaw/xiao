@@ -12,19 +12,21 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月21日
- * @particulars Article微服务引导类
+ * description Article微服务引导类
  */
 // 移除自动数据源配置，采取自定义数据源配置方式
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@MapperScan("plus.axz.article.mapper")/*扫描mapper接口*/
+@MapperScan("plus.axz.article.mapper")
 @EnableDiscoveryClient
-@EnableFeignClients //开启feign调用
-@ServletComponentScan // 启用filter过滤器
+//开启feign调用
+@EnableFeignClients
+// 启用filter过滤器
+@ServletComponentScan
 public class ArticleApplication {
     public static void main(String[] args) {
         SpringApplication.run(ArticleApplication.class, args);
     }
+
     /**
      * mybatis-plus分页插件
      * 3.4版本以前

@@ -5,18 +5,17 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月25日
- * @particulars
+ * description 实现Trie树
  */
 public class Trie {
-    private TrieNode root;
+    private final TrieNode root;
     public Trie(){
         root = new TrieNode();
         root.var = ' ';
     }
     /**
      * 插入trie树
-     * @param word
+     * @param word 待插入的词
      */
     public void insert(String word){
         TrieNode ws = root;
@@ -32,8 +31,7 @@ public class Trie {
 
     /**
      * 查询trie树
-     * @param prefix
-     * @return
+     * @param prefix 待查询的前缀
      */
     public List<String> startWith(String prefix){
         List<String> match = new ArrayList<>();
@@ -58,7 +56,8 @@ public class Trie {
         t.insert("萧肖");
         t.insert("萧小");
         t.insert("xiao小");
-        List<String> ret = t.startWith("萧");/*匹配萧*/
+        // 匹配萧
+        List<String> ret = t.startWith("萧");
         System.out.println(ret);
     }
 }

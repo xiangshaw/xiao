@@ -1,8 +1,12 @@
 package plus.axz.model.common.enums;
 
-/*
- *通用的异常枚举
+import lombok.Getter;
+
+/**
+ * @author xiaoxiang
+ * description 通用的异常枚举
  */
+@Getter
 public enum ResultEnum {
 
     // 成功段0
@@ -30,8 +34,9 @@ public enum ResultEnum {
     // 数据错误 3000~3500
     NO_OPERATOR_AUTH(3000,"无权限操作"),
     NEED_ADMIND(3001,"需要管理员权限");
-    int code;
-    String message;
+    //通过get方法就可以拿值
+    final int code;
+    final String message;
 
     //触发构造器，赋值
     ResultEnum(int code, String message){
@@ -39,12 +44,4 @@ public enum ResultEnum {
         this.message = message;
     }
 
-    //通过get方法就可以拿值
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

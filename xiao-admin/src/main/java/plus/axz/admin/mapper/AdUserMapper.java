@@ -6,8 +6,7 @@ import plus.axz.model.admin.pojos.AdUser;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月23日
- * @particulars
+ * description 管理员用户mapper
  */
 @Mapper
 public interface AdUserMapper extends BaseMapper<AdUser> {

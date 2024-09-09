@@ -1,6 +1,6 @@
 package plus.axz.user.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import plus.axz.api.user.UserControllerApi;
 import plus.axz.model.common.dtos.ResponseResult;
@@ -9,15 +9,14 @@ import plus.axz.user.service.UserService;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars 根据id查询app用户信息
+ * description 根据id查询app用户信息
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController implements UserControllerApi {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/{id}")
     @Override
@@ -28,7 +27,7 @@ public class UserController implements UserControllerApi {
     // 用户注册
     @PostMapping("/register")
     @Override
-    public ResponseResult UserRegister(@RequestBody User user) {
-        return userService.UserRegister(user);
+    public ResponseResult<?> UserRegister(@RequestBody User user) {
+        return userService.userRegister(user);
     }
 }

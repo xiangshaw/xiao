@@ -10,8 +10,7 @@ import java.io.Serializable;
 
 /**
  * @author xiaoxiang
- * @date 2022年04月02日
- * @particulars 自媒体图文引用素材信息表
+ * description 自媒体图文引用素材信息表
  */
 @Data
 @TableName("news_material")

@@ -8,8 +8,7 @@ import plus.axz.model.article.pojos.Author;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月30日
- * @particulars
+ * description
  */
 @Service
 public class AuthorServiceImpl extends ServiceImpl<AuthorMapper, Author> implements AuthorService {

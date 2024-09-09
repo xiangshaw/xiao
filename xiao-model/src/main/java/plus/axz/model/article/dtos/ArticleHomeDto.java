@@ -6,8 +6,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月15日
- * @particulars 加载文章首页
+ * description 加载文章首页
  */
 @Data
 public class ArticleHomeDto {

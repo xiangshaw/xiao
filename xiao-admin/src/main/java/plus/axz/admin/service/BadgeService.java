@@ -7,24 +7,26 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月29日
- * @particulars
+ * description 徽章
  */
 public interface BadgeService extends IService<Badge> {
     /**
      * 根据名称分页查询徽章列表
      */
-    public ResponseResult findByNameAndPage(BadgeDto dto);
+    ResponseResult<?> findByNameAndPage(BadgeDto dto);
+
     /**
      * 新增
      */
-    public ResponseResult insert(Badge badge);
+    ResponseResult<?> insert(Badge badge);
+
     /**
      * 修改
      */
-    public ResponseResult update(Badge badge);
+    ResponseResult<?> update(Badge badge);
+
     /**
      * 删除
      */
-    public ResponseResult deleteById(Integer id);
+    ResponseResult<?> deleteById(Integer id);
 }

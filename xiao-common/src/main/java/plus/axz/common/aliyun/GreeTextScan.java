@@ -14,12 +14,18 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * @author xiaoxiang
+ * description 阿里云文本审核
+ */
+@Log4j2
 @Getter
 @Setter
 @Component/*当前类放入springboot中创建对象*/
@@ -30,45 +36,46 @@ public class GreeTextScan {
     private String accessKeyId;
     private String secret;
 
-    public Map greeTextScan(String content) throws Exception {
+    public Map<Object, Object> greeTextScan(String content) throws Exception {
         IClientProfile profile = DefaultProfile
                 .getProfile("cn-shanghai", accessKeyId, secret);
         DefaultProfile
                 .addEndpoint("cn-shanghai", "cn-shanghai", "Green", "green.cn-shanghai.aliyuncs.com");
         IAcsClient client = new DefaultAcsClient(profile);
         TextScanRequest textScanRequest = new TextScanRequest();
-        textScanRequest.setAcceptFormat(FormatType.JSON); // 指定api返回格式
+        // 指定api返回格式
+        textScanRequest.setAcceptFormat(FormatType.JSON);
         textScanRequest.setHttpContentType(FormatType.JSON);
-        textScanRequest.setMethod(com.aliyuncs.http.MethodType.POST); // 指定请求方法
+        // 指定请求方法
+        textScanRequest.setMethod(com.aliyuncs.http.MethodType.POST);
         textScanRequest.setEncoding("UTF-8");
         textScanRequest.setRegionId("cn-shanghai");
         List<Map<String, Object>> tasks = new ArrayList<Map<String, Object>>();
         Map<String, Object> task1 = new LinkedHashMap<String, Object>();
         task1.put("dataId", UUID.randomUUID().toString());
-        /**
+        /*
          * 待检测的文本，长度不超过10000个字符
          */
         task1.put("content", content);
         tasks.add(task1);
         JSONObject data = new JSONObject();
-
-        /**
+        /*
          * 检测场景，文本垃圾检测传递：antispam
          **/
         data.put("scenes", Arrays.asList("antispam"));
         data.put("tasks", tasks);
-        System.out.println(JSON.toJSONString(data, true));
+        log.info(JSON.toJSONString(data, true));
         textScanRequest.setHttpContent(data.toJSONString().getBytes("UTF-8"), "UTF-8", FormatType.JSON);
         // 请务必设置超时时间
         textScanRequest.setConnectTimeout(3000);
         textScanRequest.setReadTimeout(6000);
 
-        Map<String, String> resultMap = new HashMap<>();
+        Map<Object, Object> resultMap = new HashMap<>();
         try {
             HttpResponse httpResponse = client.doAction(textScanRequest);
             if (httpResponse.isSuccess()) {
                 JSONObject scrResponse = JSON.parseObject(new String(httpResponse.getHttpContent(), "UTF-8"));
-                System.out.println(JSON.toJSONString(scrResponse, true));
+                log.info(JSON.toJSONString(scrResponse, true));
                 if (200 == scrResponse.getInteger("code")) {
                     JSONArray taskResults = scrResponse.getJSONArray("data");
                     for (Object taskResult : taskResults) {
@@ -81,7 +88,8 @@ public class GreeTextScan {
                                 System.out.println("suggestion = [" + label + "]");
                                 if (!suggestion.equals("pass")) {
                                     resultMap.put("suggestion", suggestion);
-                                    resultMap.put("label", label);/*审核失败原因*/
+                                    // 审核失败原因
+                                    resultMap.put("label", label);
                                     return resultMap;
                                 }
 
@@ -99,13 +107,12 @@ public class GreeTextScan {
                 return null;
             }
         } catch (ServerException e) {
-            e.printStackTrace();
+            log.error("ServerException:", e);
         } catch (ClientException e) {
-            e.printStackTrace();
+            log.error("ClientException:", e);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Exception:", e);
         }
         return null;
     }
-
 }

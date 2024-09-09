@@ -7,20 +7,21 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 评论服务
  */
 public interface CommentService {
     /**
      * 保存评论
      */
-    public ResponseResult saveComment(CommentSaveDto dto);
+    ResponseResult<?> saveComment(CommentSaveDto dto);
+
     /**
      * 点赞或取消点赞
      */
-    public ResponseResult like(CommentLikeDto dto);
+    ResponseResult<?> like(CommentLikeDto dto);
+
     /**
      * 查询文章评论列表
      */
-    public ResponseResult findByArticleId(CommentDto dto);
+    ResponseResult<?> findByArticleId(CommentDto dto);
 }

@@ -3,7 +3,7 @@ package plus.axz.article.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import plus.axz.article.feign.BehaviorFeign;
@@ -23,18 +23,18 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description
  */
+@RequiredArgsConstructor
 @Service
 public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collection> implements CollectionService {
-    @Autowired
-    private BehaviorFeign behaviorFeign;
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+
+    private final BehaviorFeign behaviorFeign;
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public ResponseResult collectionBehavior(CollectionDto dto) {
+    public ResponseResult<?> collectionBehavior(CollectionDto dto) {
         // 1.检查参数
         if (dto == null || dto.getArticleId() == null || (dto.getType() < 0 && dto.getType() > 1) || (dto.getOperation() < 0 && dto.getOperation() > 1)) {
             return ResponseResult.errorResult(ResultEnum.PARAM_REQUIRE);
@@ -42,14 +42,14 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
         // 2.查询行为实体
         User user = AppThreadLocalUtils.getUser();
         BehaviorEntry behaviorEntry = behaviorFeign.findByUserIdOrEntryId(user.getId(), dto.getEquipmentId());
-        if (behaviorEntry == null){
+        if (behaviorEntry == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
         }
         // 3.保存或更新收藏行为
         Collection collection = getOne(Wrappers.<Collection>lambdaQuery()
                 .eq(Collection::getEntryId, behaviorEntry.getId())
                 .eq(Collection::getArticleId, dto.getArticleId()));
-        if (collection == null && dto.getOperation() == 0){
+        if (collection == null && dto.getOperation() == 0) {
             collection = new Collection();
             collection.setArticleId(dto.getArticleId());
             collection.setEntryId(behaviorEntry.getId());

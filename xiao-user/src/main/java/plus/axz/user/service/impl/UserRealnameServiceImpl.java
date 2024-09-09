@@ -7,7 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import plus.axz.common.constants.user.UserConstants;
@@ -29,15 +30,15 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月24日
- * @particulars 查询认证用户
+ * description 查询认证用户
  */
-
+@RequiredArgsConstructor
+@Log4j2
 @Service
 @Transactional
 public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, UserRealname> implements UserRealnameService {
     @Override
-    public ResponseResult loadListByStatus(AuthDto dto) {
+    public ResponseResult<?> loadListByStatus(AuthDto dto) {
         // 1.检查参数
         if (dto == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -51,9 +52,9 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
             lambdaQueryWrapper.eq(UserRealname::getStatus, dto.getStatus());
         }
         // 分页条件构建
-        IPage pageParam = new Page(dto.getPage(), dto.getSize());
+        IPage<UserRealname> pageParam = new Page<>(dto.getPage(), dto.getSize());
         // 需要 分页对象 和 状态
-        IPage page = page(pageParam, lambdaQueryWrapper);
+        IPage<UserRealname> page = page(pageParam, lambdaQueryWrapper);
 
         PageResponseResult pageResponseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         pageResponseResult.setData(page.getRecords());
@@ -63,8 +64,8 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
     @GlobalTransactional(rollbackFor = Exception.class)
     @Override
     // 审核user_realname表中用户，通过后状态为9，然后wm_user、author表新增用户数据
-    public ResponseResult updateStatusById(AuthDto dto, Short status) {
-        System.out.println("seata全局事务id====================>"+ RootContext.getXID());
+    public ResponseResult<?> updateStatusById(AuthDto dto, Short status) {
+        log.info("seata全局事务id====================>{}", RootContext.getXID());
         // 1.  检查参数
         if (dto == null || dto.getId() == null) {
             return ResponseResult.errorResult(ResultEnum.PARAM_INVALID);
@@ -90,29 +91,24 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
             // 4. 异常回滚测试， 测试本地事务
             // int a = 1/0;
             //9通过，创建自媒体账户和作者信息
-            ResponseResult result = createWmUserAndAuthor(dto);
+            ResponseResult<?> result = createWmUserAndAuthor(dto);
             if (result != null) {
                 return result;
             }
         }
         // 4. 异常回滚测试， 测试分布式事务
-        int a = 1 / 0;
+        // int a = 1 / 0;
         return ResponseResult.okResult(ResultEnum.SUCCESS);
     }
 
-    @Autowired
-    private UserMapper userMapper;
-    //注入远程接口
-    @Autowired
-    private WemediaFeign wemediaFeign;
+    private final UserMapper userMapper;
+
+    private final WemediaFeign wemediaFeign;
 
     /**
      * 审核通过，创建自媒体账户，创建作者信息
-     *
-     * @author xiaoxiang
-     * @date 2022/3/30
      */
-    private ResponseResult createWmUserAndAuthor(AuthDto dto) {
+    private ResponseResult<?> createWmUserAndAuthor(AuthDto dto) {
         // 获取user信息
         Integer userRealnameid = dto.getId();
         //获取userRealname对象，获取到当前的id也就是userid
@@ -145,12 +141,8 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
 
     /**
      * 创建作者信息
-     * @param wmUser
-     * @author xiaoxiang
-     * @date 2022/3/30
      */
-    @Autowired
-    private ArticleFeign articleFeign;
+    private final ArticleFeign articleFeign;
     private void createAuthor(WmUser wmUser) {
         Integer userId = wmUser.getUserId();
         Author author = articleFeign.findByUserId(userId);
@@ -167,11 +159,6 @@ public class UserRealnameServiceImpl extends ServiceImpl<UserRealnameMapper, Use
 
     /**
      * 检查状态
-     *
-     * @param status
-     * @return boolean
-     * @author xiaoxiang
-     * @date 2022/3/25
      */
     private boolean checkStatus(Short status) {
         // 如果status==null 或者    status不等于2 并且    不等于9

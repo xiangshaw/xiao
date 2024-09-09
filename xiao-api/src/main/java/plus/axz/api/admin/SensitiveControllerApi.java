@@ -8,45 +8,35 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 import java.util.List;
 
-@Api(value = "敏感词管理", tags = "Sensitive", description = "敏感词管理API")
+/**
+ * @author xiaoxiang
+ * descriptio 敏感词管理
+ */
+@Api(value = "敏感词管理", tags = "Sensitive")
 public interface SensitiveControllerApi {
     /**
      * 根据名称分页查询敏感词
-     *
-     * @param dto
-     * @return com.axz.model.common.dtos.ResponseResult
-     * @author xiaoxiang
-     * @date 2022/3/23
      */
     @ApiOperation("敏感词分页列表查询")
-    public ResponseResult list(SensitiveDto dto);
+     ResponseResult<?> list(SensitiveDto dto);
 
     /**
      * 新增
-     *
-     * @param sensitives
-     * @return
      */
     @ApiOperation("新增敏感词")
-    public ResponseResult insert(Sensitive sensitives);
+     ResponseResult<?> insert(Sensitive sensitives);
 
     /**
      * 修改
-     *
-     * @param sensitives
-     * @return
      */
     @ApiOperation("修改敏感词")
-    public ResponseResult update(Sensitive sensitives);
+     ResponseResult<?> update(Sensitive sensitives);
 
     /**
-     * 删除敏感词
-     *
-     * @param id
-     * @return
+     * 删除
      */
     @ApiOperation("删除敏感词")
-    public ResponseResult deleteById(Integer id);
+     ResponseResult<?> deleteById(Integer id);
 
     @ApiOperation("查所有敏感词")
     List<Sensitive> findAllSensitive();

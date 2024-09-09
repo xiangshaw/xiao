@@ -13,8 +13,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月21日
- * @particulars app阅读行为表
+ * description app阅读行为表
  */
 @Data
 @TableName("read_behavior")

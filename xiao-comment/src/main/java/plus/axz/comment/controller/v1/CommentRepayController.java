@@ -1,6 +1,6 @@
 package plus.axz.comment.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,33 +14,33 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description 评论回复
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/comment_repay")
 public class CommentRepayController implements CommentRepayControllerApi {
-    @Autowired
-    private CommentRepayService commentRepayService;
+
+    private final CommentRepayService commentRepayService;
 
     // 加载评论回复列表
     @PostMapping("/load")
     @Override
-    public ResponseResult loadCommentRepay(@RequestBody CommentRepayDto dto) {
+    public ResponseResult<?> loadCommentRepay(@RequestBody CommentRepayDto dto) {
         return commentRepayService.loadCommentRepay(dto);
     }
 
     // 保存回复内容
     @PostMapping("/save")
     @Override
-    public ResponseResult saveCommentRepay(@RequestBody CommentRepaySaveDto dto) {
+    public ResponseResult<?> saveCommentRepay(@RequestBody CommentRepaySaveDto dto) {
         return commentRepayService.saveCommentRepay(dto);
     }
 
     // 点赞回复内容
     @PostMapping("/like")
     @Override
-    public ResponseResult saveCommentRepayLike(@RequestBody CommentRepayLikeDto dto) {
+    public ResponseResult<?> saveCommentRepayLike(@RequestBody CommentRepayLikeDto dto) {
         return commentRepayService.saveCommentRepayLike(dto);
     }
 }

@@ -6,10 +6,10 @@ import plus.axz.model.user.dtos.ULoginDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars app端登录
+ * description app端登录
  */
 public interface UserLoginService {
-    public ResponseResult login(LoginDto dto);
-    public ResponseResult ulogin(ULoginDto dto);
+    ResponseResult<?> login(LoginDto dto);
+
+    ResponseResult<?> ulogin(ULoginDto dto);
 }

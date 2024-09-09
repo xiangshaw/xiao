@@ -6,10 +6,9 @@ import plus.axz.model.user.dtos.UserRelationDto;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars
+ * description 关注接口
  */
 public interface UserRelationControllerApi {
     @ApiOperation("关注或取消关注")
-    ResponseResult follow(UserRelationDto dto);
+    ResponseResult<?> follow(UserRelationDto dto);
 }

@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 标签信息表
  * @author xiaoxiang
+ * description 标签
  */
 @Data
 @TableName("tb_tag")

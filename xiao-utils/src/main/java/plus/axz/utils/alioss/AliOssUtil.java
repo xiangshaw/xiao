@@ -1,4 +1,4 @@
-package plus.axz.utils.AliOss;
+package plus.axz.utils.alioss;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -8,8 +8,8 @@ import com.aliyun.oss.model.DownloadFileRequest;
 import com.aliyun.oss.model.GenericRequest;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,15 +20,14 @@ import java.util.List;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月26日
- * @Description:
+ * description 阿里云oss工具类
  */
+@RequiredArgsConstructor
 @Component
-@Slf4j
+@Log4j2
 public class AliOssUtil {
 
-    @Autowired
-    private OssConfigProperties ossConfigProperties;
+    private final OssConfigProperties ossConfigProperties;
     private static OssConfigProperties configProperties;
 
     @PostConstruct
@@ -45,11 +44,7 @@ public class AliOssUtil {
 
     /**
      * 上传文件
-     * 详细文档：https://help.aliyun.com/document_detail/84778.html
-     *
-     * @param fileDir
-     * @param file
-     * @return
+     * 详细文档：<a href="https://help.aliyun.com/document_detail/84778.html">...</a>
      */
     public static String upload(String fileDir, MultipartFile file) {
         OSS ossClient = createClient();
@@ -77,15 +72,13 @@ public class AliOssUtil {
         } finally {
             ossClient.shutdown();
         }
-        log.info("文件：" + originalFilename + "存入OSS成功。");
+        log.info("文件：{}存入OSS成功。", originalFilename);
         return url;
     }
 
     /**
      * 删除文件
-     * 详细文档：https://help.aliyun.com/document_detail/84842.html
-     *
-     * @param fileKey
+     * 详细文档：<a href="https://help.aliyun.com/document_detail/84842.html">...</a>
      *
      */
     public static void delete(String fileKey) {
@@ -93,7 +86,7 @@ public class AliOssUtil {
         try {
             GenericRequest genericRequest = new GenericRequest(configProperties.getBucketName()).withKey(fileKey);
             ossClient.deleteObject(genericRequest);
-            log.info("删除文件：" + fileKey + "成功。");
+            log.info("删除文件：{}成功。", fileKey);
 
         } catch (Exception e) {
             log.error("oss删除文件出错\n", e);
@@ -105,7 +98,6 @@ public class AliOssUtil {
 
     /**
      * 文件下载
-     * @param filekey
      */
     public static void download(String filekey) {
         OSS ossClient = createClient();
@@ -123,9 +115,9 @@ public class AliOssUtil {
         // 链接地址是：https://help.aliyun.com/document_detail/oss/sdk/java-sdk/manage_object.html?spm=5176.docoss/sdk/java-sdk/manage_bucket
         ObjectListing objectListing = ossClient.listObjects(configProperties.getBucketName());
         List<OSSObjectSummary> objectSummary = objectListing.getObjectSummaries();
-        System.out.println("您有以下Object：");
+        log.info("您有以下Object：");
         for (OSSObjectSummary object : objectSummary) {
-            System.out.println("\t" + object.getKey());
+            log.info("\t{}", object.getKey());
         }
         ossClient.shutdown();
     }

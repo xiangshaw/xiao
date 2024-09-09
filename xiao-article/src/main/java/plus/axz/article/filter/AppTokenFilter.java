@@ -16,8 +16,7 @@ import java.io.IOException;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月22日
- * @particulars
+ * description: 自定义过滤器，用于验证app端的token，并将用户信息放到当前线程中
  * 在功能实现的时候需要得到行为实体，所以需要得到当前登录的用户信息，
  * 获取用户信息放到当前线程中
  */
@@ -28,7 +27,7 @@ public class AppTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        //得到header中的信息
+        // 得到header中的信息
         String userId = request.getHeader("userId");
         if (userId != null && Integer.valueOf(userId).intValue() != 0) {
             User apUser = new User();

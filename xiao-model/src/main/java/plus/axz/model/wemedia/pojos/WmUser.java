@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @author xiaoxiang
- * @date 2022年03月25日
- * @particulars 认证成功后的自媒体用户
+ * description 认证成功后的自媒体用户
  */
 @Data
 @TableName("wm_user")

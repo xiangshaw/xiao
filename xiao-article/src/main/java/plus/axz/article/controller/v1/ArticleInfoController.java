@@ -1,6 +1,6 @@
 package plus.axz.article.controller.v1;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,24 +12,25 @@ import plus.axz.model.common.dtos.ResponseResult;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月17日
- * @particulars 文章详情
+ * description 文章详情
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/article")
 public class ArticleInfoController implements ArticleInfoControllerApi {
-    @Autowired
-    ArticleInfoService articleInfoService;
+
+    private final ArticleInfoService articleInfoService;
 
     @PostMapping("/load_article_info")
     @Override
-    public ResponseResult loadArticleInfo(@RequestBody ArticleInfoDto dto) {
+    public ResponseResult<?> loadArticleInfo(@RequestBody ArticleInfoDto dto) {
         return articleInfoService.loadArticleInfo(dto);
     }
+
     // 行为业务展示
     @PostMapping("/load_article_behavior")
     @Override
-    public ResponseResult loadArticleBehavior(@RequestBody ArticleInfoDto dto) {
+    public ResponseResult<?> loadArticleBehavior(@RequestBody ArticleInfoDto dto) {
         return articleInfoService.loadArticleBehavior(dto);
     }
 }

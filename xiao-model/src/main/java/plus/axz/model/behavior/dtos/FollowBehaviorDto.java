@@ -5,8 +5,7 @@ import plus.axz.model.common.annotation.IdEncrypt;
 
 /**
  * @author xiaoxiang
- * @date 2022年06月20日
- * @particulars 发送消息需要准备一个FollowBehaviorDto,进行数据的传递
+ * description 发送消息需要准备一个FollowBehaviorDto,进行数据的传递
  */
 @Data
 public class FollowBehaviorDto {
